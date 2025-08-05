@@ -48,53 +48,20 @@ export default function Map({ center, zoom }: MapProps) {
       map.on('load', () => {
         console.log('Mapbox loaded successfully');
         
-        // Add 3D buildings layer
+        // Customize map labels
         const layers = map.getStyle().layers;
-        const labelLayerId = layers.find(
-          (layer: any) => layer.type === 'symbol' && layer.layout['text-field']
-        )?.id;
-
-        map.addLayer(
-          {
-            'id': '3d-buildings',
-            'source': 'composite',
-            'source-layer': 'building',
-            'filter': ['==', 'extrude', 'true'],
-            'type': 'fill-extrusion',
-            'minzoom': 15,
-            'paint': {
-              'fill-extrusion-color': '#e8e8e8',
-              'fill-extrusion-height': [
-                'interpolate',
-                ['linear'],
-                ['zoom'],
-                15,
-                0,
-                15.05,
-                ['get', 'height']
-              ],
-              'fill-extrusion-base': [
-                'interpolate',
-                ['linear'],
-                ['zoom'],
-                15,
-                0,
-                15.05,
-                ['get', 'min_height']
-              ],
-              'fill-extrusion-opacity': 0.6
-            }
-          },
-          labelLayerId
-        );
-
-        // Reduce and lighten text labels
         const textLayers = layers.filter((layer: any) => 
           layer.type === 'symbol' && layer.layout && layer.layout['text-field']
         );
         
         textLayers.forEach((layer: any) => {
           const layerId = layer.id.toLowerCase();
+          
+          // Change font for all text layers
+          if (layer.layout && layer.layout['text-font']) {
+            // Use a cleaner, more modern font stack
+            map.setLayoutProperty(layer.id, 'text-font', ['DIN Pro Medium', 'Arial Unicode MS Regular']);
+          }
           
           // Hide less important labels
           if (layerId.includes('poi') || // Points of interest
