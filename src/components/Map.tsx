@@ -53,8 +53,11 @@ export default function Map() {
       `}</style>
       <div 
         ref={mapContainer} 
-        className="fixed inset-0 w-full h-full opacity-40 -z-10"
-        style={{ backgroundColor: '#f0f0f0' }}
+        className="fixed inset-0 w-full h-full opacity-40"
+        style={{ 
+          backgroundColor: '#f0f0f0',
+          zIndex: 1
+        }}
       />
     </>
   );
