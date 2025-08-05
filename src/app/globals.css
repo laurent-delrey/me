@@ -27,8 +27,8 @@ html {
 }
 
 body {
-  background: #c0bfbf;
-  color: #ffffff;
+  background: #f5f5f5; /* Light background as fallback */
+  color: #333333; /* Darker text for better contrast on light map */
   font-family: 'Helvetica', Arial, sans-serif;
   font-weight: 400;
   font-size: 18px;
