@@ -7,12 +7,15 @@ export default function Map() {
   const [mapError, setMapError] = useState<string>("");
 
   useEffect(() => {
+    // Add mapbox CSS to document head
+    const link = document.createElement('link');
+    link.href = 'https://api.mapbox.com/mapbox-gl-js/v3.1.0/mapbox-gl.css';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+
     // Dynamically import mapbox-gl to avoid SSR issues
     import("mapbox-gl").then((mapboxgl) => {
       if (!mapContainer.current) return;
-
-      // Import CSS
-      import("mapbox-gl/dist/mapbox-gl.css");
 
       mapboxgl.default.accessToken = "pk.eyJ1IjoibGF1cmVudGRlbHJleSIsImEiOiJjbHc5eGJ2a3QwOG9uMmxsYnpkNXp1c25zIn0.itJVP3vptE7Xn36Qi6-Iuw";
 
@@ -46,7 +49,7 @@ export default function Map() {
       });
 
       // Check if tiles are loading
-      map.on('data', (e) => {
+      map.on('data', (e: any) => {
         if (e.sourceDataType === 'visibility') {
           console.log('Map data event:', e.sourceDataType);
         }
@@ -72,9 +75,7 @@ export default function Map() {
           bottom: 0,
           width: '100vw',
           height: '100vh',
-          backgroundColor: '#f0f0f0',
-          opacity: 0.4,
-          zIndex: 1
+          zIndex: 0
         }}
       />
       {mapError && (
