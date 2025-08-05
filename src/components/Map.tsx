@@ -12,9 +12,28 @@ export default function Map() {
 
       mapboxgl.default.accessToken = "pk.eyJ1IjoibGF1cmVudGRlbHJleSIsImEiOiJjbHc5eGJ2a3QwOG9uMmxsYnpkNXp1c25zIn0.itJVP3vptE7Xn36Qi6-Iuw";
 
+      // Try using the style URL directly
       const map = new mapboxgl.default.Map({
         container: mapContainer.current,
-        style: "mapbox://styles/mapbox/light-v11",
+        style: {
+          version: 8,
+          sources: {
+            'mapbox-streets': {
+              type: 'raster',
+              tiles: [
+                `https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/{z}/{x}/{y}?access_token=${mapboxgl.default.accessToken}`
+              ],
+              tileSize: 256
+            }
+          },
+          layers: [{
+            id: 'mapbox-streets',
+            type: 'raster',
+            source: 'mapbox-streets',
+            minzoom: 0,
+            maxzoom: 22
+          }]
+        },
         center: [-74.006, 40.7128], // NYC
         zoom: 11,
         interactive: false,
