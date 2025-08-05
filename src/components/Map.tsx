@@ -10,8 +10,12 @@ interface MapProps {
 export default function Map({ center, zoom }: MapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
+  const animationRef = useRef<any>(null);
+  const timeoutRef = useRef<any>(null);
   const [mapError, setMapError] = useState<string>("");
+  const [mapLoaded, setMapLoaded] = useState(false);
 
+  // Initialize map only once
   useEffect(() => {
     // Add mapbox CSS to document head
     const link = document.createElement('link');
@@ -43,37 +47,7 @@ export default function Map({ center, zoom }: MapProps) {
       // Log when map loads successfully
       map.on('load', () => {
         console.log('Mapbox loaded successfully');
-        console.log('Map bounds:', map.getBounds());
-        console.log('Map zoom:', map.getZoom());
-        
-        // Start initial drift animation
-        const startZoom = map.getZoom();
-        let animationId: any;
-        let startTime = Date.now();
-
-        const drift = () => {
-          const elapsed = Date.now() - startTime;
-          const t = elapsed / 30000; // 30 second cycle
-          
-          // Subtle zoom oscillation
-          const zoomDrift = startZoom + Math.sin(t * Math.PI) * 0.15;
-          
-          // Slow rotation
-          const bearingDrift = (t * 5) % 360;
-          
-          if (mapRef.current) {
-            mapRef.current.easeTo({
-              zoom: zoomDrift,
-              bearing: bearingDrift,
-              duration: 100,
-              easing: (t: number) => t,
-            });
-            
-            animationId = requestAnimationFrame(drift);
-          }
-        };
-
-        drift();
+        setMapLoaded(true);
         
         // Force a resize in case container dimensions were wrong
         setTimeout(() => {
@@ -100,14 +74,12 @@ export default function Map({ center, zoom }: MapProps) {
       console.error("Failed to load Mapbox:", error);
       setMapError("Failed to load Mapbox");
     });
-  }, []);
+  }, []); // Empty dependency array - only run once
 
-  // Store animation ID at component level
-  const animationRef = useRef<any>(null);
-  const timeoutRef = useRef<any>(null);
-
-  // Animate to new location when props change
+  // Animate to new location when props change or map loads
   useEffect(() => {
+    if (!mapLoaded || !mapRef.current) return;
+
     // Clean up any existing animations
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
@@ -117,71 +89,58 @@ export default function Map({ center, zoom }: MapProps) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
+    
+    console.log('Animating to:', center, zoom);
+    
+    // Random slight rotation for each transition
+    const bearing = Math.random() * 30 - 15; // -15 to 15 degrees
+    const pitch = 20 + Math.random() * 25; // 20 to 45 degrees
+    
+    mapRef.current.flyTo({
+      center: center,
+      zoom: zoom,
+      duration: 3500, // Slower animation
+      curve: 1.1, // Gentler arc
+      speed: 0.6, // Slower speed
+      easing: (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t, // Smooth ease-in-out
+      pitch: pitch,
+      bearing: bearing,
+      essential: true,
+    });
 
-    if (mapRef.current) {
-      // Wait for map to be loaded if it's not
-      const performAnimation = () => {
+    // After landing, start a subtle continuous drift
+    timeoutRef.current = setTimeout(() => {
+      if (!mapRef.current) return;
+      
+      const startZoom = mapRef.current.getZoom();
+      const startBearing = mapRef.current.getBearing();
+      let startTime = Date.now();
+
+      const drift = () => {
         if (!mapRef.current) return;
         
-        console.log('Animating to:', center, zoom);
+        const elapsed = Date.now() - startTime;
+        const t = elapsed / 30000; // 30 second cycle
         
-        // Random slight rotation for each transition
-        const bearing = Math.random() * 30 - 15; // -15 to 15 degrees
-        const pitch = 20 + Math.random() * 25; // 20 to 45 degrees
+        // Subtle zoom oscillation
+        const zoomDrift = startZoom + Math.sin(t * Math.PI) * 0.15;
         
-        mapRef.current.flyTo({
-          center: center,
-          zoom: zoom,
-          duration: 3500, // Slower animation
-          curve: 1.1, // Gentler arc
-          speed: 0.6, // Slower speed
-          easing: (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t, // Smooth ease-in-out
-          pitch: pitch,
-          bearing: bearing,
-          essential: true,
+        // Slow rotation
+        const bearingDrift = startBearing + (t * 5) % 360;
+        
+        mapRef.current.easeTo({
+          zoom: zoomDrift,
+          bearing: bearingDrift,
+          duration: 100,
+          easing: (t: number) => t,
         });
-
-        // After landing, start a subtle continuous drift
-        timeoutRef.current = setTimeout(() => {
-          if (mapRef.current) {
-            const startZoom = mapRef.current.getZoom();
-            const startBearing = mapRef.current.getBearing();
-            let startTime = Date.now();
-
-            const drift = () => {
-              const elapsed = Date.now() - startTime;
-              const t = elapsed / 30000; // 30 second cycle
-              
-              // Subtle zoom oscillation
-              const zoomDrift = startZoom + Math.sin(t * Math.PI) * 0.15;
-              
-              // Slow rotation
-              const bearingDrift = startBearing + (t * 5) % 360;
-              
-              if (mapRef.current) {
-                mapRef.current.easeTo({
-                  zoom: zoomDrift,
-                  bearing: bearingDrift,
-                  duration: 100,
-                  easing: (t: number) => t,
-                });
-                
-                animationRef.current = requestAnimationFrame(drift);
-              }
-            };
-
-            // Start drifting after landing
-            drift();
-          }
-        }, 3600); // Start drift slightly after landing
+        
+        animationRef.current = requestAnimationFrame(drift);
       };
 
-      if (mapRef.current.loaded()) {
-        performAnimation();
-      } else {
-        mapRef.current.once('load', performAnimation);
-      }
-    }
+      // Start drifting after landing
+      drift();
+    }, 3600); // Start drift slightly after landing
 
     // Cleanup function
     return () => {
@@ -192,7 +151,7 @@ export default function Map({ center, zoom }: MapProps) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [center, zoom]);
+  }, [center, zoom, mapLoaded]);
 
   return (
     <>
