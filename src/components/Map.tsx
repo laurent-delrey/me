@@ -19,6 +19,17 @@ export default function Map() {
         zoom: 11,
         interactive: false,
         attributionControl: false,
+        trackResize: false,
+        collectResourceTiming: false,
+      });
+      
+      // Log when map loads successfully
+      map.on('load', () => {
+        console.log('Mapbox loaded successfully');
+      });
+      
+      map.on('error', (e) => {
+        console.error('Mapbox error:', e);
       });
 
       // Clean up on unmount
@@ -42,7 +53,8 @@ export default function Map() {
       `}</style>
       <div 
         ref={mapContainer} 
-        className="fixed inset-0 w-full h-full opacity-20 -z-10"
+        className="fixed inset-0 w-full h-full opacity-40 -z-10"
+        style={{ backgroundColor: '#f0f0f0' }}
       />
     </>
   );
