@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import React from "react";
 
 const sections = [
   { id: "tldr", label: "TL;DR", years: "" },
@@ -13,7 +14,7 @@ const sections = [
   { id: "social", label: "@ Me", years: "Anytime" },
 ];
 
-const content: Record<string, JSX.Element> = {
+const content: Record<string, React.ReactElement> = {
   tldr: (
     <div>
       <h1 className="text-4xl font-bold mb-6 lowercase">laurent del rey</h1>
