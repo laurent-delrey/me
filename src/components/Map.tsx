@@ -186,19 +186,23 @@ export default function Map({ center, zoom }: MapProps) {
     
     console.log('Animating to:', center, zoom);
     
-    // Random slight rotation for each transition
-    const bearing = Math.random() * 30 - 15; // -15 to 15 degrees
-    const pitch = 45 + Math.random() * 15; // 45 to 60 degrees
+    // Keep the current bearing and pitch, only change slightly
+    const currentBearing = mapRef.current.getBearing();
+    const currentPitch = mapRef.current.getPitch();
     
-    // Use jumpTo for immediate update, then flyTo for smooth animation
+    // Small incremental changes instead of random values
+    const bearing = currentBearing + (Math.random() * 20 - 10); // ±10 degrees from current
+    const pitch = currentPitch + (Math.random() * 10 - 5); // ±5 degrees from current, clamped between 45-60
+    const finalPitch = Math.max(45, Math.min(60, pitch));
+    
     mapRef.current.flyTo({
       center: center,
       zoom: zoom,
-      duration: 3000, // Consistent duration
-      curve: 1.2, // Smooth arc
-      speed: 0.8, // Moderate speed
+      duration: 3500, // Back to slower animation
+      curve: 1.1, // Gentler arc
+      speed: 0.6, // Slower speed
       easing: (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t, // Smooth ease-in-out
-      pitch: pitch,
+      pitch: finalPitch,
       bearing: bearing,
       essential: true,
     });
@@ -206,7 +210,7 @@ export default function Map({ center, zoom }: MapProps) {
     // After landing, start a subtle continuous drift
     timeoutRef.current = setTimeout(() => {
       startDriftAnimation();
-    }, 3100); // Start drift after animation completes
+    }, 3600); // Start drift after animation completes
 
     // Cleanup function
     return () => {
