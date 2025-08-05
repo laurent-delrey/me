@@ -88,23 +88,46 @@ export default function Map({ center, zoom }: MapProps) {
           labelLayerId
         );
 
-        // Lighten text labels
+        // Reduce and lighten text labels
         const textLayers = layers.filter((layer: any) => 
           layer.type === 'symbol' && layer.layout && layer.layout['text-field']
         );
         
         textLayers.forEach((layer: any) => {
-          // Make all text labels lighter
-          if (layer.paint && layer.paint['text-color']) {
+          const layerId = layer.id.toLowerCase();
+          
+          // Hide less important labels
+          if (layerId.includes('poi') || // Points of interest
+              layerId.includes('transit') || // Transit stops
+              layerId.includes('road-number') || // Road numbers
+              layerId.includes('road-exit') || // Highway exits
+              layerId.includes('waterway') || // Waterway labels
+              layerId.includes('natural') || // Natural features
+              layerId.includes('landuse') || // Land use labels
+              layerId.includes('structure') || // Structure labels
+              layerId.includes('place-suburb') || // Suburb labels
+              layerId.includes('place-hamlet') || // Small place labels
+              layerId.includes('place-village')) { // Village labels
+            map.setLayoutProperty(layer.id, 'visibility', 'none');
+          } 
+          // Keep but make very subtle: major roads, neighborhoods, cities
+          else if (layerId.includes('road') || 
+                   layerId.includes('street') ||
+                   layerId.includes('path')) {
+            // Make road labels very subtle
+            map.setPaintProperty(layer.id, 'text-color', '#c0c0c0');
+            map.setPaintProperty(layer.id, 'text-opacity', 0.5);
+          }
+          // Keep city and neighborhood names but make them lighter
+          else {
             map.setPaintProperty(layer.id, 'text-color', '#a0a0a0');
-          } else {
-            map.setPaintProperty(layer.id, 'text-color', '#a0a0a0');
+            map.setPaintProperty(layer.id, 'text-opacity', 0.7);
           }
           
-          // Also make halos lighter if they exist
+          // Lighten halos if they exist
           if (layer.paint && layer.paint['text-halo-color']) {
-            map.setPaintProperty(layer.id, 'text-halo-color', 'rgba(255, 255, 255, 0.8)');
-            map.setPaintProperty(layer.id, 'text-halo-width', 1);
+            map.setPaintProperty(layer.id, 'text-halo-color', 'rgba(255, 255, 255, 0.6)');
+            map.setPaintProperty(layer.id, 'text-halo-width', 0.5);
           }
         });
 
