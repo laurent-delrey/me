@@ -100,6 +100,11 @@ export default function Map({ center, zoom }: MapProps) {
 
         setMapLoaded(true);
         
+        // Start the initial drift animation after a short delay
+        setTimeout(() => {
+          startDriftAnimation();
+        }, 100);
+        
         // Force a resize in case container dimensions were wrong
         setTimeout(() => {
           map.resize();
@@ -127,6 +132,44 @@ export default function Map({ center, zoom }: MapProps) {
     });
   }, []); // Empty dependency array - only run once
 
+  // Drift animation function
+  const startDriftAnimation = () => {
+    if (!mapRef.current) return;
+    
+    // Clean up any existing drift animation
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
+    
+    const startZoom = mapRef.current.getZoom();
+    const startBearing = mapRef.current.getBearing();
+    let startTime = Date.now();
+
+    const drift = () => {
+      if (!mapRef.current) return;
+      
+      const elapsed = Date.now() - startTime;
+      const t = elapsed / 30000; // 30 second cycle
+      
+      // Subtle zoom oscillation
+      const zoomDrift = startZoom + Math.sin(t * Math.PI) * 0.15;
+      
+      // Slow rotation
+      const bearingDrift = (startBearing + (t * 5)) % 360;
+      
+      mapRef.current.easeTo({
+        zoom: zoomDrift,
+        bearing: bearingDrift,
+        duration: 100,
+        easing: (t: number) => t,
+      });
+      
+      animationRef.current = requestAnimationFrame(drift);
+    };
+
+    drift();
+  };
+
   // Animate to new location when props change or map loads
   useEffect(() => {
     if (!mapLoaded || !mapRef.current) return;
@@ -145,14 +188,15 @@ export default function Map({ center, zoom }: MapProps) {
     
     // Random slight rotation for each transition
     const bearing = Math.random() * 30 - 15; // -15 to 15 degrees
-    const pitch = 45 + Math.random() * 15; // 45 to 60 degrees for better 3D effect
+    const pitch = 45 + Math.random() * 15; // 45 to 60 degrees
     
+    // Use jumpTo for immediate update, then flyTo for smooth animation
     mapRef.current.flyTo({
       center: center,
       zoom: zoom,
-      duration: 3500, // Slower animation
-      curve: 1.1, // Gentler arc
-      speed: 0.6, // Slower speed
+      duration: 3000, // Consistent duration
+      curve: 1.2, // Smooth arc
+      speed: 0.8, // Moderate speed
       easing: (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t, // Smooth ease-in-out
       pitch: pitch,
       bearing: bearing,
@@ -161,37 +205,8 @@ export default function Map({ center, zoom }: MapProps) {
 
     // After landing, start a subtle continuous drift
     timeoutRef.current = setTimeout(() => {
-      if (!mapRef.current) return;
-      
-      const startZoom = mapRef.current.getZoom();
-      const startBearing = mapRef.current.getBearing();
-      let startTime = Date.now();
-
-      const drift = () => {
-        if (!mapRef.current) return;
-        
-        const elapsed = Date.now() - startTime;
-        const t = elapsed / 30000; // 30 second cycle
-        
-        // Subtle zoom oscillation
-        const zoomDrift = startZoom + Math.sin(t * Math.PI) * 0.15;
-        
-        // Slow rotation
-        const bearingDrift = startBearing + (t * 5) % 360;
-        
-        mapRef.current.easeTo({
-          zoom: zoomDrift,
-          bearing: bearingDrift,
-          duration: 100,
-          easing: (t: number) => t,
-        });
-        
-        animationRef.current = requestAnimationFrame(drift);
-      };
-
-      // Start drifting after landing
-      drift();
-    }, 3600); // Start drift slightly after landing
+      startDriftAnimation();
+    }, 3100); // Start drift after animation completes
 
     // Cleanup function
     return () => {
