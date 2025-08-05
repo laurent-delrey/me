@@ -102,65 +102,96 @@ export default function Map({ center, zoom }: MapProps) {
     });
   }, []);
 
+  // Store animation ID at component level
+  const animationRef = useRef<any>(null);
+  const timeoutRef = useRef<any>(null);
+
   // Animate to new location when props change
   useEffect(() => {
-    if (mapRef.current && mapRef.current.loaded()) {
-      // Random slight rotation for each transition
-      const bearing = Math.random() * 30 - 15; // -15 to 15 degrees
-      const pitch = 20 + Math.random() * 25; // 20 to 45 degrees
-      
-      mapRef.current.flyTo({
-        center: center,
-        zoom: zoom,
-        duration: 3500, // Slower animation
-        curve: 1.1, // Gentler arc
-        speed: 0.6, // Slower speed
-        easing: (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t, // Smooth ease-in-out
-        pitch: pitch,
-        bearing: bearing,
-        essential: true,
-      });
-
-      // After landing, start a subtle continuous drift
-      setTimeout(() => {
-        if (mapRef.current) {
-          const startZoom = mapRef.current.getZoom();
-          const startBearing = mapRef.current.getBearing();
-          let animationId: any;
-          let startTime = Date.now();
-
-          const drift = () => {
-            const elapsed = Date.now() - startTime;
-            const t = elapsed / 30000; // 30 second cycle
-            
-            // Subtle zoom oscillation
-            const zoomDrift = startZoom + Math.sin(t * Math.PI) * 0.15;
-            
-            // Slow rotation
-            const bearingDrift = startBearing + (t * 5) % 360;
-            
-            if (mapRef.current) {
-              mapRef.current.easeTo({
-                zoom: zoomDrift,
-                bearing: bearingDrift,
-                duration: 100,
-                easing: (t: number) => t,
-              });
-              
-              animationId = requestAnimationFrame(drift);
-            }
-          };
-
-          // Start drifting after landing
-          drift();
-
-          // Clean up drift animation on next transition
-          return () => {
-            if (animationId) cancelAnimationFrame(animationId);
-          };
-        }
-      }, 3600); // Start drift slightly after landing
+    // Clean up any existing animations
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
     }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+
+    if (mapRef.current) {
+      // Wait for map to be loaded if it's not
+      const performAnimation = () => {
+        if (!mapRef.current) return;
+        
+        console.log('Animating to:', center, zoom);
+        
+        // Random slight rotation for each transition
+        const bearing = Math.random() * 30 - 15; // -15 to 15 degrees
+        const pitch = 20 + Math.random() * 25; // 20 to 45 degrees
+        
+        mapRef.current.flyTo({
+          center: center,
+          zoom: zoom,
+          duration: 3500, // Slower animation
+          curve: 1.1, // Gentler arc
+          speed: 0.6, // Slower speed
+          easing: (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t, // Smooth ease-in-out
+          pitch: pitch,
+          bearing: bearing,
+          essential: true,
+        });
+
+        // After landing, start a subtle continuous drift
+        timeoutRef.current = setTimeout(() => {
+          if (mapRef.current) {
+            const startZoom = mapRef.current.getZoom();
+            const startBearing = mapRef.current.getBearing();
+            let startTime = Date.now();
+
+            const drift = () => {
+              const elapsed = Date.now() - startTime;
+              const t = elapsed / 30000; // 30 second cycle
+              
+              // Subtle zoom oscillation
+              const zoomDrift = startZoom + Math.sin(t * Math.PI) * 0.15;
+              
+              // Slow rotation
+              const bearingDrift = startBearing + (t * 5) % 360;
+              
+              if (mapRef.current) {
+                mapRef.current.easeTo({
+                  zoom: zoomDrift,
+                  bearing: bearingDrift,
+                  duration: 100,
+                  easing: (t: number) => t,
+                });
+                
+                animationRef.current = requestAnimationFrame(drift);
+              }
+            };
+
+            // Start drifting after landing
+            drift();
+          }
+        }, 3600); // Start drift slightly after landing
+      };
+
+      if (mapRef.current.loaded()) {
+        performAnimation();
+      } else {
+        mapRef.current.once('load', performAnimation);
+      }
+    }
+
+    // Cleanup function
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
   }, [center, zoom]);
 
   return (
