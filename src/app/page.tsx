@@ -109,12 +109,13 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("tldr");
 
   return (
-    <main className="min-h-screen flex relative">
+    <>
       {/* Map Background */}
       <Map />
       
-      {/* Left Navigation */}
-      <nav className="fixed left-0 top-0 bottom-0 flex flex-col justify-center pl-[5%] pr-8 z-10">
+      <main className="min-h-screen flex relative z-10">
+        {/* Left Navigation */}
+        <nav className="fixed left-0 top-0 bottom-0 flex flex-col justify-center pl-[5%] pr-8 z-20">
         {sections.map((section) => (
           <button
             key={section.id}
@@ -145,5 +146,6 @@ export default function Home() {
         </div>
       </div>
     </main>
+    </>
   );
 }
