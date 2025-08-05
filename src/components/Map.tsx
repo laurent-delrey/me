@@ -36,7 +36,7 @@ export default function Map({ center, zoom }: MapProps) {
         style: "mapbox://styles/mapbox/light-v11",
         center: center,
         zoom: zoom,
-        pitch: 30, // Initial tilt
+        pitch: 50, // Initial tilt for 3D effect
         bearing: 0, // Initial rotation
         interactive: false,
         attributionControl: false,
@@ -47,6 +47,67 @@ export default function Map({ center, zoom }: MapProps) {
       // Log when map loads successfully
       map.on('load', () => {
         console.log('Mapbox loaded successfully');
+        
+        // Add 3D buildings layer
+        const layers = map.getStyle().layers;
+        const labelLayerId = layers.find(
+          (layer: any) => layer.type === 'symbol' && layer.layout['text-field']
+        )?.id;
+
+        map.addLayer(
+          {
+            'id': '3d-buildings',
+            'source': 'composite',
+            'source-layer': 'building',
+            'filter': ['==', 'extrude', 'true'],
+            'type': 'fill-extrusion',
+            'minzoom': 15,
+            'paint': {
+              'fill-extrusion-color': '#e8e8e8',
+              'fill-extrusion-height': [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                15,
+                0,
+                15.05,
+                ['get', 'height']
+              ],
+              'fill-extrusion-base': [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                15,
+                0,
+                15.05,
+                ['get', 'min_height']
+              ],
+              'fill-extrusion-opacity': 0.6
+            }
+          },
+          labelLayerId
+        );
+
+        // Lighten text labels
+        const textLayers = layers.filter((layer: any) => 
+          layer.type === 'symbol' && layer.layout && layer.layout['text-field']
+        );
+        
+        textLayers.forEach((layer: any) => {
+          // Make all text labels lighter
+          if (layer.paint && layer.paint['text-color']) {
+            map.setPaintProperty(layer.id, 'text-color', '#a0a0a0');
+          } else {
+            map.setPaintProperty(layer.id, 'text-color', '#a0a0a0');
+          }
+          
+          // Also make halos lighter if they exist
+          if (layer.paint && layer.paint['text-halo-color']) {
+            map.setPaintProperty(layer.id, 'text-halo-color', 'rgba(255, 255, 255, 0.8)');
+            map.setPaintProperty(layer.id, 'text-halo-width', 1);
+          }
+        });
+
         setMapLoaded(true);
         
         // Force a resize in case container dimensions were wrong
@@ -94,7 +155,7 @@ export default function Map({ center, zoom }: MapProps) {
     
     // Random slight rotation for each transition
     const bearing = Math.random() * 30 - 15; // -15 to 15 degrees
-    const pitch = 20 + Math.random() * 25; // 20 to 45 degrees
+    const pitch = 45 + Math.random() * 15; // 45 to 60 degrees for better 3D effect
     
     mapRef.current.flyTo({
       center: center,

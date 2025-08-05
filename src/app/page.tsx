@@ -8,14 +8,14 @@ import dynamic from "next/dynamic";
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const sections = [
-  { id: "tldr", label: "TL;DR", years: "", location: [-74.006, 40.7128] as [number, number], zoom: 11 }, // NYC
-  { id: "free", label: "free ideas", years: "apr '21 - Today", location: [-122.4194, 37.7749] as [number, number], zoom: 11 }, // San Francisco
-  { id: "snap", label: "Snap, Inc.", years: "Sep '18 - sep '23", location: [-118.4912, 34.0195] as [number, number], zoom: 11 }, // Santa Monica/LA
-  { id: "tribe", label: "A Quest called Tribe", years: "'15 - '18", location: [-122.4194, 37.7749] as [number, number], zoom: 12 }, // SF closer
-  { id: "hustle", label: "Hustling for fun", years: "'12 - '14", location: [2.3522, 48.8566] as [number, number], zoom: 11 }, // Paris
-  { id: "lost", label: "Lost in the game", years: "'07 - '12", location: [2.3522, 48.8566] as [number, number], zoom: 12 }, // Paris closer
-  { id: "kid", label: "Another Internet Kid", years: "'05 - 07", location: [2.3522, 48.8566] as [number, number], zoom: 10 }, // Paris wider
-  { id: "social", label: "@ Me", years: "Anytime", location: [-74.006, 40.7128] as [number, number], zoom: 10 }, // NYC wider
+  { id: "tldr", label: "TL;DR", years: "", location: [-74.006, 40.7128] as [number, number], zoom: 13 }, // NYC
+  { id: "free", label: "free ideas", years: "apr '21 - Today", location: [-122.4194, 37.7749] as [number, number], zoom: 15.5 }, // San Francisco - close for buildings
+  { id: "snap", label: "Snap, Inc.", years: "Sep '18 - sep '23", location: [-118.4912, 34.0195] as [number, number], zoom: 15 }, // Santa Monica/LA - close for buildings
+  { id: "tribe", label: "A Quest called Tribe", years: "'15 - '18", location: [-122.4194, 37.7749] as [number, number], zoom: 14 }, // SF
+  { id: "hustle", label: "Hustling for fun", years: "'12 - '14", location: [2.3522, 48.8566] as [number, number], zoom: 15.5 }, // Paris - close for buildings
+  { id: "lost", label: "Lost in the game", years: "'07 - '12", location: [2.3522, 48.8566] as [number, number], zoom: 13 }, // Paris
+  { id: "kid", label: "Another Internet Kid", years: "'05 - 07", location: [2.3522, 48.8566] as [number, number], zoom: 11 }, // Paris wider
+  { id: "social", label: "@ Me", years: "Anytime", location: [-74.006, 40.7128] as [number, number], zoom: 16 }, // NYC very close
 ];
 
 const content: Record<string, React.ReactElement> = {
