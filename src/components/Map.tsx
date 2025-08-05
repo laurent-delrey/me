@@ -2,8 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export default function Map() {
+interface MapProps {
+  center: [number, number];
+  zoom: number;
+}
+
+export default function Map({ center, zoom }: MapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<any>(null);
   const [mapError, setMapError] = useState<string>("");
 
   useEffect(() => {
@@ -24,11 +30,13 @@ export default function Map() {
       const map = new mapboxgl.default.Map({
         container: mapContainer.current,
         style: "mapbox://styles/mapbox/light-v11",
-        center: [-74.006, 40.7128], // NYC
-        zoom: 11,
+        center: center,
+        zoom: zoom,
         interactive: false,
         attributionControl: false,
       });
+
+      mapRef.current = map;
       
       // Log when map loads successfully
       map.on('load', () => {
@@ -62,6 +70,18 @@ export default function Map() {
       setMapError("Failed to load Mapbox");
     });
   }, []);
+
+  // Animate to new location when props change
+  useEffect(() => {
+    if (mapRef.current && mapRef.current.loaded()) {
+      mapRef.current.flyTo({
+        center: center,
+        zoom: zoom,
+        duration: 2000,
+        essential: true
+      });
+    }
+  }, [center, zoom]);
 
   return (
     <>

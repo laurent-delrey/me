@@ -8,14 +8,14 @@ import dynamic from "next/dynamic";
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const sections = [
-  { id: "tldr", label: "TL;DR", years: "" },
-  { id: "free", label: "free ideas", years: "apr '21 - Today" },
-  { id: "snap", label: "Snap, Inc.", years: "Sep '18 - sep '23" },
-  { id: "tribe", label: "A Quest called Tribe", years: "'15 - '18" },
-  { id: "hustle", label: "Hustling for fun", years: "'12 - '14" },
-  { id: "lost", label: "Lost in the game", years: "'07 - '12" },
-  { id: "kid", label: "Another Internet Kid", years: "'05 - 07" },
-  { id: "social", label: "@ Me", years: "Anytime" },
+  { id: "tldr", label: "TL;DR", years: "", location: [-74.006, 40.7128] as [number, number], zoom: 11 }, // NYC
+  { id: "free", label: "free ideas", years: "apr '21 - Today", location: [-122.4194, 37.7749] as [number, number], zoom: 11 }, // San Francisco
+  { id: "snap", label: "Snap, Inc.", years: "Sep '18 - sep '23", location: [-118.4912, 34.0195] as [number, number], zoom: 11 }, // Santa Monica/LA
+  { id: "tribe", label: "A Quest called Tribe", years: "'15 - '18", location: [-122.4194, 37.7749] as [number, number], zoom: 12 }, // SF closer
+  { id: "hustle", label: "Hustling for fun", years: "'12 - '14", location: [2.3522, 48.8566] as [number, number], zoom: 11 }, // Paris
+  { id: "lost", label: "Lost in the game", years: "'07 - '12", location: [2.3522, 48.8566] as [number, number], zoom: 12 }, // Paris closer
+  { id: "kid", label: "Another Internet Kid", years: "'05 - 07", location: [2.3522, 48.8566] as [number, number], zoom: 10 }, // Paris wider
+  { id: "social", label: "@ Me", years: "Anytime", location: [-74.006, 40.7128] as [number, number], zoom: 10 }, // NYC wider
 ];
 
 const content: Record<string, React.ReactElement> = {
@@ -107,11 +107,15 @@ const content: Record<string, React.ReactElement> = {
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("tldr");
+  const currentSection = sections.find(s => s.id === activeSection);
 
   return (
     <>
       {/* Map Background */}
-      <Map />
+      <Map 
+        center={currentSection?.location || [-74.006, 40.7128]} 
+        zoom={currentSection?.zoom || 11}
+      />
       
       <main className="min-h-screen flex relative z-10">
         {/* Left Navigation */}
