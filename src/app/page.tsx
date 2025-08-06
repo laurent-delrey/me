@@ -201,12 +201,22 @@ export default function Home() {
           ))}
         </div>
 
+        {/* Vignette overlay */}
+        <div 
+          className="fixed inset-0 pointer-events-none z-10"
+          style={{
+            background: `
+              radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0, 0, 0, 0.1) 70%, rgba(0, 0, 0, 0.3) 100%),
+              linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, transparent 30%)
+            `
+          }}
+        />
+
         {/* Timeline Footer */}
         <div 
           className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
           style={{ 
             height: '120px',
-            background: 'linear-gradient(to top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 50%, transparent 100%)'
           }}
         >
           <div style={{ position: 'relative', width: '100%', height: '100%' }}>
