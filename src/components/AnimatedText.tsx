@@ -57,13 +57,16 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !hasAnimatedRef.current) {
-            startAnimation();
+            // Add a small delay to ensure the section is properly in view
+            setTimeout(() => {
+              startAnimation();
+            }, 200);
           }
         });
       },
       { 
-        threshold: 0.1,
-        rootMargin: '0px'
+        threshold: 0.3,  // Increased threshold - more of element must be visible
+        rootMargin: '-100px 0px -100px 0px'  // Shrink the root bounds to trigger later
       }
     );
 
