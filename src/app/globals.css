@@ -20,7 +20,7 @@ html {
 
 body {
   background: transparent; /* Transparent to show map */
-  color: #333333; /* Darker text for better contrast on light map */
+  color: #ffffff; /* White text */
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 400;
   font-size: 18px;

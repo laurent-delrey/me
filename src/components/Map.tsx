@@ -324,9 +324,9 @@ export default function Map({ center, zoom }: MapProps) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'linear-gradient(to bottom, rgba(191, 191, 191, 0.4) 0%, rgba(191, 191, 191, 0) 50%, rgba(191, 191, 191, 0) 100%)',
+          background: 'linear-gradient(to bottom, rgba(191, 191, 191, 0.8) 0%, rgba(191, 191, 191, 0.3) 30%, rgba(191, 191, 191, 0) 60%)',
           pointerEvents: 'none',
-          zIndex: 1
+          zIndex: 5
         }}
       />
     </>
