@@ -49,7 +49,7 @@ export default function Map({ center, zoom }: MapProps) {
       map.on('load', () => {
         console.log('Mapbox loaded successfully');
         
-        // Preload all location tiles
+        // Preload all location tiles and flight paths
         const locations = [
           { center: [-118.5976, 34.0378], zoom: 12.5 }, // Topanga
           { center: [-74.006, 40.7128], zoom: 12 }, // NYC
@@ -60,32 +60,53 @@ export default function Map({ center, zoom }: MapProps) {
           { center: [2.3522, 48.8566], zoom: 12.5 }, // Paris close
         ];
         
-        // Visit each location briefly to cache tiles
-        locations.forEach((loc, index) => {
-          setTimeout(() => {
+        // Key flight paths to preload at wider zoom levels
+        const flightPaths = [
+          // US West to East Coast
+          { center: [-95, 39], zoom: 4 }, // Middle of US
+          { center: [-105, 40], zoom: 5 }, // Western US
+          { center: [-85, 40], zoom: 5 }, // Eastern US
+          
+          // Europe to US (Atlantic crossing)
+          { center: [-30, 50], zoom: 3 }, // Mid-Atlantic
+          { center: [0, 48], zoom: 5 }, // Western Europe
+          { center: [-50, 45], zoom: 4 }, // Eastern Atlantic
+          
+          // California regional
+          { center: [-119, 34], zoom: 7 }, // Southern California overview
+          { center: [-120, 37], zoom: 7 }, // Northern California overview
+        ];
+        
+        let preloadIndex = 0;
+        const allLocations = [...locations, ...flightPaths];
+        
+        const preloadNext = () => {
+          if (preloadIndex < allLocations.length) {
+            const loc = allLocations[preloadIndex];
             map.jumpTo({
               center: loc.center as [number, number],
               zoom: loc.zoom,
               pitch: 50,
               bearing: 0
             });
-            console.log(`Preloading tiles for location ${index + 1}/${locations.length}`);
-            
-            // Jump back to initial position after preloading all
-            if (index === locations.length - 1) {
-              setTimeout(() => {
-                map.jumpTo({
-                  center: center,
-                  zoom: zoom,
-                  pitch: 50,
-                  bearing: 0
-                });
-                console.log('Preloading complete, returning to initial position');
-                setPreloading(false);
-              }, 100);
-            }
-          }, index * 100); // Stagger the preloading
-        });
+            console.log(`Preloading tiles ${preloadIndex + 1}/${allLocations.length}`);
+            preloadIndex++;
+            setTimeout(preloadNext, 80);
+          } else {
+            // Return to initial position
+            map.jumpTo({
+              center: center,
+              zoom: zoom,
+              pitch: 50,
+              bearing: 0
+            });
+            console.log('Preloading complete, returning to initial position');
+            setTimeout(() => setPreloading(false), 200);
+          }
+        };
+        
+        // Start preloading
+        setTimeout(preloadNext, 100);
         
         // Customize map labels
         const layers = map.getStyle().layers;
