@@ -20,8 +20,8 @@ const sections = [
 
 const content: Record<string, React.ReactElement> = {
   tldr: (
-    <div style={{ maxWidth: '60vw' }}>
-      <p style={{ fontSize: 'inherit', lineHeight: 'inherit' }} className="text-white lowercase">
+    <div style={{ maxWidth: '35vw' }}>
+      <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         i'm a designer currently living in nyc. i've been designing different type of things for the internet,
         from tiny controversial experiments to larger-scale consumer products through conceptual art images
         i share on twitter.
@@ -29,8 +29,8 @@ const content: Record<string, React.ReactElement> = {
     </div>
   ),
   free: (
-    <div style={{ maxWidth: '60vw' }}>
-      <p style={{ fontSize: 'inherit', lineHeight: 'inherit' }} className="text-white lowercase">
+    <div style={{ maxWidth: '35vw' }}>
+      <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         i started sharing free ideas organically on{" "}
         <a href="https://twitter.com/laurentdelrey" target="_blank" rel="noopener noreferrer" 
            className="underline hover:no-underline">twitter</a>, 
@@ -40,8 +40,8 @@ const content: Record<string, React.ReactElement> = {
     </div>
   ),
   snap: (
-    <div style={{ maxWidth: '60vw' }}>
-      <p style={{ fontSize: 'inherit', lineHeight: 'inherit' }} className="text-white lowercase">
+    <div style={{ maxWidth: '35vw' }}>
+      <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         I've been a member of the core product design team at{" "}
         <a href="https://www.snap.com/" target="_blank" rel="noopener noreferrer" 
            className="underline hover:no-underline">snapchat</a>. 
@@ -51,8 +51,8 @@ const content: Record<string, React.ReactElement> = {
     </div>
   ),
   tribe: (
-    <div style={{ maxWidth: '60vw' }}>
-      <p style={{ fontSize: 'inherit', lineHeight: 'inherit' }} className="text-white lowercase">
+    <div style={{ maxWidth: '35vw' }}>
+      <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         2 continents. 3 cities. 4 houses. 15 people. 4 products. 1 family. 
         Tribe was a series of social experiments backed by Sequoia Capital and KPCB. 
         A messaging app, a calling app and a gaming app.
@@ -60,8 +60,8 @@ const content: Record<string, React.ReactElement> = {
     </div>
   ),
   hustle: (
-    <div style={{ maxWidth: '60vw' }}>
-      <p style={{ fontSize: 'inherit', lineHeight: 'inherit' }} className="text-white lowercase">
+    <div style={{ maxWidth: '35vw' }}>
+      <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         I've released a bunch of side projects. From an ironic fan brand inspired by Balenciaga, 
         the missing "Explore" section of Snapchat, or Collectible Cards on the Ethereum network. 
         The one that blew up the most though was a controversial email-based app called Leak.
@@ -69,8 +69,8 @@ const content: Record<string, React.ReactElement> = {
     </div>
   ),
   lost: (
-    <div style={{ maxWidth: '60vw' }}>
-      <p style={{ fontSize: 'inherit', lineHeight: 'inherit' }} className="text-white lowercase">
+    <div style={{ maxWidth: '35vw' }}>
+      <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         I have a Master Degree in Finance. I've never studied Design at school. 
         During my College years, I created a bunch of Tumblrs receiving 100,000+ visits, 
         curated a newsletter of torrent links called Le Video Club (RIP), 
@@ -80,8 +80,8 @@ const content: Record<string, React.ReactElement> = {
     </div>
   ),
   kid: (
-    <div style={{ maxWidth: '60vw' }}>
-      <p style={{ fontSize: 'inherit', lineHeight: 'inherit' }} className="text-white lowercase">
+    <div style={{ maxWidth: '35vw' }}>
+      <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         Born and raised in Paris, France. I started designing at 16 on a cracked version of Photoshop CS2. 
         My first gigs were terrible logos & websites for my Counter Strike friends. 
         AIM, MSN or mIRC. The early days of remote work.
@@ -89,8 +89,8 @@ const content: Record<string, React.ReactElement> = {
     </div>
   ),
   social: (
-    <div style={{ maxWidth: '60vw' }}>
-      <p style={{ fontSize: 'inherit', lineHeight: 'inherit' }} className="text-white lowercase">
+    <div style={{ maxWidth: '35vw' }}>
+      <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         DMs are opened on{" "}
         <a href="https://twitter.com/laurentdelrey" target="_blank" rel="noopener noreferrer" 
            className="underline hover:no-underline">Twitter</a> and{" "}
@@ -213,9 +213,12 @@ export default function Home() {
               key={section.id}
               ref={el => { sectionRefs.current[index] = el; }}
               className="min-h-screen flex items-center justify-center"
-              style={{ scrollSnapAlign: 'center' }}
+              style={{ 
+                scrollSnapAlign: 'center',
+                paddingTop: '25vh' // Move content lower where gradient is thicker
+              }}
             >
-              <div className={`text-center ${activeSection === index && mounted ? 'animate-fadeInUp animation-delay-400' : ''}`}>
+              <div className={mounted ? 'animate-fadeInUp animation-delay-600' : 'opacity-0'}>
                 {content[section.id]}
               </div>
             </div>
