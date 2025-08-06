@@ -210,23 +210,23 @@ export default function Home() {
             background: 'linear-gradient(to top, rgba(0,0,0,0.1) 0%, transparent 100%)'
           }}
         >
-          <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+          <div style={{ position: 'relative', maxWidth: '800px', width: '100%', height: '100%', overflow: 'hidden' }}>
             {/* Progressive blur on left edge */}
             <ProgressiveBlur
               className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none"
-              style={{ width: '100px' }}
+              style={{ width: '120px' }}
               direction="left"
             />
             
             {/* Progressive blur on right edge */}
             <ProgressiveBlur
               className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none"
-              style={{ width: '100px' }}
+              style={{ width: '120px' }}
               direction="right"
             />
             
             {/* Timeline content */}
-            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
               <div 
                 className="flex items-center"
                 style={{ 
