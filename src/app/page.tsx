@@ -213,7 +213,7 @@ export default function Home() {
             <div 
               className="flex items-center"
               style={{ 
-                transform: `translateX(${60 - activeSection * 120}px)`,
+                transform: `translateX(${activeSection * 120 - (sections.length - 1) * 60}px)`,
                 transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
             >
