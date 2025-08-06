@@ -10,9 +10,9 @@ interface AnimatedTextProps {
 
 export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50, sectionIndex = 0 }) => {
   const [visibleWords, setVisibleWords] = useState<number>(0);
-  const [isMounted, setIsMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const hasAnimated = useRef(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const hasAnimatedRef = useRef(false);
 
   // Parse children to extract text and links
   const parseContent = (node: React.ReactNode): string[] => {
@@ -36,75 +36,69 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
 
   const words = parseContent(children);
 
-  // Debug logging
   useEffect(() => {
-    console.log(`Section ${sectionIndex}: Found ${words.length} words`, words.slice(0, 5));
-  }, [sectionIndex, words]);
+    if (hasAnimatedRef.current) return;
 
-  // Set mounted state
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    const startAnimation = () => {
+      if (hasAnimatedRef.current) return;
+      hasAnimatedRef.current = true;
+      console.log(`Section ${sectionIndex}: Starting animation for ${words.length} words`);
+      
+      // Animate words one by one
+      words.forEach((_, index) => {
+        setTimeout(() => {
+          setVisibleWords(prev => index + 1);
+        }, delay * index);
+      });
+    };
 
-  useEffect(() => {
-    if (!isMounted || hasAnimated.current) return;
+    // Create observer
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimatedRef.current) {
+            startAnimation();
+          }
+        });
+      },
+      { 
+        threshold: 0.1,
+        rootMargin: '0px'
+      }
+    );
 
-    const checkVisibility = () => {
-      if (!containerRef.current || hasAnimated.current) return;
+    // Check if already in view when component mounts
+    const checkInitialVisibility = () => {
+      if (!containerRef.current || hasAnimatedRef.current) return;
       
       const rect = containerRef.current.getBoundingClientRect();
       const isInView = rect.top < window.innerHeight && rect.bottom > 0;
       
-      console.log(`Section ${sectionIndex}: Checking visibility - inView: ${isInView}, rect.top: ${rect.top}, window.innerHeight: ${window.innerHeight}`);
-      
       if (isInView) {
-        hasAnimated.current = true;
-        console.log(`Section ${sectionIndex}: Starting animation for ${words.length} words`);
-        // Animate words one by one
-        words.forEach((_, index) => {
-          setTimeout(() => {
-            setVisibleWords(index + 1);
-          }, delay * index);
-        });
+        // If first section, add delay for page load
+        if (sectionIndex === 0) {
+          setTimeout(startAnimation, 1500);
+        } else {
+          startAnimation();
+        }
+      } else {
+        // Not in view, start observing
+        if (containerRef.current && observerRef.current) {
+          observerRef.current.observe(containerRef.current);
+        }
       }
     };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated.current) {
-            hasAnimated.current = true;
-            // Animate words one by one
-            words.forEach((_, index) => {
-              setTimeout(() => {
-                setVisibleWords(index + 1);
-              }, delay * index);
-            });
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    // Wait a bit for page to settle, then check visibility
-    // Add extra delay for first sections to ensure page is fully loaded
-    const initialDelay = sectionIndex === 0 ? 2000 : 1000 + (sectionIndex * 100);
-    const timer = setTimeout(() => {
-      checkVisibility();
-      
-      // If not animated yet, observe for scroll
-      if (!hasAnimated.current && containerRef.current) {
-        observer.observe(containerRef.current);
-      }
-    }, initialDelay);
+    // Wait for next tick to ensure DOM is ready
+    const timer = setTimeout(checkInitialVisibility, 100);
 
     return () => {
       clearTimeout(timer);
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
+      if (observerRef.current) {
+        observerRef.current.disconnect();
       }
     };
-  }, [words.length, delay, isMounted, sectionIndex]);
+  }, []); // Empty deps - only run once on mount
 
   // Rebuild the content with animated words
   const renderAnimatedContent = () => {
