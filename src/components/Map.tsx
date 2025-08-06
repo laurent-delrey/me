@@ -15,6 +15,15 @@ export default function Map({ center, zoom }: MapProps) {
   const [mapError, setMapError] = useState<string>("");
   const [mapLoaded, setMapLoaded] = useState(false);
   const [preloading, setPreloading] = useState(true);
+  const [styleIndex, setStyleIndex] = useState(0);
+  
+  const mapStyles = [
+    { id: "mapbox://styles/mapbox/light-v11", name: "Light" },
+    { id: "mapbox://styles/mapbox/dark-v11", name: "Dark" },
+    { id: "mapbox://styles/mapbox/streets-v12", name: "Streets" },
+    { id: "mapbox://styles/mapbox/outdoors-v12", name: "Outdoors" },
+    { id: "mapbox://styles/mapbox/satellite-streets-v12", name: "Satellite" },
+  ];
 
   // Initialize map only once
   useEffect(() => {
@@ -34,7 +43,7 @@ export default function Map({ center, zoom }: MapProps) {
 
       const map = new mapboxgl.default.Map({
         container: mapContainer.current,
-        style: "mapbox://styles/mapbox/light-v11",
+        style: mapStyles[styleIndex].id,
         center: center,
         zoom: zoom,
         pitch: 50, // Initial tilt for 3D effect
@@ -192,6 +201,17 @@ export default function Map({ center, zoom }: MapProps) {
     });
   }, []); // Empty dependency array - only run once
 
+  // Handle style switching
+  const switchStyle = () => {
+    const nextIndex = (styleIndex + 1) % mapStyles.length;
+    setStyleIndex(nextIndex);
+    
+    if (mapRef.current && mapLoaded) {
+      mapRef.current.setStyle(mapStyles[nextIndex].id);
+      console.log('Switched to style:', mapStyles[nextIndex].name);
+    }
+  };
+
   // Drift animation function
   const startDriftAnimation = () => {
     if (!mapRef.current) return;
@@ -316,6 +336,25 @@ export default function Map({ center, zoom }: MapProps) {
           Map Error: {mapError}
         </div>
       )}
+      {/* Debug toggle for map styles */}
+      <button
+        onClick={switchStyle}
+        style={{
+          position: 'fixed',
+          bottom: 20,
+          right: 20,
+          background: 'rgba(255, 255, 255, 0.9)',
+          border: '1px solid #ddd',
+          padding: '8px 16px',
+          borderRadius: 4,
+          cursor: 'pointer',
+          zIndex: 100,
+          fontSize: '14px',
+          color: '#333'
+        }}
+      >
+        Map: {mapStyles[styleIndex].name}
+      </button>
     </>
   );
 }

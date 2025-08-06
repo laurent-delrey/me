@@ -21,7 +21,6 @@ const sections = [
 const content: Record<string, React.ReactElement> = {
   tldr: (
     <div>
-      <h1 className="text-4xl font-bold mb-6 lowercase text-gray-900">laurent del rey</h1>
       <p className="text-xl text-gray-700 lowercase max-w-2xl">
         i'm a designer currently living in nyc. i've been designing different type of things for the internet,
         from tiny controversial experiments to larger-scale consumer products through conceptual art images
