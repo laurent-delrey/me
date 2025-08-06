@@ -53,7 +53,21 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
     );
 
     if (containerRef.current) {
-      observer.observe(containerRef.current);
+      // Check if element is already in view on mount
+      const rect = containerRef.current.getBoundingClientRect();
+      const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      if (isInView && !hasAnimated.current) {
+        hasAnimated.current = true;
+        // Animate words one by one with a small initial delay
+        words.forEach((_, index) => {
+          setTimeout(() => {
+            setVisibleWords(index + 1);
+          }, 500 + (delay * index)); // 500ms initial delay for page load
+        });
+      } else {
+        observer.observe(containerRef.current);
+      }
     }
 
     return () => {
