@@ -9,18 +9,18 @@ const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const sections = [
   { id: "tldr", label: "TL;DR", years: "", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5 }, // Topanga
-  { id: "free", label: "free ideas", years: "2021 – now", location: [-74.006, 40.7128] as [number, number], zoom: 12 }, // NYC
-  { id: "snap", label: "Snap, Inc.", years: "2018 – 2023", location: [-118.4912, 34.0195] as [number, number], zoom: 12.5 }, // Santa Monica
-  { id: "tribe", label: "A Quest called Tribe", years: "2015 – 2018", location: [-122.4194, 37.7749] as [number, number], zoom: 12 }, // SF
-  { id: "hustle", label: "Hustling for fun", years: "2012 – 2014", location: [2.3522, 48.8566] as [number, number], zoom: 12.5 }, // Paris
-  { id: "lost", label: "Lost in the game", years: "2007 – 2012", location: [2.3522, 48.8566] as [number, number], zoom: 11.5 }, // Paris
   { id: "kid", label: "Another Internet Kid", years: "2005 – 2007", location: [2.3522, 48.8566] as [number, number], zoom: 10.5 }, // Paris wider
+  { id: "lost", label: "Lost in the game", years: "2007 – 2012", location: [2.3522, 48.8566] as [number, number], zoom: 11.5 }, // Paris
+  { id: "hustle", label: "Hustling for fun", years: "2012 – 2014", location: [2.3522, 48.8566] as [number, number], zoom: 12.5 }, // Paris
+  { id: "tribe", label: "A Quest called Tribe", years: "2015 – 2018", location: [-122.4194, 37.7749] as [number, number], zoom: 12 }, // SF
+  { id: "snap", label: "Snap, Inc.", years: "2018 – 2023", location: [-118.4912, 34.0195] as [number, number], zoom: 12.5 }, // Santa Monica
+  { id: "free", label: "free ideas", years: "2021 – now", location: [-74.006, 40.7128] as [number, number], zoom: 12 }, // NYC
   { id: "social", label: "@ Me", years: "anytime", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5 }, // Topanga
 ];
 
 const content: Record<string, React.ReactElement> = {
   tldr: (
-    <div style={{ maxWidth: '600px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         i'm a designer currently living in nyc. i've been designing different type of things for the internet,
         from tiny controversial experiments to larger-scale consumer products through conceptual art images
@@ -29,7 +29,7 @@ const content: Record<string, React.ReactElement> = {
     </div>
   ),
   free: (
-    <div style={{ maxWidth: '600px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         i started sharing free ideas organically on{" "}
         <a href="https://twitter.com/laurentdelrey" target="_blank" rel="noopener noreferrer" 
@@ -40,7 +40,7 @@ const content: Record<string, React.ReactElement> = {
     </div>
   ),
   snap: (
-    <div style={{ maxWidth: '600px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         I've been a member of the core product design team at{" "}
         <a href="https://www.snap.com/" target="_blank" rel="noopener noreferrer" 
@@ -51,7 +51,7 @@ const content: Record<string, React.ReactElement> = {
     </div>
   ),
   tribe: (
-    <div style={{ maxWidth: '600px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         2 continents. 3 cities. 4 houses. 15 people. 4 products. 1 family. 
         Tribe was a series of social experiments backed by Sequoia Capital and KPCB. 
@@ -60,7 +60,7 @@ const content: Record<string, React.ReactElement> = {
     </div>
   ),
   hustle: (
-    <div style={{ maxWidth: '600px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         I've released a bunch of side projects. From an ironic fan brand inspired by Balenciaga, 
         the missing "Explore" section of Snapchat, or Collectible Cards on the Ethereum network. 
@@ -69,7 +69,7 @@ const content: Record<string, React.ReactElement> = {
     </div>
   ),
   lost: (
-    <div style={{ maxWidth: '600px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         I have a Master Degree in Finance. I've never studied Design at school. 
         During my College years, I created a bunch of Tumblrs receiving 100,000+ visits, 
@@ -80,7 +80,7 @@ const content: Record<string, React.ReactElement> = {
     </div>
   ),
   kid: (
-    <div style={{ maxWidth: '600px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         Born and raised in Paris, France. I started designing at 16 on a cracked version of Photoshop CS2. 
         My first gigs were terrible logos & websites for my Counter Strike friends. 
@@ -89,7 +89,7 @@ const content: Record<string, React.ReactElement> = {
     </div>
   ),
   social: (
-    <div style={{ maxWidth: '600px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
         DMs are opened on{" "}
         <a href="https://twitter.com/laurentdelrey" target="_blank" rel="noopener noreferrer" 
@@ -107,6 +107,7 @@ const content: Record<string, React.ReactElement> = {
 export default function Home() {
   const [activeSection, setActiveSection] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const currentSection = sections[activeSection];
@@ -159,6 +160,7 @@ export default function Home() {
       <Map 
         center={currentSection?.location || [-74.006, 40.7128]} 
         zoom={currentSection?.zoom || 11}
+        onLoad={() => setMapLoaded(true)}
       />
       
       <main className="h-screen relative z-10 overflow-hidden">
@@ -179,10 +181,10 @@ export default function Home() {
                 scrollSnapAlign: 'center'
               }}
             >
-              <div style={{ maxWidth: '600px', width: '100%' }}>
+              <div style={{ maxWidth: '480px', width: '100%' }}>
                 {/* Section Title */}
                 <div 
-                  className={`mb-4 ${mounted ? 'animate-fadeIn animation-delay-400' : 'opacity-0'}`}
+                  className={`mb-4 ${mounted && mapLoaded ? 'animate-fadeIn animation-delay-400' : 'opacity-0'}`}
                   style={{ padding: '0 20px' }}
                 >
                   <h2 className="text-white lowercase" style={{ fontSize: '1.125rem', lineHeight: '1.5', fontWeight: 500 }}>
@@ -191,7 +193,7 @@ export default function Home() {
                 </div>
                 
                 {/* Content */}
-                <div className={mounted ? 'animate-fadeInUp animation-delay-600' : 'opacity-0'}>
+                <div className={mounted && mapLoaded ? 'animate-fadeInUp animation-delay-600' : 'opacity-0'}>
                   {content[section.id]}
                 </div>
               </div>
@@ -201,7 +203,7 @@ export default function Home() {
 
         {/* Timeline Footer */}
         <div 
-          className={`fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center ${mounted ? 'animate-fadeInUp animation-delay-200' : 'opacity-0'}`}
+          className={`fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center ${mounted && mapLoaded ? 'animate-fadeInUp animation-delay-200' : 'opacity-0'}`}
           style={{ 
             height: '80px',
             background: 'linear-gradient(to top, rgba(0,0,0,0.1) 0%, transparent 100%)'
@@ -230,7 +232,7 @@ export default function Home() {
                   }}
                 >
                   <span className="block">
-                    {index === 0 ? 'scroll to start →' : (section.years || '')}
+                    {index === 0 ? 'scroll to start ↓' : (section.years || '')}
                   </span>
                 </button>
               ))}

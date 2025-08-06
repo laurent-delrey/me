@@ -5,9 +5,10 @@ import { useEffect, useRef, useState } from "react";
 interface MapProps {
   center: [number, number];
   zoom: number;
+  onLoad?: () => void;
 }
 
-export default function Map({ center, zoom }: MapProps) {
+export default function Map({ center, zoom, onLoad }: MapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
   const animationRef = useRef<any>(null);
@@ -101,7 +102,10 @@ export default function Map({ center, zoom }: MapProps) {
               bearing: 0
             });
             console.log('Preloading complete, returning to initial position');
-            setTimeout(() => setPreloading(false), 200);
+            setTimeout(() => {
+              setPreloading(false);
+              if (onLoad) onLoad();
+            }, 200);
           }
         };
         
