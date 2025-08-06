@@ -32,7 +32,7 @@ export const ProgressiveBlur: React.FC<ProgressiveBlurProps> = ({
       className={className}
       style={{
         ...style,
-        position: 'relative',
+        pointerEvents: 'none',
       }}
     >
       {Array.from({ length: layers }).map((_, index) => {
