@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
-import { ProgressiveBlur } from "motion-primitives";
+import { ProgressiveBlur } from "@/components/ProgressiveBlur";
 
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
