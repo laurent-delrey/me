@@ -179,10 +179,11 @@ export default function Home() {
                 scrollSnapAlign: 'center'
               }}
             >
-              <div style={{ maxWidth: '600px', width: '100%', padding: '0 20px' }}>
+              <div style={{ maxWidth: '600px', width: '100%' }}>
                 {/* Section Title */}
                 <div 
                   className={`mb-4 ${mounted ? 'animate-fadeIn animation-delay-400' : 'opacity-0'}`}
+                  style={{ padding: '0 20px' }}
                 >
                   <h2 className="text-white lowercase" style={{ fontSize: '1.125rem', lineHeight: '1.5', fontWeight: 500 }}>
                     {section.label}
@@ -205,11 +206,11 @@ export default function Home() {
             height: '60px'
           }}
         >
-          <div style={{ maxWidth: '600px', width: '100%', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'relative', width: '100%' }}>
             <div 
               className="flex items-center justify-center"
               style={{ 
-                transform: `translateX(${-(activeSection * 150 - 300)}px)`,
+                transform: `translateX(${-activeSection * 180 + (sections.length - 1) * 90}px)`,
                 transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
             >
@@ -222,7 +223,8 @@ export default function Home() {
                     fontSize: '0.875rem',
                     opacity: activeSection === index ? 1 : 0.4,
                     transform: activeSection === index ? 'scale(1.1)' : 'scale(1)',
-                    width: '150px',
+                    minWidth: '180px',
+                    padding: '0 20px',
                     textAlign: 'center'
                   }}
                 >
