@@ -5,9 +5,10 @@ import React, { useEffect, useState, useRef } from 'react';
 interface AnimatedTextProps {
   children: React.ReactNode;
   delay?: number;
+  sectionIndex?: number;
 }
 
-export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50 }) => {
+export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50, sectionIndex = 0 }) => {
   const [visibleWords, setVisibleWords] = useState<number>(0);
   const [isMounted, setIsMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -76,6 +77,8 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
     );
 
     // Wait a bit for page to settle, then check visibility
+    // Add extra delay for first sections to ensure page is fully loaded
+    const initialDelay = sectionIndex === 0 ? 2000 : 1000 + (sectionIndex * 100);
     const timer = setTimeout(() => {
       checkVisibility();
       
@@ -83,7 +86,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
       if (!hasAnimated.current && containerRef.current) {
         observer.observe(containerRef.current);
       }
-    }, 1000); // Wait 1 second for page/map to load
+    }, initialDelay);
 
     return () => {
       clearTimeout(timer);
@@ -91,7 +94,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
         observer.unobserve(containerRef.current);
       }
     };
-  }, [words.length, delay, isMounted]);
+  }, [words.length, delay, isMounted, sectionIndex]);
 
   // Rebuild the content with animated words
   const renderAnimatedContent = () => {
