@@ -163,7 +163,7 @@ export default function Home() {
         onLoad={() => setMapLoaded(true)}
       />
       
-      <main className="h-screen relative z-10 overflow-hidden">
+      <main className={`h-screen relative z-10 overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`}>
         {/* Scrollable Content */}
         <div 
           ref={scrollContainerRef}
@@ -184,7 +184,7 @@ export default function Home() {
               <div style={{ maxWidth: '480px', width: '100%' }}>
                 {/* Section Title */}
                 <div 
-                  className={`mb-4 ${mounted && mapLoaded ? 'animate-fadeIn animation-delay-400' : 'opacity-0'}`}
+                  className="mb-4"
                   style={{ padding: '0 20px' }}
                 >
                   <h2 className="text-white lowercase" style={{ fontSize: '1.125rem', lineHeight: '1.5', fontWeight: 500 }}>
@@ -193,7 +193,7 @@ export default function Home() {
                 </div>
                 
                 {/* Content */}
-                <div className={mounted && mapLoaded ? 'animate-fadeInUp animation-delay-600' : 'opacity-0'}>
+                <div>
                   {content[section.id]}
                 </div>
               </div>
@@ -203,7 +203,7 @@ export default function Home() {
 
         {/* Timeline Footer */}
         <div 
-          className={`fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center ${mounted && mapLoaded ? 'animate-fadeInUp animation-delay-200' : 'opacity-0'}`}
+          className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
           style={{ 
             height: '80px',
             background: 'linear-gradient(to top, rgba(0,0,0,0.1) 0%, transparent 100%)'
