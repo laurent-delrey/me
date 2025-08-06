@@ -24,9 +24,9 @@ const content: Record<string, React.ReactElement> = {
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={40} sectionIndex={0}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
-          i'm a designer currently living in nyc. i've been designing different type of things for the internet,
-          from tiny controversial experiments to larger-scale consumer products through conceptual art images
-          i share on twitter.
+        i'm a designer currently living in nyc. i've been designing different type of things for the internet,
+        from tiny controversial experiments to larger-scale consumer products through conceptual art images
+        i share on twitter.
         </p>
       </AnimatedText>
     </div>

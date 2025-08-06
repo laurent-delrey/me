@@ -42,14 +42,18 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
     const startAnimation = () => {
       if (hasAnimatedRef.current) return;
       hasAnimatedRef.current = true;
-      console.log(`Section ${sectionIndex}: Starting animation for ${words.length} words`);
       
-      // Animate words one by one
-      words.forEach((_, index) => {
-        setTimeout(() => {
-          setVisibleWords(prev => index + 1);
-        }, delay * index);
-      });
+      // Reset to 0 first to ensure animation is visible
+      setVisibleWords(0);
+      
+      // Small delay then animate words one by one
+      setTimeout(() => {
+        words.forEach((_, index) => {
+          setTimeout(() => {
+            setVisibleWords(prev => index + 1);
+          }, delay * index);
+        });
+      }, 100);
     };
 
     // Create observer
