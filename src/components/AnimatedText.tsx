@@ -20,8 +20,9 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
       if (typeof child === 'string') {
         words.push(...child.split(' '));
       } else if (React.isValidElement(child)) {
-        if (child.props.children) {
-          words.push(...parseContent(child.props.children));
+        const props = child.props as { children?: React.ReactNode };
+        if (props.children) {
+          words.push(...parseContent(props.children));
         }
       }
     });
@@ -87,7 +88,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
           );
         });
       } else if (React.isValidElement(node)) {
-        const childProps = { ...node.props };
+        const childProps = { ...node.props } as { children?: React.ReactNode; [key: string]: any };
         if (childProps.children) {
           childProps.children = processNode(childProps.children);
         }
