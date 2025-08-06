@@ -209,37 +209,7 @@ export default function Home() {
             background: 'linear-gradient(to top, rgba(0,0,0,0.1) 0%, transparent 100%)'
           }}
         >
-          <div style={{ position: 'relative', maxWidth: '800px', width: '100%', height: '100%' }}>
-            {/* Left edge fade */}
-            <div 
-              style={{
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                bottom: 0,
-                width: '80px',
-                background: 'linear-gradient(to right, rgba(191, 191, 191, 0.9), rgba(191, 191, 191, 0))',
-                pointerEvents: 'none',
-                zIndex: 10,
-              }}
-            />
-            
-            {/* Right edge fade */}
-            <div 
-              style={{
-                position: 'absolute',
-                right: 0,
-                top: 0,
-                bottom: 0,
-                width: '80px',
-                background: 'linear-gradient(to left, rgba(191, 191, 191, 0.9), rgba(191, 191, 191, 0))',
-                pointerEvents: 'none',
-                zIndex: 10,
-              }}
-            />
-            
-            {/* Timeline content */}
-            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+          <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <div 
                 className="flex items-center"
                 style={{ 
