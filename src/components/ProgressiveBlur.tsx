@@ -13,18 +13,37 @@ export const ProgressiveBlur: React.FC<ProgressiveBlurProps> = ({
   style = {},
   direction = 'left',
 }) => {
-  const getGradient = () => {
+  const blurSteps = 6;
+  const maxBlur = 8;
+  
+  const getTransform = (index: number) => {
+    const offset = (index * 100) / blurSteps;
     switch (direction) {
       case 'left':
-        return 'linear-gradient(to right, rgba(191, 191, 191, 0.95) 0%, rgba(191, 191, 191, 0.7) 30%, rgba(191, 191, 191, 0.3) 70%, rgba(191, 191, 191, 0) 100%)';
+        return `translateX(${offset}%)`;
       case 'right':
-        return 'linear-gradient(to left, rgba(191, 191, 191, 0.95) 0%, rgba(191, 191, 191, 0.7) 30%, rgba(191, 191, 191, 0.3) 70%, rgba(191, 191, 191, 0) 100%)';
+        return `translateX(-${offset}%)`;
       case 'top':
-        return 'linear-gradient(to bottom, rgba(191, 191, 191, 0.95) 0%, rgba(191, 191, 191, 0.7) 30%, rgba(191, 191, 191, 0.3) 70%, rgba(191, 191, 191, 0) 100%)';
+        return `translateY(${offset}%)`;
       case 'bottom':
-        return 'linear-gradient(to top, rgba(191, 191, 191, 0.95) 0%, rgba(191, 191, 191, 0.7) 30%, rgba(191, 191, 191, 0.3) 70%, rgba(191, 191, 191, 0) 100%)';
+        return `translateY(-${offset}%)`;
       default:
-        return 'linear-gradient(to right, rgba(191, 191, 191, 0.95) 0%, rgba(191, 191, 191, 0) 100%)';
+        return '';
+    }
+  };
+
+  const getMask = () => {
+    switch (direction) {
+      case 'left':
+        return 'linear-gradient(to right, black, transparent)';
+      case 'right':
+        return 'linear-gradient(to left, black, transparent)';
+      case 'top':
+        return 'linear-gradient(to bottom, black, transparent)';
+      case 'bottom':
+        return 'linear-gradient(to top, black, transparent)';
+      default:
+        return '';
     }
   };
 
@@ -33,9 +52,27 @@ export const ProgressiveBlur: React.FC<ProgressiveBlurProps> = ({
       className={className}
       style={{
         ...style,
-        background: getGradient(),
+        position: 'absolute',
         pointerEvents: 'none',
+        maskImage: getMask(),
+        WebkitMaskImage: getMask(),
       }}
-    />
+    >
+      {Array.from({ length: blurSteps }).map((_, i) => (
+        <div
+          key={i}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backdropFilter: `blur(${(maxBlur / blurSteps) * (blurSteps - i)}px)`,
+            WebkitBackdropFilter: `blur(${(maxBlur / blurSteps) * (blurSteps - i)}px)`,
+            maskImage: getMask(),
+            WebkitMaskImage: getMask(),
+            transform: getTransform(i),
+            opacity: 1 - (i * 0.15),
+          }}
+        />
+      ))}
+    </div>
   );
 };
