@@ -244,21 +244,35 @@ export default function Home() {
               </div>
             </div>
             
+            {/* Test backdrop-filter directly */}
+            <div style={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: '100px',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+              background: 'rgba(255, 255, 255, 0.1)',
+              pointerEvents: 'none',
+              zIndex: 20,
+            }} />
+            
             {/* Progressive blur overlays - on top of content */}
             <ProgressiveBlur
-              className="absolute left-0 top-0 bottom-0 pointer-events-none"
-              style={{ width: '120px' }}
+              className="pointer-events-none absolute left-0 top-0 h-full"
+              style={{ width: '150px' }}
               direction="right"
-              blurLayers={6}
-              blurIntensity={2}
+              blurLayers={8}
+              blurIntensity={4}
             />
             
             <ProgressiveBlur
-              className="absolute right-0 top-0 bottom-0 pointer-events-none"
-              style={{ width: '120px' }}
+              className="pointer-events-none absolute right-0 top-0 h-full"
+              style={{ width: '150px' }}
               direction="left"
-              blurLayers={6}
-              blurIntensity={2}
+              blurLayers={8}
+              blurIntensity={4}
             />
           </div>
         </div>
