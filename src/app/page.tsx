@@ -9,13 +9,13 @@ const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const sections = [
   { id: "tldr", label: "TL;DR", years: "", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5 }, // Topanga
-  { id: "free", label: "free ideas", years: "apr '21 - Today", location: [-74.006, 40.7128] as [number, number], zoom: 12 }, // NYC
-  { id: "snap", label: "Snap, Inc.", years: "Sep '18 - sep '23", location: [-118.4912, 34.0195] as [number, number], zoom: 12.5 }, // Santa Monica
-  { id: "tribe", label: "A Quest called Tribe", years: "'15 - '18", location: [-122.4194, 37.7749] as [number, number], zoom: 12 }, // SF
-  { id: "hustle", label: "Hustling for fun", years: "'12 - '14", location: [2.3522, 48.8566] as [number, number], zoom: 12.5 }, // Paris
-  { id: "lost", label: "Lost in the game", years: "'07 - '12", location: [2.3522, 48.8566] as [number, number], zoom: 11.5 }, // Paris
-  { id: "kid", label: "Another Internet Kid", years: "'05 - 07", location: [2.3522, 48.8566] as [number, number], zoom: 10.5 }, // Paris wider
-  { id: "social", label: "@ Me", years: "Anytime", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5 }, // Topanga
+  { id: "free", label: "free ideas", years: "2021 – now", location: [-74.006, 40.7128] as [number, number], zoom: 12 }, // NYC
+  { id: "snap", label: "Snap, Inc.", years: "2018 – 2023", location: [-118.4912, 34.0195] as [number, number], zoom: 12.5 }, // Santa Monica
+  { id: "tribe", label: "A Quest called Tribe", years: "2015 – 2018", location: [-122.4194, 37.7749] as [number, number], zoom: 12 }, // SF
+  { id: "hustle", label: "Hustling for fun", years: "2012 – 2014", location: [2.3522, 48.8566] as [number, number], zoom: 12.5 }, // Paris
+  { id: "lost", label: "Lost in the game", years: "2007 – 2012", location: [2.3522, 48.8566] as [number, number], zoom: 11.5 }, // Paris
+  { id: "kid", label: "Another Internet Kid", years: "2005 – 2007", location: [2.3522, 48.8566] as [number, number], zoom: 10.5 }, // Paris wider
+  { id: "social", label: "@ Me", years: "anytime", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5 }, // Topanga
 ];
 
 const content: Record<string, React.ReactElement> = {
@@ -203,14 +203,15 @@ export default function Home() {
         <div 
           className={`fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center ${mounted ? 'animate-fadeInUp animation-delay-200' : 'opacity-0'}`}
           style={{ 
-            height: '60px'
+            height: '80px',
+            background: 'linear-gradient(to top, rgba(0,0,0,0.1) 0%, transparent 100%)'
           }}
         >
           <div style={{ position: 'relative', width: '100%' }}>
             <div 
               className="flex items-center justify-center"
               style={{ 
-                transform: `translateX(${-activeSection * 180 + (sections.length - 1) * 90}px)`,
+                transform: `translateX(${-activeSection * 120 + (sections.length - 1) * 60}px)`,
                 transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
             >
@@ -223,8 +224,8 @@ export default function Home() {
                     fontSize: '0.875rem',
                     opacity: activeSection === index ? 1 : 0.4,
                     transform: activeSection === index ? 'scale(1.1)' : 'scale(1)',
-                    minWidth: '180px',
-                    padding: '0 20px',
+                    minWidth: '120px',
+                    padding: '0 10px',
                     textAlign: 'center'
                   }}
                 >
