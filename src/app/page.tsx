@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
-import { ProgressiveBlur } from "@/components/motion-primitives/progressive-blur";
 
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
@@ -202,43 +201,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Test box with ProgressiveBlur */}
-        <div style={{ 
-          position: 'fixed',
-          top: '100px',
-          left: '100px',
-          width: '400px',
-          height: '300px',
-          zIndex: 9999,
-        }}>
-          {/* Content to blur */}
-          <div style={{
-            width: '100%',
-            height: '100%',
-            background: 'linear-gradient(45deg, red, blue, green, yellow)',
-            border: '5px solid yellow',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '30px',
-            color: 'white',
-            fontWeight: 'bold',
-            position: 'absolute',
-            inset: 0,
-          }}>
-            SHOULD BE BLURRED →
-          </div>
-          
-          {/* ProgressiveBlur overlay */}
-          <ProgressiveBlur
-            className="absolute inset-0 pointer-events-none"
-            style={{ zIndex: 10 }}
-            direction="right"
-            blurLayers={10}
-            blurIntensity={5}
-          />
-        </div>
-
         {/* Timeline Footer */}
         <div 
           className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
@@ -281,21 +243,6 @@ export default function Home() {
               </div>
             </div>
             
-            {/* Progressive blur on edges */}
-            <ProgressiveBlur
-              className="absolute left-0 top-0 h-full pointer-events-none"
-              style={{ width: '150px' }}
-              direction="right"
-              blurLayers={8}
-              blurIntensity={3}
-            />
-            <ProgressiveBlur
-              className="absolute right-0 top-0 h-full pointer-events-none"
-              style={{ width: '150px' }}
-              direction="left"
-              blurLayers={8}
-              blurIntensity={3}
-            />
           </div>
         </div>
       </main>
