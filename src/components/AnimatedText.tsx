@@ -1,0 +1,103 @@
+'use client';
+
+import React, { useEffect, useState, useRef } from 'react';
+
+interface AnimatedTextProps {
+  children: React.ReactNode;
+  delay?: number;
+}
+
+export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50 }) => {
+  const [visibleWords, setVisibleWords] = useState<number>(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
+
+  // Parse children to extract text and links
+  const parseContent = (node: React.ReactNode): string[] => {
+    const words: string[] = [];
+    
+    React.Children.forEach(node, (child) => {
+      if (typeof child === 'string') {
+        words.push(...child.split(' '));
+      } else if (React.isValidElement(child)) {
+        if (child.props.children) {
+          words.push(...parseContent(child.props.children));
+        }
+      }
+    });
+    
+    return words;
+  };
+
+  const words = parseContent(children);
+
+  useEffect(() => {
+    if (hasAnimated.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated.current) {
+            hasAnimated.current = true;
+            // Animate words one by one
+            words.forEach((_, index) => {
+              setTimeout(() => {
+                setVisibleWords(index + 1);
+              }, delay * index);
+            });
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, [words.length, delay]);
+
+  // Rebuild the content with animated words
+  const renderAnimatedContent = () => {
+    let wordIndex = 0;
+    
+    const processNode = (node: React.ReactNode): React.ReactNode => {
+      if (typeof node === 'string') {
+        const nodeWords = node.split(' ');
+        return nodeWords.map((word, i) => {
+          const currentIndex = wordIndex++;
+          const isVisible = currentIndex < visibleWords;
+          return (
+            <React.Fragment key={currentIndex}>
+              <span
+                style={{
+                  opacity: isVisible ? 1 : 0.3,
+                  transition: 'opacity 0.3s ease-in-out',
+                }}
+              >
+                {word}
+              </span>
+              {i < nodeWords.length - 1 && ' '}
+            </React.Fragment>
+          );
+        });
+      } else if (React.isValidElement(node)) {
+        const childProps = { ...node.props };
+        if (childProps.children) {
+          childProps.children = processNode(childProps.children);
+        }
+        return React.cloneElement(node, childProps);
+      }
+      return node;
+    };
+
+    return processNode(children);
+  };
+
+  return <div ref={containerRef}>{renderAnimatedContent()}</div>;
+};
