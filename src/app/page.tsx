@@ -205,7 +205,7 @@ export default function Home() {
         <div 
           className="fixed inset-0 pointer-events-none z-10"
           style={{
-            background: `radial-gradient(ellipse at center, transparent 0%, rgba(191, 191, 191, 1) 100%)`
+            background: `radial-gradient(ellipse at center, transparent 0%, rgba(191, 191, 191, 0.5) 50%, rgba(191, 191, 191, 1) 90%)`
           }}
         />
 
