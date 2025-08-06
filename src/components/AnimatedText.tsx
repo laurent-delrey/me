@@ -88,11 +88,12 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
           );
         });
       } else if (React.isValidElement(node)) {
-        const childProps = { ...node.props } as { children?: React.ReactNode; [key: string]: any };
+        const props = node.props as any;
+        const childProps = { ...props };
         if (childProps.children) {
           childProps.children = processNode(childProps.children);
         }
-        return React.cloneElement(node, childProps);
+        return React.cloneElement(node as any, childProps);
       }
       return node;
     };
