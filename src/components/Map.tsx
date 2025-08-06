@@ -56,9 +56,9 @@ export default function Map({ center, zoom, onLoad }: MapProps) {
           { center: [-74.006, 40.7128], zoom: 12 }, // NYC
           { center: [-118.4912, 34.0195], zoom: 12.5 }, // Santa Monica
           { center: [-122.4194, 37.7749], zoom: 12 }, // SF
-          { center: [2.3522, 48.8566], zoom: 10.5 }, // Paris wide
-          { center: [2.3522, 48.8566], zoom: 11.5 }, // Paris medium
-          { center: [2.3522, 48.8566], zoom: 12.5 }, // Paris close
+          { center: [2.3618, 48.8709], zoom: 13.5 }, // 10th arrondissement
+          { center: [2.2885, 48.8412], zoom: 13.5 }, // 15th arrondissement
+          { center: [2.5185, 48.8407], zoom: 13 }, // Bry-sur-Marne
         ];
         
         // Key flight paths to preload at wider zoom levels

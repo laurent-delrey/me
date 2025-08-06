@@ -12,9 +12,9 @@ const sections = [
   { id: "free", label: "free ideas", years: "2021 – now", location: [-74.006, 40.7128] as [number, number], zoom: 12 }, // NYC
   { id: "snap", label: "Snap, Inc.", years: "2018 – 2023", location: [-118.4912, 34.0195] as [number, number], zoom: 12.5 }, // Santa Monica
   { id: "tribe", label: "A Quest called Tribe", years: "2015 – 2018", location: [-122.4194, 37.7749] as [number, number], zoom: 12 }, // SF
-  { id: "hustle", label: "Hustling for fun", years: "2012 – 2014", location: [2.3522, 48.8566] as [number, number], zoom: 12.5 }, // Paris
-  { id: "lost", label: "Lost in the game", years: "2007 – 2012", location: [2.3522, 48.8566] as [number, number], zoom: 11.5 }, // Paris
-  { id: "kid", label: "Another Internet Kid", years: "2005 – 2007", location: [2.3522, 48.8566] as [number, number], zoom: 10.5 }, // Paris wider
+  { id: "hustle", label: "Hustling for fun", years: "2012 – 2014", location: [2.3618, 48.8709] as [number, number], zoom: 13.5 }, // 10th arrondissement Paris
+  { id: "lost", label: "Lost in the game", years: "2007 – 2012", location: [2.2885, 48.8412] as [number, number], zoom: 13.5 }, // 15th arrondissement Paris
+  { id: "kid", label: "Another Internet Kid", years: "2005 – 2007", location: [2.5185, 48.8407] as [number, number], zoom: 13 }, // Bry-sur-Marne
   { id: "social", label: "@ Me", years: "anytime", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5 }, // Topanga
 ];
 
