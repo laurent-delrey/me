@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
+import { ProgressiveBlur } from "@/components/motion-primitives/progressive-blur";
 
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
@@ -201,6 +202,28 @@ export default function Home() {
           ))}
         </div>
 
+        {/* Test Progressive Blur in isolation */}
+        <div className="fixed top-20 left-20 z-30" style={{ width: '300px', height: '200px', position: 'relative' }}>
+          <div style={{ 
+            background: 'linear-gradient(45deg, #ff0000, #00ff00, #0000ff)', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            fontWeight: 'bold'
+          }}>
+            TEST CONTENT TO BLUR
+          </div>
+          <ProgressiveBlur
+            className="absolute inset-0 pointer-events-none"
+            direction="right"
+            blurLayers={10}
+            blurIntensity={5}
+          />
+        </div>
+
         {/* Timeline Footer */}
         <div 
           className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
@@ -209,9 +232,11 @@ export default function Home() {
             background: 'linear-gradient(to top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 50%, transparent 100%)'
           }}
         >
-          <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div 
-              className="flex items-center"
+          <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+            {/* Timeline items container */}
+            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div 
+                className="flex items-center"
               style={{ 
                 transform: `translateX(${activeSection * 120 - (sections.length - 1) * 60}px)`,
                 transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
@@ -238,7 +263,24 @@ export default function Home() {
                   </span>
                 </button>
               )})}
+              </div>
             </div>
+            
+            {/* Progressive blur on edges */}
+            <ProgressiveBlur
+              className="absolute left-0 top-0 h-full pointer-events-none"
+              style={{ width: '150px' }}
+              direction="right"
+              blurLayers={8}
+              blurIntensity={3}
+            />
+            <ProgressiveBlur
+              className="absolute right-0 top-0 h-full pointer-events-none"
+              style={{ width: '150px' }}
+              direction="left"
+              blurLayers={8}
+              blurIntensity={3}
+            />
           </div>
         </div>
       </main>
