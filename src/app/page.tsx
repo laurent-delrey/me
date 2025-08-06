@@ -217,7 +217,9 @@ export default function Home() {
                 transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
             >
-              {sections.map((section, index) => (
+              {sections.slice().reverse().map((section, reverseIndex) => {
+                const index = sections.length - 1 - reverseIndex;
+                return (
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(index)}
@@ -235,7 +237,7 @@ export default function Home() {
                     {index === 0 ? 'scroll to start ↓' : (section.years || '')}
                   </span>
                 </button>
-              ))}
+              )})}
             </div>
           </div>
         </div>
