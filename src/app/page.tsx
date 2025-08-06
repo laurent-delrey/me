@@ -212,30 +212,42 @@ export default function Home() {
         >
           <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             {/* Progressive blur on left edge */}
-            <ProgressiveBlur
-              style={{ 
-                left: 0,
-                top: 0,
-                bottom: 0,
-                width: '150px',
-              }}
-              direction="right"
-              blurLayers={8}
-              blurIntensity={1}
-            />
+            <div style={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: '200px',
+              background: 'linear-gradient(to right, rgba(191, 191, 191, 0.8), rgba(191, 191, 191, 0.6) 30%, rgba(191, 191, 191, 0.3) 60%, transparent)',
+              pointerEvents: 'none',
+              zIndex: 10,
+            }}>
+              <ProgressiveBlur
+                className="w-full h-full"
+                direction="right"
+                blurLayers={10}
+                blurIntensity={3}
+              />
+            </div>
             
             {/* Progressive blur on right edge */}
-            <ProgressiveBlur
-              style={{ 
-                right: 0,
-                top: 0,
-                bottom: 0,
-                width: '150px',
-              }}
-              direction="left"
-              blurLayers={8}
-              blurIntensity={1}
-            />
+            <div style={{
+              position: 'absolute',
+              right: 0,
+              top: 0,
+              bottom: 0,
+              width: '200px',
+              background: 'linear-gradient(to left, rgba(191, 191, 191, 0.8), rgba(191, 191, 191, 0.6) 30%, rgba(191, 191, 191, 0.3) 60%, transparent)',
+              pointerEvents: 'none',
+              zIndex: 10,
+            }}>
+              <ProgressiveBlur
+                className="w-full h-full"
+                direction="left"
+                blurLayers={10}
+                blurIntensity={3}
+              />
+            </div>
               <div 
                 className="flex items-center"
                 style={{ 
