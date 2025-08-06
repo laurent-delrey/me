@@ -2,77 +2,69 @@
 
 import React from 'react';
 
+const GRADIENT_ANGLES = {
+  top: 0,
+  right: 90,
+  bottom: 180,
+  left: 270,
+};
+
 interface ProgressiveBlurProps {
   className?: string;
   style?: React.CSSProperties;
   direction?: 'left' | 'right' | 'top' | 'bottom';
+  blurLayers?: number;
+  blurIntensity?: number;
 }
 
 export const ProgressiveBlur: React.FC<ProgressiveBlurProps> = ({
   className = '',
   style = {},
   direction = 'left',
+  blurLayers = 8,
+  blurIntensity = 0.25,
 }) => {
-  const blurSteps = 6;
-  const maxBlur = 8;
-  
-  const getTransform = (index: number) => {
-    const offset = (index * 100) / blurSteps;
-    switch (direction) {
-      case 'left':
-        return `translateX(${offset}%)`;
-      case 'right':
-        return `translateX(-${offset}%)`;
-      case 'top':
-        return `translateY(${offset}%)`;
-      case 'bottom':
-        return `translateY(-${offset}%)`;
-      default:
-        return '';
-    }
-  };
-
-  const getMask = () => {
-    switch (direction) {
-      case 'left':
-        return 'linear-gradient(to right, black, transparent)';
-      case 'right':
-        return 'linear-gradient(to left, black, transparent)';
-      case 'top':
-        return 'linear-gradient(to bottom, black, transparent)';
-      case 'bottom':
-        return 'linear-gradient(to top, black, transparent)';
-      default:
-        return '';
-    }
-  };
+  const layers = Math.max(blurLayers, 2);
+  const segmentSize = 1 / (blurLayers + 1);
 
   return (
-    <div
+    <div 
       className={className}
       style={{
         ...style,
-        position: 'absolute',
-        pointerEvents: 'none',
-        maskImage: getMask(),
-        WebkitMaskImage: getMask(),
+        position: 'relative',
       }}
     >
-      {Array.from({ length: blurSteps }).map((_, i) => (
-        <div
-          key={i}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backdropFilter: `blur(${(maxBlur / blurSteps) * (blurSteps - i)}px)`,
-            WebkitBackdropFilter: `blur(${(maxBlur / blurSteps) * (blurSteps - i)}px)`,
-            maskImage: getMask(),
-            WebkitMaskImage: getMask(),
-            transform: getTransform(i),
-            opacity: 1 - (i * 0.15),
-          }}
-        />
-      ))}
+      {Array.from({ length: layers }).map((_, index) => {
+        const angle = GRADIENT_ANGLES[direction];
+        const gradientStops = [
+          index * segmentSize,
+          (index + 1) * segmentSize,
+          (index + 2) * segmentSize,
+          (index + 3) * segmentSize,
+        ].map(
+          (pos, posIndex) =>
+            `rgba(255, 255, 255, ${posIndex === 1 || posIndex === 2 ? 1 : 0}) ${pos * 100}%`
+        );
+
+        const gradient = `linear-gradient(${angle}deg, ${gradientStops.join(', ')})`;
+
+        return (
+          <div
+            key={index}
+            style={{
+              pointerEvents: 'none',
+              position: 'absolute',
+              inset: 0,
+              borderRadius: 'inherit',
+              maskImage: gradient,
+              WebkitMaskImage: gradient,
+              backdropFilter: `blur(${index * blurIntensity}px)`,
+              WebkitBackdropFilter: `blur(${index * blurIntensity}px)`,
+            }}
+          />
+        );
+      })}
     </div>
   );
 };

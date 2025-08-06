@@ -213,16 +213,20 @@ export default function Home() {
           <div style={{ position: 'relative', maxWidth: '800px', width: '100%', height: '100%', overflow: 'hidden' }}>
             {/* Progressive blur on left edge */}
             <ProgressiveBlur
-              className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none"
-              style={{ width: '120px' }}
-              direction="left"
+              className="absolute left-0 top-0 bottom-0 z-10"
+              style={{ width: '100px', height: '100%' }}
+              direction="right"
+              blurLayers={6}
+              blurIntensity={2}
             />
             
             {/* Progressive blur on right edge */}
             <ProgressiveBlur
-              className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none"
-              style={{ width: '120px' }}
-              direction="right"
+              className="absolute right-0 top-0 bottom-0 z-10"
+              style={{ width: '100px', height: '100%' }}
+              direction="left"
+              blurLayers={6}
+              blurIntensity={2}
             />
             
             {/* Timeline content */}
