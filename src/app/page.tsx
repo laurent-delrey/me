@@ -214,14 +214,14 @@ export default function Home() {
             {/* Progressive blur on left edge */}
             <ProgressiveBlur
               className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none"
-              style={{ width: '150px' }}
+              style={{ width: '100px' }}
               direction="left"
             />
             
             {/* Progressive blur on right edge */}
             <ProgressiveBlur
               className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none"
-              style={{ width: '150px' }}
+              style={{ width: '100px' }}
               direction="right"
             />
             
