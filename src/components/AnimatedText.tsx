@@ -36,6 +36,11 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
 
   const words = parseContent(children);
 
+  // Debug logging
+  useEffect(() => {
+    console.log(`Section ${sectionIndex}: Found ${words.length} words`, words.slice(0, 5));
+  }, [sectionIndex, words]);
+
   // Set mounted state
   useEffect(() => {
     setIsMounted(true);
@@ -50,8 +55,11 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
       const rect = containerRef.current.getBoundingClientRect();
       const isInView = rect.top < window.innerHeight && rect.bottom > 0;
       
+      console.log(`Section ${sectionIndex}: Checking visibility - inView: ${isInView}, rect.top: ${rect.top}, window.innerHeight: ${window.innerHeight}`);
+      
       if (isInView) {
         hasAnimated.current = true;
+        console.log(`Section ${sectionIndex}: Starting animation for ${words.length} words`);
         // Animate words one by one
         words.forEach((_, index) => {
           setTimeout(() => {
