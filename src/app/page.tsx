@@ -210,44 +210,9 @@ export default function Home() {
             background: 'linear-gradient(to top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 50%, transparent 100%)'
           }}
         >
-          <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            {/* Progressive blur on left edge */}
-            <div style={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: '200px',
-              background: 'linear-gradient(to right, rgba(191, 191, 191, 0.8), rgba(191, 191, 191, 0.6) 30%, rgba(191, 191, 191, 0.3) 60%, transparent)',
-              pointerEvents: 'none',
-              zIndex: 10,
-            }}>
-              <ProgressiveBlur
-                className="w-full h-full"
-                direction="right"
-                blurLayers={10}
-                blurIntensity={3}
-              />
-            </div>
-            
-            {/* Progressive blur on right edge */}
-            <div style={{
-              position: 'absolute',
-              right: 0,
-              top: 0,
-              bottom: 0,
-              width: '200px',
-              background: 'linear-gradient(to left, rgba(191, 191, 191, 0.8), rgba(191, 191, 191, 0.6) 30%, rgba(191, 191, 191, 0.3) 60%, transparent)',
-              pointerEvents: 'none',
-              zIndex: 10,
-            }}>
-              <ProgressiveBlur
-                className="w-full h-full"
-                direction="left"
-                blurLayers={10}
-                blurIntensity={3}
-              />
-            </div>
+          <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+            {/* Timeline content - behind the blur */}
+            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <div 
                 className="flex items-center"
                 style={{ 
@@ -277,6 +242,24 @@ export default function Home() {
                   </button>
                 )})}
               </div>
+            </div>
+            
+            {/* Progressive blur overlays - on top of content */}
+            <ProgressiveBlur
+              className="absolute left-0 top-0 bottom-0 pointer-events-none"
+              style={{ width: '120px' }}
+              direction="right"
+              blurLayers={6}
+              blurIntensity={2}
+            />
+            
+            <ProgressiveBlur
+              className="absolute right-0 top-0 bottom-0 pointer-events-none"
+              style={{ width: '120px' }}
+              direction="left"
+              blurLayers={6}
+              blurIntensity={2}
+            />
           </div>
         </div>
       </main>
