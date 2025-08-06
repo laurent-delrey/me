@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
 
@@ -106,8 +106,51 @@ const content: Record<string, React.ReactElement> = {
 };
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState("tldr");
-  const currentSection = sections.find(s => s.id === activeSection);
+  const [activeSection, setActiveSection] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const currentSection = sections[activeSection];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!scrollContainerRef.current) return;
+      
+      const scrollTop = scrollContainerRef.current.scrollTop;
+      const containerHeight = scrollContainerRef.current.clientHeight;
+      
+      // Find which section is most visible
+      let newActiveSection = 0;
+      sectionRefs.current.forEach((ref, index) => {
+        if (ref) {
+          const rect = ref.getBoundingClientRect();
+          const sectionMiddle = rect.top + rect.height / 2;
+          const containerMiddle = containerHeight / 2;
+          
+          // If section middle is closest to container middle
+          if (Math.abs(sectionMiddle - containerMiddle) < containerHeight / 3) {
+            newActiveSection = index;
+          }
+        }
+      });
+      
+      if (newActiveSection !== activeSection) {
+        setActiveSection(newActiveSection);
+      }
+    };
+
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll, { passive: true });
+      return () => container.removeEventListener('scroll', handleScroll);
+    }
+  }, [activeSection]);
+
+  const scrollToSection = (index: number) => {
+    sectionRefs.current[index]?.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'center' 
+    });
+  };
 
   return (
     <>
@@ -120,36 +163,55 @@ export default function Home() {
       <main className="min-h-screen flex relative z-10">
         {/* Left Navigation */}
         <nav className="fixed left-0 top-0 bottom-0 flex flex-col justify-center pl-[5%] pr-8 z-20">
-        {sections.map((section) => (
-          <button
-            key={section.id}
-            onClick={() => setActiveSection(section.id)}
-            className={`
-              text-right py-2 my-1 text-lg font-normal lowercase
-              transition-all duration-300 hover:opacity-100
-              ${activeSection === section.id 
-                ? "text-gray-900 opacity-100 translate-x-[-10px]" 
-                : "text-gray-600 opacity-80"
-              }
-            `}
-          >
-            <span className="block">{section.label}</span>
-            {section.years && (
-              <span className="text-xs text-gray-500">
-                {section.years}
-              </span>
-            )}
-          </button>
-        ))}
-      </nav>
+          {sections.map((section, index) => (
+            <button
+              key={section.id}
+              onClick={() => scrollToSection(index)}
+              className={`
+                text-right py-2 my-1 text-lg font-normal lowercase
+                transition-all duration-300 hover:opacity-100
+                ${activeSection === index 
+                  ? "text-gray-900 opacity-100 translate-x-[-10px]" 
+                  : "text-gray-600 opacity-50"
+                }
+              `}
+            >
+              <span className="block">{section.label}</span>
+              {section.years && (
+                <span className="text-xs text-gray-500">
+                  {section.years}
+                </span>
+              )}
+            </button>
+          ))}
+        </nav>
 
-      {/* Center Content */}
-      <div className="flex-1 flex items-center justify-center px-8 ml-[20%]">
-        <div className="text-center">
-          {content[activeSection]}
+        {/* Scrollable Content */}
+        <div 
+          ref={scrollContainerRef}
+          className="flex-1 ml-[20%] overflow-y-auto scroll-smooth hide-scrollbar"
+          style={{ scrollSnapType: 'y mandatory' }}
+        >
+          {sections.map((section, index) => (
+            <div 
+              key={section.id}
+              ref={el => { sectionRefs.current[index] = el; }}
+              className="min-h-screen flex items-center justify-center px-8"
+              style={{ scrollSnapAlign: 'center' }}
+            >
+              <div className="text-center">
+                <h2 className="text-4xl font-bold mb-6 lowercase text-gray-900">
+                  {section.label}
+                </h2>
+                {section.years && (
+                  <p className="text-sm text-gray-500 mb-8">{section.years}</p>
+                )}
+                {content[section.id]}
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
-    </main>
+      </main>
     </>
   );
 }
