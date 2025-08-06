@@ -34,7 +34,7 @@ export default function Map({ center, zoom }: MapProps) {
 
       const map = new mapboxgl.default.Map({
         container: mapContainer.current,
-        style: "mapbox://styles/mapbox/light-v11",
+        style: "mapbox://styles/laurentdelrey/clw9xnyx600ah01ql0ebq5ee5", // Custom monochrome style
         center: center,
         zoom: zoom,
         pitch: 50, // Initial tilt for 3D effect
@@ -324,7 +324,7 @@ export default function Map({ center, zoom }: MapProps) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'linear-gradient(to bottom, rgba(191, 191, 191, 0.8) 0%, rgba(191, 191, 191, 0.3) 30%, rgba(191, 191, 191, 0) 60%)',
+          background: 'linear-gradient(to top, rgba(191, 191, 191, 1) 0%, rgba(191, 191, 191, 0.7) 20%, rgba(191, 191, 191, 0.3) 40%, rgba(191, 191, 191, 0) 60%)',
           pointerEvents: 'none',
           zIndex: 5
         }}
