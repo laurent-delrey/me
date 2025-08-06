@@ -14,6 +14,7 @@ export default function Map({ center, zoom }: MapProps) {
   const timeoutRef = useRef<any>(null);
   const [mapError, setMapError] = useState<string>("");
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [preloading, setPreloading] = useState(true);
 
   // Initialize map only once
   useEffect(() => {
@@ -47,6 +48,44 @@ export default function Map({ center, zoom }: MapProps) {
       // Log when map loads successfully
       map.on('load', () => {
         console.log('Mapbox loaded successfully');
+        
+        // Preload all location tiles
+        const locations = [
+          { center: [-118.5976, 34.0378], zoom: 12.5 }, // Topanga
+          { center: [-74.006, 40.7128], zoom: 12 }, // NYC
+          { center: [-118.4912, 34.0195], zoom: 12.5 }, // Santa Monica
+          { center: [-122.4194, 37.7749], zoom: 12 }, // SF
+          { center: [2.3522, 48.8566], zoom: 10.5 }, // Paris wide
+          { center: [2.3522, 48.8566], zoom: 11.5 }, // Paris medium
+          { center: [2.3522, 48.8566], zoom: 12.5 }, // Paris close
+        ];
+        
+        // Visit each location briefly to cache tiles
+        locations.forEach((loc, index) => {
+          setTimeout(() => {
+            map.jumpTo({
+              center: loc.center as [number, number],
+              zoom: loc.zoom,
+              pitch: 50,
+              bearing: 0
+            });
+            console.log(`Preloading tiles for location ${index + 1}/${locations.length}`);
+            
+            // Jump back to initial position after preloading all
+            if (index === locations.length - 1) {
+              setTimeout(() => {
+                map.jumpTo({
+                  center: center,
+                  zoom: zoom,
+                  pitch: 50,
+                  bearing: 0
+                });
+                console.log('Preloading complete, returning to initial position');
+                setPreloading(false);
+              }, 100);
+            }
+          }, index * 100); // Stagger the preloading
+        });
         
         // Customize map labels
         const layers = map.getStyle().layers;
@@ -235,9 +274,22 @@ export default function Map({ center, zoom }: MapProps) {
           bottom: 0,
           width: '100vw',
           height: '100vh',
-          zIndex: 0
+          zIndex: 0,
+          opacity: preloading ? 0 : 1,
+          transition: 'opacity 0.5s ease-in-out'
         }}
       />
+      {preloading && (
+        <div style={{ 
+          position: 'fixed', 
+          top: 0, 
+          left: 0, 
+          right: 0, 
+          bottom: 0, 
+          background: '#f0f0f0',
+          zIndex: 0 
+        }} />
+      )}
       {mapError && (
         <div style={{ position: 'fixed', top: 10, right: 10, background: 'red', color: 'white', padding: 10, zIndex: 1000 }}>
           Map Error: {mapError}
