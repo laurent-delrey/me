@@ -115,25 +115,19 @@ export default function Home() {
     const handleScroll = () => {
       if (!scrollContainerRef.current) return;
       
-      const scrollTop = scrollContainerRef.current.scrollTop;
-      const containerHeight = scrollContainerRef.current.clientHeight;
+      const container = scrollContainerRef.current;
+      const scrollTop = container.scrollTop;
+      const containerHeight = container.clientHeight;
       
-      // Find which section is most visible
-      let newActiveSection = 0;
-      sectionRefs.current.forEach((ref, index) => {
-        if (ref) {
-          const rect = ref.getBoundingClientRect();
-          const sectionMiddle = rect.top + rect.height / 2;
-          const containerMiddle = containerHeight / 2;
-          
-          // If section middle is closest to container middle
-          if (Math.abs(sectionMiddle - containerMiddle) < containerHeight / 3) {
-            newActiveSection = index;
-          }
-        }
-      });
+      // Calculate which section index we're at based on scroll position
+      const sectionHeight = containerHeight;
+      const currentSectionIndex = Math.round(scrollTop / sectionHeight);
+      
+      // Clamp to valid range
+      const newActiveSection = Math.max(0, Math.min(sections.length - 1, currentSectionIndex));
       
       if (newActiveSection !== activeSection) {
+        console.log('Scroll detected, changing to section:', newActiveSection);
         setActiveSection(newActiveSection);
       }
     };
@@ -141,11 +135,14 @@ export default function Home() {
     const container = scrollContainerRef.current;
     if (container) {
       container.addEventListener('scroll', handleScroll, { passive: true });
+      // Call it once to set initial state
+      handleScroll();
       return () => container.removeEventListener('scroll', handleScroll);
     }
   }, [activeSection]);
 
   const scrollToSection = (index: number) => {
+    setActiveSection(index);
     sectionRefs.current[index]?.scrollIntoView({ 
       behavior: 'smooth',
       block: 'center' 
@@ -160,7 +157,7 @@ export default function Home() {
         zoom={currentSection?.zoom || 11}
       />
       
-      <main className="min-h-screen flex relative z-10">
+      <main className="h-screen flex relative z-10 overflow-hidden">
         {/* Left Navigation */}
         <nav className="fixed left-0 top-0 bottom-0 flex flex-col justify-center pl-[5%] pr-8 z-20">
           {sections.map((section, index) => (
@@ -189,7 +186,7 @@ export default function Home() {
         {/* Scrollable Content */}
         <div 
           ref={scrollContainerRef}
-          className="flex-1 ml-[20%] overflow-y-auto scroll-smooth hide-scrollbar"
+          className="flex-1 ml-[20%] h-full overflow-y-auto scroll-smooth hide-scrollbar"
           style={{ scrollSnapType: 'y mandatory' }}
         >
           {sections.map((section, index) => (
