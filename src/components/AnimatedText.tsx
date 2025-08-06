@@ -9,6 +9,7 @@ interface AnimatedTextProps {
 
 export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50 }) => {
   const [visibleWords, setVisibleWords] = useState<number>(0);
+  const [isMounted, setIsMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
 
@@ -32,8 +33,30 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
 
   const words = parseContent(children);
 
+  // Set mounted state
   useEffect(() => {
-    if (hasAnimated.current) return;
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || hasAnimated.current) return;
+
+    const checkVisibility = () => {
+      if (!containerRef.current || hasAnimated.current) return;
+      
+      const rect = containerRef.current.getBoundingClientRect();
+      const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      if (isInView) {
+        hasAnimated.current = true;
+        // Animate words one by one
+        words.forEach((_, index) => {
+          setTimeout(() => {
+            setVisibleWords(index + 1);
+          }, delay * index);
+        });
+      }
+    };
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -52,30 +75,23 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
       { threshold: 0.1 }
     );
 
-    if (containerRef.current) {
-      // Check if element is already in view on mount
-      const rect = containerRef.current.getBoundingClientRect();
-      const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+    // Wait a bit for page to settle, then check visibility
+    const timer = setTimeout(() => {
+      checkVisibility();
       
-      if (isInView && !hasAnimated.current) {
-        hasAnimated.current = true;
-        // Animate words one by one with a small initial delay
-        words.forEach((_, index) => {
-          setTimeout(() => {
-            setVisibleWords(index + 1);
-          }, 500 + (delay * index)); // 500ms initial delay for page load
-        });
-      } else {
+      // If not animated yet, observe for scroll
+      if (!hasAnimated.current && containerRef.current) {
         observer.observe(containerRef.current);
       }
-    }
+    }, 1000); // Wait 1 second for page/map to load
 
     return () => {
+      clearTimeout(timer);
       if (containerRef.current) {
         observer.unobserve(containerRef.current);
       }
     };
-  }, [words.length, delay]);
+  }, [words.length, delay, isMounted]);
 
   // Rebuild the content with animated words
   const renderAnimatedContent = () => {
