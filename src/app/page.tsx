@@ -202,26 +202,24 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Test Progressive Blur in isolation */}
-        <div className="fixed top-20 left-20 z-30" style={{ width: '300px', height: '200px', position: 'relative' }}>
-          <div style={{ 
-            background: 'linear-gradient(45deg, #ff0000, #00ff00, #0000ff)', 
-            width: '100%', 
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontWeight: 'bold'
-          }}>
-            TEST CONTENT TO BLUR
-          </div>
-          <ProgressiveBlur
-            className="absolute inset-0 pointer-events-none"
-            direction="right"
-            blurLayers={10}
-            blurIntensity={5}
-          />
+        {/* Test box - super visible */}
+        <div style={{ 
+          position: 'fixed',
+          top: '100px',
+          left: '100px',
+          width: '400px',
+          height: '300px',
+          background: 'red',
+          zIndex: 9999,
+          border: '5px solid yellow',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '30px',
+          color: 'white',
+          fontWeight: 'bold'
+        }}>
+          TEST BOX - CAN YOU SEE THIS?
         </div>
 
         {/* Timeline Footer */}
