@@ -8,14 +8,14 @@ import dynamic from "next/dynamic";
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const sections = [
-  { id: "tldr", label: "TL;DR", years: "", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5 }, // Topanga
-  { id: "free", label: "free ideas", years: "2021 – now", location: [-74.006, 40.7128] as [number, number], zoom: 12 }, // NYC
-  { id: "snap", label: "Snap, Inc.", years: "2018 – 2023", location: [-118.4912, 34.0195] as [number, number], zoom: 12.5 }, // Santa Monica
-  { id: "tribe", label: "A Quest called Tribe", years: "2015 – 2018", location: [-122.4194, 37.7749] as [number, number], zoom: 12 }, // SF
-  { id: "hustle", label: "Hustling for fun", years: "2012 – 2014", location: [2.3618, 48.8709] as [number, number], zoom: 13.5 }, // 10th arrondissement Paris
-  { id: "lost", label: "Lost in the game", years: "2007 – 2012", location: [2.2885, 48.8412] as [number, number], zoom: 13.5 }, // 15th arrondissement Paris
-  { id: "kid", label: "Another Internet Kid", years: "2005 – 2007", location: [2.5185, 48.8407] as [number, number], zoom: 13 }, // Bry-sur-Marne
-  { id: "social", label: "@ Me", years: "anytime", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5 }, // Topanga
+  { id: "tldr", label: "TL;DR", years: "", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5, city: "topanga, ca" }, // Topanga
+  { id: "free", label: "free ideas", years: "2021 – now", location: [-118.4912, 34.0195] as [number, number], zoom: 12.5, city: "santa monica, ca" }, // Santa Monica
+  { id: "snap", label: "Snap, Inc.", years: "2018 – 2023", location: [-118.4691, 33.9871] as [number, number], zoom: 12.5, city: "venice, ca" }, // Venice
+  { id: "tribe", label: "A Quest called Tribe", years: "2015 – 2018", location: [-122.4194, 37.7749] as [number, number], zoom: 12, city: "san francisco, ca" }, // SF
+  { id: "hustle", label: "Hustling for fun", years: "2012 – 2014", location: [2.3618, 48.8709] as [number, number], zoom: 13.5, city: "paris 10e, fr" }, // 10th arrondissement Paris
+  { id: "lost", label: "Lost in the game", years: "2007 – 2012", location: [2.2885, 48.8412] as [number, number], zoom: 13.5, city: "paris 15e, fr" }, // 15th arrondissement Paris
+  { id: "kid", label: "Another Internet Kid", years: "2005 – 2007", location: [2.5185, 48.8407] as [number, number], zoom: 13, city: "bry-sur-marne, fr" }, // Bry-sur-Marne
+  { id: "social", label: "@ Me", years: "anytime", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5, city: "" }, // Topanga
 ];
 
 const content: Record<string, React.ReactElement> = {
@@ -192,10 +192,19 @@ export default function Home() {
                   </h2>
                 </div>
                 
-                {/* Content */}
-                <div>
+                {/* Content with padding */}
+                <div style={{ paddingTop: '30px', paddingBottom: '30px' }}>
                   {content[section.id]}
                 </div>
+                
+                {/* Location indicator */}
+                {section.city && (
+                  <div style={{ padding: '0 20px', marginTop: '10px' }}>
+                    <p className="text-white lowercase" style={{ fontSize: '0.875rem', opacity: 0.7 }}>
+                      📍 {section.city}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           ))}

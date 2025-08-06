@@ -53,8 +53,8 @@ export default function Map({ center, zoom, onLoad }: MapProps) {
         // Preload all location tiles and flight paths
         const locations = [
           { center: [-118.5976, 34.0378], zoom: 12.5 }, // Topanga
-          { center: [-74.006, 40.7128], zoom: 12 }, // NYC
           { center: [-118.4912, 34.0195], zoom: 12.5 }, // Santa Monica
+          { center: [-118.4691, 33.9871], zoom: 12.5 }, // Venice
           { center: [-122.4194, 37.7749], zoom: 12 }, // SF
           { center: [2.3618, 48.8709], zoom: 13.5 }, // 10th arrondissement
           { center: [2.2885, 48.8412], zoom: 13.5 }, // 15th arrondissement
