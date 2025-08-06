@@ -206,8 +206,8 @@ export default function Home() {
           className="fixed inset-0 pointer-events-none z-10"
           style={{
             background: `
-              radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0, 0, 0, 0.1) 70%, rgba(0, 0, 0, 0.3) 100%),
-              linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, transparent 30%)
+              radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(191, 191, 191, 0.3) 70%, rgba(191, 191, 191, 0.8) 100%),
+              linear-gradient(to top, rgba(191, 191, 191, 0.8) 0%, transparent 30%)
             `
           }}
         />
