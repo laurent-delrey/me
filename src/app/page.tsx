@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
-import { ProgressiveBlur } from "@/components/motion-primitives/progressive-blur";
 
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
@@ -210,70 +209,36 @@ export default function Home() {
             background: 'linear-gradient(to top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 50%, transparent 100%)'
           }}
         >
-          <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-            {/* Timeline content - behind the blur */}
-            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div 
-                className="flex items-center"
-                style={{ 
-                  transform: `translateX(${activeSection * 120 - (sections.length - 1) * 60}px)`,
-                  transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
-                }}
-              >
-                {sections.slice().reverse().map((section, reverseIndex) => {
-                  const index = sections.length - 1 - reverseIndex;
-                  return (
-                  <button
-                    key={section.id}
-                    onClick={() => scrollToSection(index)}
-                    className={`text-white lowercase whitespace-nowrap transition-all duration-300`}
-                    style={{ 
-                      fontSize: '0.875rem',
-                      opacity: activeSection === index ? 1 : 0.4,
-                      transform: activeSection === index ? 'scale(1.1)' : 'scale(1)',
-                      minWidth: '120px',
-                      padding: '0 10px',
-                      textAlign: 'center'
-                    }}
-                  >
-                    <span className="block">
-                      {index === 0 ? 'scroll to start ↓' : (section.years || '')}
-                    </span>
-                  </button>
-                )})}
-              </div>
+          <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div 
+              className="flex items-center"
+              style={{ 
+                transform: `translateX(${activeSection * 120 - (sections.length - 1) * 60}px)`,
+                transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}
+            >
+              {sections.slice().reverse().map((section, reverseIndex) => {
+                const index = sections.length - 1 - reverseIndex;
+                return (
+                <button
+                  key={section.id}
+                  onClick={() => scrollToSection(index)}
+                  className={`text-white lowercase whitespace-nowrap transition-all duration-300`}
+                  style={{ 
+                    fontSize: '0.875rem',
+                    opacity: activeSection === index ? 1 : 0.4,
+                    transform: activeSection === index ? 'scale(1.1)' : 'scale(1)',
+                    minWidth: '120px',
+                    padding: '0 10px',
+                    textAlign: 'center'
+                  }}
+                >
+                  <span className="block">
+                    {index === 0 ? 'scroll to start ↓' : (section.years || '')}
+                  </span>
+                </button>
+              )})}
             </div>
-            
-            {/* Test backdrop-filter directly */}
-            <div style={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: '100px',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
-              background: 'rgba(255, 255, 255, 0.1)',
-              pointerEvents: 'none',
-              zIndex: 20,
-            }} />
-            
-            {/* Progressive blur overlays - on top of content */}
-            <ProgressiveBlur
-              className="pointer-events-none absolute left-0 top-0 h-full"
-              style={{ width: '150px' }}
-              direction="right"
-              blurLayers={8}
-              blurIntensity={4}
-            />
-            
-            <ProgressiveBlur
-              className="pointer-events-none absolute right-0 top-0 h-full"
-              style={{ width: '150px' }}
-              direction="left"
-              blurLayers={8}
-              blurIntensity={4}
-            />
           </div>
         </div>
       </main>
