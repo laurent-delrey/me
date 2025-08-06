@@ -202,24 +202,41 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Test box - super visible */}
+        {/* Test box with ProgressiveBlur */}
         <div style={{ 
           position: 'fixed',
           top: '100px',
           left: '100px',
           width: '400px',
           height: '300px',
-          background: 'red',
           zIndex: 9999,
-          border: '5px solid yellow',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '30px',
-          color: 'white',
-          fontWeight: 'bold'
         }}>
-          TEST BOX - CAN YOU SEE THIS?
+          {/* Content to blur */}
+          <div style={{
+            width: '100%',
+            height: '100%',
+            background: 'linear-gradient(45deg, red, blue, green, yellow)',
+            border: '5px solid yellow',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '30px',
+            color: 'white',
+            fontWeight: 'bold',
+            position: 'absolute',
+            inset: 0,
+          }}>
+            SHOULD BE BLURRED →
+          </div>
+          
+          {/* ProgressiveBlur overlay */}
+          <ProgressiveBlur
+            className="absolute inset-0 pointer-events-none"
+            style={{ zIndex: 10 }}
+            direction="right"
+            blurLayers={10}
+            blurIntensity={5}
+          />
         </div>
 
         {/* Timeline Footer */}
