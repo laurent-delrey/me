@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
+import { ProgressiveBlur } from "@/components/ProgressiveBlur";
 
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
@@ -205,11 +206,36 @@ export default function Home() {
         <div 
           className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
           style={{ 
-            height: '80px',
-            background: 'linear-gradient(to top, rgba(0,0,0,0.1) 0%, transparent 100%)'
+            height: '120px',
+            background: 'linear-gradient(to top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 50%, transparent 100%)'
           }}
         >
           <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {/* Progressive blur on left edge */}
+            <ProgressiveBlur
+              style={{ 
+                left: 0,
+                top: 0,
+                bottom: 0,
+                width: '150px',
+              }}
+              direction="right"
+              blurLayers={8}
+              blurIntensity={1}
+            />
+            
+            {/* Progressive blur on right edge */}
+            <ProgressiveBlur
+              style={{ 
+                right: 0,
+                top: 0,
+                bottom: 0,
+                width: '150px',
+              }}
+              direction="left"
+              blurLayers={8}
+              blurIntensity={1}
+            />
               <div 
                 className="flex items-center"
                 style={{ 
