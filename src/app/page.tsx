@@ -209,13 +209,11 @@ export default function Home() {
             background: 'linear-gradient(to top, rgba(0,0,0,0.1) 0%, transparent 100%)'
           }}
         >
-          <div style={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
+          <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div 
               className="flex items-center"
               style={{ 
-                position: 'absolute',
-                left: '50%',
-                transform: `translateX(calc(-50% - ${activeSection * 120}px))`,
+                transform: `translateX(${-activeSection * 120}px)`,
                 transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
             >
