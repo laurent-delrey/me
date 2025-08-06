@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
+import { ProgressiveBlur } from "motion-primitives";
 
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
@@ -209,35 +210,52 @@ export default function Home() {
             background: 'linear-gradient(to top, rgba(0,0,0,0.1) 0%, transparent 100%)'
           }}
         >
-          <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div 
-              className="flex items-center"
-              style={{ 
-                transform: `translateX(${activeSection * 120 - (sections.length - 1) * 60}px)`,
-                transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
-              }}
-            >
-              {sections.slice().reverse().map((section, reverseIndex) => {
-                const index = sections.length - 1 - reverseIndex;
-                return (
-                <button
-                  key={section.id}
-                  onClick={() => scrollToSection(index)}
-                  className={`text-white lowercase whitespace-nowrap transition-all duration-300`}
-                  style={{ 
-                    fontSize: '0.875rem',
-                    opacity: activeSection === index ? 1 : 0.4,
-                    transform: activeSection === index ? 'scale(1.1)' : 'scale(1)',
-                    minWidth: '120px',
-                    padding: '0 10px',
-                    textAlign: 'center'
-                  }}
-                >
-                  <span className="block">
-                    {index === 0 ? 'scroll to start ↓' : (section.years || '')}
-                  </span>
-                </button>
-              )})}
+          <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+            {/* Progressive blur on left edge */}
+            <ProgressiveBlur
+              className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none"
+              style={{ width: '150px' }}
+              direction="left"
+            />
+            
+            {/* Progressive blur on right edge */}
+            <ProgressiveBlur
+              className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none"
+              style={{ width: '150px' }}
+              direction="right"
+            />
+            
+            {/* Timeline content */}
+            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div 
+                className="flex items-center"
+                style={{ 
+                  transform: `translateX(${activeSection * 120 - (sections.length - 1) * 60}px)`,
+                  transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+                }}
+              >
+                {sections.slice().reverse().map((section, reverseIndex) => {
+                  const index = sections.length - 1 - reverseIndex;
+                  return (
+                  <button
+                    key={section.id}
+                    onClick={() => scrollToSection(index)}
+                    className={`text-white lowercase whitespace-nowrap transition-all duration-300`}
+                    style={{ 
+                      fontSize: '0.875rem',
+                      opacity: activeSection === index ? 1 : 0.4,
+                      transform: activeSection === index ? 'scale(1.1)' : 'scale(1)',
+                      minWidth: '120px',
+                      padding: '0 10px',
+                      textAlign: 'center'
+                    }}
+                  >
+                    <span className="block">
+                      {index === 0 ? 'scroll to start ↓' : (section.years || '')}
+                    </span>
+                  </button>
+                )})}
+              </div>
             </div>
           </div>
         </div>
