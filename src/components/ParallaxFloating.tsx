@@ -57,13 +57,13 @@ export default function ParallaxFloating({ assets }: { assets: ParallaxAsset[] }
     >
       {items.map((asset, idx) => {
         const d = typeof asset.depth === "number" ? Math.max(0, Math.min(1, asset.depth)) : 0.5;
-        const parallaxScale = 0.6 + d * 0.8; // deeper = stronger parallax
+        const parallaxScale = 0.7 + d * 0.9; // slightly stronger movement
         const translateX = useTransform(x, (nx) => nx * asset.strength * 100 * parallaxScale);
         const translateY = useTransform(y, (ny) => ny * asset.strength * 100 * parallaxScale);
         const baseLeft = `calc(50% + ${asset.xPct}%)`;
         const baseTop = `calc(50% + ${asset.yPct}%)`;
-        const scale = 0.95 + d * 0.2;
-        const blurPx = Math.round((1 - d) * 2); // nearer = less blur
+        const scale = 1.0 + d * 0.25; // make elements a bit larger overall
+        const blurPx = 0; // remove blur
         const zIndex = 1 + Math.round(d * 8);
 
         return (
@@ -80,7 +80,7 @@ export default function ParallaxFloating({ assets }: { assets: ParallaxAsset[] }
               rotate: asset.rotate ?? 0,
               scale,
               zIndex,
-              filter: `blur(${blurPx}px) drop-shadow(0 8px 24px rgba(0,0,0,0.35))`,
+              filter: blurPx ? `blur(${blurPx}px)` : 'none',
             }}
           >
             {/* Try to load as video; if it fails, the element will just not render visually */}
@@ -90,7 +90,7 @@ export default function ParallaxFloating({ assets }: { assets: ParallaxAsset[] }
               loop
               autoPlay
               playsInline
-              style={{ width: "100%", height: "auto", borderRadius: 12, opacity: 0.9 }}
+              style={{ width: "100%", height: "auto", borderRadius: 0, opacity: 1 }}
               onError={() => {
                 /* swallow */
               }}
