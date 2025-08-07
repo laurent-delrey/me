@@ -9,7 +9,7 @@ import { IPadCursor } from "@/components/IPadCursor";
 
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
-const ParallaxLayer = dynamic(() => import("@/components/ParallaxLayer"), { ssr: false });
+const HorizontalCarousel = dynamic(() => import("@/components/HorizontalCarousel"), { ssr: false });
 
 const sections = [
   { id: "tldr", label: "TL;DR", years: "", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5, city: "topanga, ca" }, // Topanga
@@ -82,8 +82,8 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   free_media: (
     <>
-      {/* Full-bleed parallax gallery; map stays at Santa Monica */}
-      <ParallaxLayer />
+      {/* Horizontal scroll carousel; map stays at Santa Monica */}
+      <HorizontalCarousel />
     </>
   ),
   snap: (
@@ -488,21 +488,17 @@ export default function Home() {
             <div 
               key={section.id}
               ref={el => { sectionRefs.current[index] = el; }}
-              className="min-h-screen flex flex-col items-center justify-center relative"
+              className={section.id === 'free_media' ? '' : 'min-h-screen flex flex-col items-center justify-center relative'}
               style={{ 
-                scrollSnapAlign: 'center'
+                scrollSnapAlign: section.id === 'free_media' ? 'none' : 'center',
+                height: section.id === 'free_media' ? 'auto' : undefined
               }}
             >
               {/* Full-bleed media section gets special treatment */}
               {section.id === 'free_media' ? (
                 <div style={{ 
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
                   width: '100%',
-                  height: '100%'
+                  height: 'auto'
                 }}>
                   {getContent(activeSection)[section.id]}
                 </div>
