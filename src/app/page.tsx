@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
 import { AnimatedText } from "@/components/AnimatedText";
-import { ProgressiveBlur } from "@/components/motion-primitives/progressive-blur";
 
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
@@ -258,8 +257,16 @@ export default function Home() {
           }}
         >
           <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-            {/* Timeline items container */}
-            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {/* Timeline items container with transparent fade */}
+            <div style={{ 
+              width: '100%', 
+              height: '100%', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              maskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)'
+            }}>
               <div 
                 className="flex items-center"
               style={{ 
@@ -290,24 +297,6 @@ export default function Home() {
               )})}
               </div>
             </div>
-            
-            {/* Progressive blur on left edge - positioned to overlap content */}
-            <ProgressiveBlur 
-              direction="left"
-              className="absolute left-0 top-0 bottom-0 pointer-events-none z-10"
-              style={{ width: '200px' }}
-              blurLayers={10}
-              blurIntensity={1.5}
-            />
-            
-            {/* Progressive blur on right edge - positioned to overlap content */}
-            <ProgressiveBlur 
-              direction="right"
-              className="absolute right-0 top-0 bottom-0 pointer-events-none z-10"
-              style={{ width: '200px' }}
-              blurLayers={10}
-              blurIntensity={1.5}
-            />
           </div>
         </div>
       </main>
