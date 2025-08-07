@@ -9,7 +9,7 @@ import { IPadCursor } from "@/components/IPadCursor";
 
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
-const HorizontalCarousel = dynamic(() => import("@/components/HorizontalCarousel"), { ssr: false });
+const VideoStack = dynamic(() => import("@/components/VideoStack"), { ssr: false });
 
 const sections = [
   { id: "tldr", label: "TL;DR", years: "", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5, city: "topanga, ca" }, // Topanga
@@ -82,8 +82,8 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   free_media: (
     <>
-      {/* Horizontal scroll carousel; map stays at Santa Monica */}
-      <HorizontalCarousel />
+      {/* Vertical stack of videos; map stays at Santa Monica */}
+      <VideoStack />
     </>
   ),
   snap: (
@@ -430,8 +430,19 @@ export default function Home() {
       const scrollTop = container.scrollTop;
       const containerHeight = container.clientHeight;
       
-      // Each section takes one viewport height of scroll
-      const currentSectionIndex = Math.round(scrollTop / containerHeight);
+      // Find which section we're in based on scroll position
+      let currentSectionIndex = 0;
+      let accumulatedHeight = 0;
+      
+      for (let i = 0; i < sections.length; i++) {
+        const sectionHeight = sections[i].id === 'free_media' ? containerHeight * 6 : containerHeight;
+        if (scrollTop < accumulatedHeight + sectionHeight / 2) {
+          currentSectionIndex = i;
+          break;
+        }
+        accumulatedHeight += sectionHeight;
+        currentSectionIndex = i;
+      }
       
       // Clamp to valid range
       const newActiveSection = Math.max(0, Math.min(sections.length - 1, currentSectionIndex));
@@ -449,11 +460,9 @@ export default function Home() {
   }, [activeSection]);
 
   const scrollToSection = (index: number) => {
-    if (!scrollContainerRef.current) return;
-    const targetScrollTop = index * window.innerHeight;
-    scrollContainerRef.current.scrollTo({
-      top: targetScrollTop,
-      behavior: 'smooth'
+    sectionRefs.current[index]?.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start' 
     });
   };
 
@@ -475,7 +484,7 @@ export default function Home() {
         {/* Vertical Scroll Progress */}
         <VerticalScrollProgress containerRef={scrollContainerRef} />
         
-        {/* Horizontal Sections Container */}
+        {/* Scrollable Content */}
         <div 
           ref={scrollContainerRef}
           className="h-full overflow-y-auto scroll-smooth hide-scrollbar"
@@ -483,78 +492,67 @@ export default function Home() {
             scrollSnapType: 'y mandatory'
           }}
         >
-          {/* Tall container to capture scroll */}
-          <div style={{ height: `${sections.length * 100}vh` }}>
-            {/* Sticky container for horizontal movement */}
-            <div className="sticky top-0 h-screen w-screen overflow-hidden">
-              {/* Sliding sections container */}
-              <div 
-                className="flex h-full transition-transform duration-500 ease-out"
-                style={{ 
-                  transform: `translateX(-${activeSection * 100}vw)`,
-                  width: `${sections.length * 100}vw`
-                }}
-              >
-                {sections.map((section, index) => (
-                  <div 
-                    key={section.id}
-                    ref={el => { sectionRefs.current[index] = el; }}
-                    className="w-screen h-screen flex-shrink-0 flex items-center justify-center relative"
-                  >
-                    {/* Special treatment for free_media section */}
-                    {section.id === 'free_media' ? (
-                      <div className="w-full h-full flex items-center justify-center">
-                        {getContent(activeSection)[section.id]}
-                      </div>
-                    ) : (
-                      <div style={{ maxWidth: '480px', width: '100%', position: 'relative', zIndex: 1 }}>
-                        {/* Section Title */}
-                        {section.label && (
-                          <div 
-                            className="mb-4"
-                            style={{ 
-                              padding: '0 20px'
-                            }}
-                          >
-                            <h2 className="text-white lowercase text-shadow" style={{ 
-                              fontSize: '1.125rem', 
-                              lineHeight: '1.5', 
-                              fontWeight: 500
-                            }}>
-                              {section.label}
-                            </h2>
-                          </div>
-                        )}
-                        
-                        {/* Content with padding */}
-                        <div style={{ 
-                          paddingTop: '15px', 
-                          paddingBottom: '15px'
-                        }}>
-                          {getContent(activeSection)[section.id]}
-                        </div>
-                        
-                        {/* Location indicator */}
-                        {section.city && (
-                          <div style={{ 
-                            padding: '0 20px', 
-                            marginTop: '10px'
-                          }}>
-                            <p className="text-white lowercase text-shadow" style={{ 
-                              fontSize: '0.875rem', 
-                              opacity: 0.7
-                            }}>
-                              {section.city}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    )}
+          {sections.map((section, index) => (
+            <div 
+              key={section.id}
+              ref={el => { sectionRefs.current[index] = el; }}
+              className={section.id === 'free_media' ? '' : 'min-h-screen flex flex-col items-center justify-center relative'}
+              style={{ 
+                scrollSnapAlign: section.id === 'free_media' ? 'start' : 'center',
+                minHeight: section.id === 'free_media' ? '600vh' : undefined
+              }}
+            >
+              {/* Special treatment for free_media section */}
+              {section.id === 'free_media' ? (
+                <div className="w-full h-full">
+                  {getContent(activeSection)[section.id]}
+                </div>
+              ) : (
+                <div style={{ maxWidth: '480px', width: '100%', position: 'relative', zIndex: 1 }}>
+                  {/* Section Title */}
+                  {section.label && (
+                    <div 
+                      className="mb-4"
+                      style={{ 
+                        padding: '0 20px'
+                      }}
+                    >
+                      <h2 className="text-white lowercase text-shadow" style={{ 
+                        fontSize: '1.125rem', 
+                        lineHeight: '1.5', 
+                        fontWeight: 500
+                      }}>
+                        {section.label}
+                      </h2>
+                    </div>
+                  )}
+                  
+                  {/* Content with padding */}
+                  <div style={{ 
+                    paddingTop: '15px', 
+                    paddingBottom: '15px'
+                  }}>
+                    {getContent(activeSection)[section.id]}
                   </div>
-                ))}
-              </div>
+                  
+                  {/* Location indicator */}
+                  {section.city && (
+                    <div style={{ 
+                      padding: '0 20px', 
+                      marginTop: '10px'
+                    }}>
+                      <p className="text-white lowercase text-shadow" style={{ 
+                        fontSize: '0.875rem', 
+                        opacity: 0.7
+                      }}>
+                        {section.city}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
-          </div>
+          ))}
         </div>
 
         {/* Vignette overlay */}

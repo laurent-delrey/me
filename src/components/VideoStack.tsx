@@ -9,17 +9,13 @@ const videos = [
   "/videos/parallax/laurentdelrey-1568364141525749762-20220909-182204-img1_lSIvH4Wo.mp4",
 ];
 
-export default function HorizontalCarousel() {
+export default function VideoStack() {
   return (
-    <div className="flex gap-8 overflow-x-auto hide-scrollbar py-8 px-8">
+    <div className="w-full h-full">
       {videos.map((src, index) => (
         <div
           key={index}
-          className="flex-none"
-          style={{ 
-            width: "400px",
-            height: "600px"
-          }}
+          className="w-full h-screen flex items-center justify-center"
         >
           <video
             src={src}
@@ -27,7 +23,8 @@ export default function HorizontalCarousel() {
             loop
             autoPlay
             playsInline
-            className="w-full h-full object-cover rounded-lg"
+            className="w-full h-full object-cover"
+            style={{ borderRadius: 0 }}
           />
         </div>
       ))}
