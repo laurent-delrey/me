@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
 import { AnimatedText } from "@/components/AnimatedText";
-import { ProgressiveBlur } from "@/components/motion-primitives/progressive-blur";
 
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
@@ -291,22 +290,22 @@ export default function Home() {
               </div>
             </div>
             
-            {/* Progressive blur on left edge */}
-            <ProgressiveBlur 
-              direction="left"
+            {/* Gradient fade on left edge */}
+            <div 
               className="absolute left-0 top-0 bottom-0 pointer-events-none"
-              style={{ width: '100px' }}
-              blurLayers={8}
-              blurIntensity={1}
+              style={{ 
+                width: '120px',
+                background: 'linear-gradient(to right, rgba(150, 150, 150, 0.8) 0%, rgba(150, 150, 150, 0.4) 50%, transparent 100%)'
+              }}
             />
             
-            {/* Progressive blur on right edge */}
-            <ProgressiveBlur 
-              direction="right"
+            {/* Gradient fade on right edge */}
+            <div 
               className="absolute right-0 top-0 bottom-0 pointer-events-none"
-              style={{ width: '100px' }}
-              blurLayers={8}
-              blurIntensity={1}
+              style={{ 
+                width: '120px',
+                background: 'linear-gradient(to left, rgba(150, 150, 150, 0.8) 0%, rgba(150, 150, 150, 0.4) 50%, transparent 100%)'
+              }}
             />
           </div>
         </div>
