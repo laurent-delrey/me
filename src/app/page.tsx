@@ -10,7 +10,8 @@ const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const sections = [
   { id: "tldr", label: "TL;DR", years: "", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5, city: "topanga, ca" }, // Topanga
-  { id: "free", label: "free ideas", years: "2021 – now", location: [-118.4912, 34.0195] as [number, number], zoom: 12.5, city: "santa monica, ca" }, // Santa Monica
+  { id: "meta", label: "meta", years: "2025 – now", location: [-122.1484, 37.4419] as [number, number], zoom: 12.5, city: "menlo park, ca" }, // Menlo Park
+  { id: "free", label: "free ideas", years: "2021 – ???", location: [-118.4912, 34.0195] as [number, number], zoom: 12.5, city: "santa monica, ca" }, // Santa Monica
   { id: "snap", label: "Snap, Inc.", years: "2018 – 2023", location: [-118.4691, 33.9871] as [number, number], zoom: 12.5, city: "venice, ca" }, // Venice
   { id: "tribe", label: "A Quest called Tribe", years: "2015 – 2018", location: [-122.4194, 37.7749] as [number, number], zoom: 12, city: "san francisco, ca" }, // SF
   { id: "hustle", label: "Hustling for fun", years: "2012 – 2014", location: [2.3618, 48.8709] as [number, number], zoom: 13.5, city: "paris, france" }, // 10th arrondissement Paris
@@ -31,9 +32,19 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
       </AnimatedText>
     </div>
   ),
+  meta: (
+    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
+      <AnimatedText delay={100} sectionIndex={1} isActive={activeSection === 1} textColor="#7ac0e9">
+        <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
+          i joined the meta super intelligence lab in january and have been focusing on prototyping ios experiences.
+          using frontier models at the intersection of social and ai.
+        </p>
+      </AnimatedText>
+    </div>
+  ),
   free: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={1} isActive={activeSection === 1}>
+      <AnimatedText delay={100} sectionIndex={2} isActive={activeSection === 2}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
           i started sharing free ideas organically on twitter, 
           on apr 1 2021. the first idea was an april fool and i kept going from there. 
@@ -44,7 +55,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   snap: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={2} isActive={activeSection === 2}>
+      <AnimatedText delay={100} sectionIndex={3} isActive={activeSection === 3} textColor="#f5fc98">
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
           I've been a member of the core product design team at snapchat. 
           A small pioneer group of inventors who disrupted the space. 
@@ -55,7 +66,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   tribe: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={3} isActive={activeSection === 3}>
+      <AnimatedText delay={100} sectionIndex={4} isActive={activeSection === 4}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
           2 continents. 3 cities. 4 houses. 15 people. 4 products. 1 family. 
           Tribe was a series of social experiments backed by Sequoia Capital and KPCB. 
@@ -66,7 +77,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   hustle: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={4} isActive={activeSection === 4}>
+      <AnimatedText delay={100} sectionIndex={5} isActive={activeSection === 5}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
           I've released a bunch of side projects. From an ironic fan brand inspired by Balenciaga, 
           the missing "Explore" section of Snapchat, or Collectible Cards on the Ethereum network. 
@@ -77,7 +88,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   lost: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={5} isActive={activeSection === 5}>
+      <AnimatedText delay={100} sectionIndex={6} isActive={activeSection === 6}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
           I have a Master Degree in Finance. I've never studied Design at school. 
           During my College years, I created a bunch of Tumblrs receiving 100,000+ visits, 
@@ -90,7 +101,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   kid: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={6} isActive={activeSection === 6}>
+      <AnimatedText delay={100} sectionIndex={7} isActive={activeSection === 7}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
           Born and raised in Paris, France. I started designing at 16 on a cracked version of Photoshop CS2. 
           My first gigs were terrible logos & websites for my Counter Strike friends. 
@@ -101,7 +112,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   social: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={7} isActive={activeSection === 7}>
+      <AnimatedText delay={100} sectionIndex={8} isActive={activeSection === 8}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
           DMs are opened on Twitter and Telegram. 
           I can do email too. 
