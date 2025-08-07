@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
 import { AnimatedText } from "@/components/AnimatedText";
+import { VerticalScrollProgress } from "@/components/VerticalScrollProgress";
 
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
@@ -180,6 +181,9 @@ export default function Home() {
       />
       
       <main className={`h-screen relative z-10 overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`}>
+        {/* Vertical Scroll Progress */}
+        <VerticalScrollProgress containerRef={scrollContainerRef} />
+        
         {/* Scrollable Content */}
         <div 
           ref={scrollContainerRef}
