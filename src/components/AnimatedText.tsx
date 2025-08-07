@@ -12,6 +12,7 @@ interface AnimatedTextProps {
 export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50, sectionIndex = 0, isActive = false }) => {
   const [visibleWords, setVisibleWords] = useState<number>(0);
   const [words, setWords] = useState<string[]>([]);
+  const hasAnimatedRef = useRef(false);
 
   // Parse children to extract text and links - handle on mount
   useEffect(() => {
@@ -42,7 +43,10 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
 
   // Trigger animation when isActive changes
   useEffect(() => {
-    if (isActive && words.length > 0) {
+    if (isActive && words.length > 0 && !hasAnimatedRef.current) {
+      // Mark as animated
+      hasAnimatedRef.current = true;
+      
       // Reset animation
       setVisibleWords(0);
       
@@ -59,6 +63,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
     } else if (!isActive) {
       // Reset when leaving section
       setVisibleWords(0);
+      hasAnimatedRef.current = false;
     }
   }, [isActive, words, delay, sectionIndex]);
 
