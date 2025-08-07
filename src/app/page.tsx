@@ -15,6 +15,8 @@ const sections = [
   { id: "tldr", label: "TL;DR", years: "", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5, city: "topanga, ca" }, // Topanga
   { id: "meta", label: "meta", years: "2025 – ???", location: [-122.1484, 37.4419] as [number, number], zoom: 12.5, city: "menlo park, ca" }, // Menlo Park
   { id: "free", label: "free ideas", years: "2021 – ???", location: [-118.4912, 34.0195] as [number, number], zoom: 12.5, city: "santa monica, ca" }, // Santa Monica
+  // Full-bleed gallery section that keeps the same map position and is hidden from the timeline
+  { id: "free_media", label: "", years: "", location: [-118.4912, 34.0195] as [number, number], zoom: 12.5, city: "", inTimeline: false, fullBleed: true },
   { id: "snap", label: "Snap, Inc.", years: "2018 – 2023", location: [-118.4691, 33.9871] as [number, number], zoom: 12.5, city: "venice, ca" }, // Venice
   { id: "tribe", label: "A Quest called Tribe", years: "2015 – 2018", location: [-122.4194, 37.7749] as [number, number], zoom: 12, city: "san francisco, ca" }, // SF
   { id: "hustle", label: "Hustling for fun", years: "2012 – 2014", location: [2.3618, 48.8709] as [number, number], zoom: 13.5, city: "paris, france" }, // 10th arrondissement Paris
@@ -76,6 +78,12 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
           i use interface elements and internet brands to express my emotions and ideas.
         </p>
       </AnimatedText>
+    </div>
+  ),
+  free_media: (
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      {/* Full-bleed parallax gallery; map stays at Santa Monica */}
+      <ParallaxLayer />
     </div>
   ),
   snap: (
@@ -466,27 +474,25 @@ export default function Home() {
               }}
             >
               {/* Parallax media layer for Free Ideas section, covers full viewport of the section */}
-              {section.id === 'free' && (
-                <div className="absolute left-0 right-0 bottom-0 pointer-events-none" style={{ height: '46vh' }} aria-hidden>
-                  <ParallaxLayer />
-                </div>
-              )}
+              {/* Only overlay the parallax within the Free section if desired; the next section is dedicated full-bleed media */}
               <div style={{ maxWidth: '480px', width: '100%', position: 'relative', zIndex: 1 }}>
                 {/* Section Title */}
-                <div 
-                  className="mb-4"
-                  style={{ 
-                    padding: '0 20px'
-                  }}
-                >
-                  <h2 className="text-white lowercase text-shadow" style={{ 
-                    fontSize: '1.125rem', 
-                    lineHeight: '1.5', 
-                    fontWeight: 500
-                  }}>
-                    {section.label}
-                  </h2>
-                </div>
+                {section.label && (
+                  <div 
+                    className="mb-4"
+                    style={{ 
+                      padding: '0 20px'
+                    }}
+                  >
+                    <h2 className="text-white lowercase text-shadow" style={{ 
+                      fontSize: '1.125rem', 
+                      lineHeight: '1.5', 
+                      fontWeight: 500
+                    }}>
+                      {section.label}
+                    </h2>
+                  </div>
+                )}
                 
                 {/* Content with padding */}
                 <div style={{ 
