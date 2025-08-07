@@ -129,7 +129,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
           
           // Calculate if this link's words are visible
           const linkText = extractText(element.props.children);
-          const linkWordCount = linkText.trim().split(/\s+/).length;
+          const linkWordCount = linkText.trim().split(/\s+/).filter(w => w.length > 0).length;
           const linkStartIndex = wordIndex;
           const linkEndIndex = wordIndex + linkWordCount;
           const isLinkAnimated = linkEndIndex <= visibleWords;
@@ -137,7 +137,26 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
           // Override the color based on animation state
           newProps.style = {
             ...element.props.style,
-            color: isLinkAnimated ? originalColor : '#ffffff',
+            color: isLinkAnimated ? originalColor : 'rgba(255, 255, 255, 0.3)',
+            transition: 'color 0.3s ease-in-out'
+          };
+        }
+        
+        // Check if this is a span with transparency (for DM section)
+        if (element.type === 'span' && element.props.style?.color?.includes('rgba')) {
+          const originalColor = element.props.style.color;
+          
+          // Calculate if this span's words are visible
+          const spanText = extractText(element.props.children);
+          const spanWordCount = spanText.trim().split(/\s+/).filter(w => w.length > 0).length;
+          const spanStartIndex = wordIndex;
+          const spanEndIndex = wordIndex + spanWordCount;
+          const isSpanAnimated = spanEndIndex <= visibleWords;
+          
+          // Override the opacity based on animation state
+          newProps.style = {
+            ...element.props.style,
+            color: isSpanAnimated ? originalColor : 'rgba(255, 255, 255, 0.3)',
             transition: 'color 0.3s ease-in-out'
           };
         }
