@@ -67,13 +67,9 @@ export function IPadCursor() {
       
       // Only reset if not moving to another clickable element
       if (!isMovingToClickable) {
-        // Small delay to prevent flicker between adjacent elements
-        setTimeout(() => {
-          if (!hoveredElement) return;
-          setHoveredElement(null);
-          setElementBounds(null);
-          setIsPointer(false);
-        }, 50);
+        setHoveredElement(null);
+        setElementBounds(null);
+        setIsPointer(false);
       }
     };
 
@@ -89,7 +85,7 @@ export function IPadCursor() {
       document.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mouseout', handleMouseOut);
     };
-  }, [cursorX, cursorY]);
+  }, [cursorX, cursorY, hoveredElement]);
 
   // Calculate cursor size and shape based on hover state
   const cursorSize = isPointer && elementBounds ? {
