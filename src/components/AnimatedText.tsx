@@ -11,7 +11,6 @@ interface AnimatedTextProps {
 
 export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50, sectionIndex = 0, isActive = false }) => {
   const [visibleWords, setVisibleWords] = useState<number>(0);
-  const hasAnimatedRef = useRef(false);
   const [words, setWords] = useState<string[]>([]);
 
   // Parse children to extract text and links - handle on mount
@@ -41,10 +40,11 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
     setWords(parseContent(children));
   }, [children]);
 
-  // Trigger animation when isActive becomes true
+  // Trigger animation when isActive changes
   useEffect(() => {
-    if (isActive && !hasAnimatedRef.current && words.length > 0) {
-      hasAnimatedRef.current = true;
+    if (isActive && words.length > 0) {
+      // Reset animation
+      setVisibleWords(0);
       
       // Longer delay for first section to ensure page is loaded
       const initialDelay = sectionIndex === 0 ? 2000 : 300;
@@ -56,6 +56,9 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
           }, delay * index);
         });
       }, initialDelay);
+    } else if (!isActive) {
+      // Reset when leaving section
+      setVisibleWords(0);
     }
   }, [isActive, words, delay, sectionIndex]);
 
