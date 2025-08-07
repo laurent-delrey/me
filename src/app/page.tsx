@@ -125,6 +125,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [blendMode, setBlendMode] = useState<string>('normal');
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const currentSection = sections[activeSection];
@@ -181,6 +182,31 @@ export default function Home() {
       />
       
       <main className={`h-screen relative z-10 overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`}>
+        {/* Debug Blend Mode Selector */}
+        <div className="fixed top-4 left-4 z-30 bg-black/50 p-2 rounded">
+          <select 
+            value={blendMode}
+            onChange={(e) => setBlendMode(e.target.value)}
+            className="bg-black text-white text-sm p-1 rounded border border-white/30"
+          >
+            <option value="normal">Normal</option>
+            <option value="multiply">Multiply</option>
+            <option value="screen">Screen</option>
+            <option value="overlay">Overlay</option>
+            <option value="darken">Darken</option>
+            <option value="lighten">Lighten</option>
+            <option value="color-dodge">Color Dodge</option>
+            <option value="color-burn">Color Burn</option>
+            <option value="hard-light">Hard Light</option>
+            <option value="soft-light">Soft Light</option>
+            <option value="difference">Difference</option>
+            <option value="exclusion">Exclusion</option>
+            <option value="hue">Hue</option>
+            <option value="saturation">Saturation</option>
+            <option value="color">Color</option>
+            <option value="luminosity">Luminosity</option>
+          </select>
+        </div>
         {/* Scrollable Content */}
         <div 
           ref={scrollContainerRef}
@@ -202,7 +228,10 @@ export default function Home() {
                 {/* Section Title */}
                 <div 
                   className="mb-4"
-                  style={{ padding: '0 20px' }}
+                  style={{ 
+                    padding: '0 20px',
+                    mixBlendMode: blendMode as any
+                  }}
                 >
                   <h2 className="text-white lowercase" style={{ fontSize: '1.125rem', lineHeight: '1.5', fontWeight: 500 }}>
                     {section.label}
@@ -210,13 +239,21 @@ export default function Home() {
                 </div>
                 
                 {/* Content with padding */}
-                <div style={{ paddingTop: '15px', paddingBottom: '15px' }}>
+                <div style={{ 
+                  paddingTop: '15px', 
+                  paddingBottom: '15px',
+                  mixBlendMode: blendMode as any
+                }}>
                   {getContent(activeSection)[section.id]}
                 </div>
                 
                 {/* Location indicator */}
                 {section.city && (
-                  <div style={{ padding: '0 20px', marginTop: '10px' }}>
+                  <div style={{ 
+                    padding: '0 20px', 
+                    marginTop: '10px',
+                    mixBlendMode: blendMode as any
+                  }}>
                     <p className="text-white lowercase" style={{ fontSize: '0.875rem', opacity: 0.7 }}>
                       {section.city}
                     </p>
