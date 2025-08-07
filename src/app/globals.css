@@ -83,6 +83,11 @@ body {
   animation-delay: 0.6s;
 }
 
+/* Text shadow for readability */
+.text-shadow {
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.4);
+}
+
 /* Responsive font sizes */
 @media (max-width: 768px) {
   html {
