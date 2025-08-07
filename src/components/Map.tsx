@@ -6,9 +6,10 @@ interface MapProps {
   center: [number, number];
   zoom: number;
   onLoad?: () => void;
+  showOverlay?: boolean;
 }
 
-export default function Map({ center, zoom, onLoad }: MapProps) {
+export default function Map({ center, zoom, onLoad, showOverlay = true }: MapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
   const animationRef = useRef<any>(null);
@@ -320,19 +321,21 @@ export default function Map({ center, zoom, onLoad }: MapProps) {
           Map Error: {mapError}
         </div>
       )}
-      {/* Gradient overlay */}
-      <div 
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'linear-gradient(to top, rgba(191, 191, 191, 1) 0%, rgba(191, 191, 191, 0.7) 20%, rgba(191, 191, 191, 0.3) 40%, rgba(191, 191, 191, 0) 60%)',
-          pointerEvents: 'none',
-          zIndex: 5
-        }}
-      />
+      {/* Gradient overlay - conditional */}
+      {showOverlay && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'linear-gradient(to top, rgba(191, 191, 191, 1) 0%, rgba(191, 191, 191, 0.7) 20%, rgba(191, 191, 191, 0.3) 40%, rgba(191, 191, 191, 0) 60%)',
+            pointerEvents: 'none',
+            zIndex: 5
+          }}
+        />
+      )}
     </>
   );
 }

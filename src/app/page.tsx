@@ -180,6 +180,7 @@ export default function Home() {
         center={currentSection?.location || [-74.006, 40.7128]} 
         zoom={currentSection?.zoom || 11}
         onLoad={() => setMapLoaded(true)}
+        showOverlay={showVignette}
       />
       
       <main className={`h-screen relative z-10 overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`}>
@@ -235,7 +236,9 @@ export default function Home() {
               ref={el => { sectionRefs.current[index] = el; }}
               className="min-h-screen flex flex-col items-center justify-center relative"
               style={{ 
-                scrollSnapAlign: 'center'
+                scrollSnapAlign: 'center',
+                mixBlendMode: blendMode as any,
+                isolation: 'auto'
               }}
             >
               <div style={{ maxWidth: '480px', width: '100%' }}>
@@ -243,8 +246,7 @@ export default function Home() {
                 <div 
                   className="mb-4"
                   style={{ 
-                    padding: '0 20px',
-                    mixBlendMode: blendMode as any
+                    padding: '0 20px'
                   }}
                 >
                   <h2 className="text-white lowercase" style={{ fontSize: '1.125rem', lineHeight: '1.5', fontWeight: 500 }}>
@@ -255,8 +257,7 @@ export default function Home() {
                 {/* Content with padding */}
                 <div style={{ 
                   paddingTop: '15px', 
-                  paddingBottom: '15px',
-                  mixBlendMode: blendMode as any
+                  paddingBottom: '15px'
                 }}>
                   {getContent(activeSection)[section.id]}
                 </div>
@@ -265,8 +266,7 @@ export default function Home() {
                 {section.city && (
                   <div style={{ 
                     padding: '0 20px', 
-                    marginTop: '10px',
-                    mixBlendMode: blendMode as any
+                    marginTop: '10px'
                   }}>
                     <p className="text-white lowercase" style={{ fontSize: '0.875rem', opacity: 0.7 }}>
                       {section.city}
