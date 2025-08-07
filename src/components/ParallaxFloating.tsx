@@ -51,6 +51,7 @@ export default function ParallaxFloating({ assets }: { assets: ParallaxAsset[] }
       className="pointer-events-none absolute inset-0"
       aria-hidden
       style={{ zIndex: 0 }}
+      role="presentation"
     >
       {items.map((asset, idx) => {
         const translateX = useTransform(x, (nx) => nx * asset.strength * 100);
