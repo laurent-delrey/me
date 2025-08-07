@@ -293,7 +293,7 @@ export default function Home() {
             
             {/* Progressive blur on left edge - positioned to overlap content */}
             <ProgressiveBlur 
-              direction="right"
+              direction="left"
               className="absolute left-0 top-0 bottom-0 pointer-events-none z-10"
               style={{ width: '200px' }}
               blurLayers={10}
@@ -302,7 +302,7 @@ export default function Home() {
             
             {/* Progressive blur on right edge - positioned to overlap content */}
             <ProgressiveBlur 
-              direction="left"
+              direction="right"
               className="absolute right-0 top-0 bottom-0 pointer-events-none z-10"
               style={{ width: '200px' }}
               blurLayers={10}
