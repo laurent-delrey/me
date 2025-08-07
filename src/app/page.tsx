@@ -97,32 +97,32 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             href="https://www.sequoiacap.com" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#98FCE6', textDecoration: 'none' }}
             className="hover:underline"
           >Sequoia Capital</a> and <a 
             href="https://www.kleinerperkins.com" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#98FCE6', textDecoration: 'none' }}
             className="hover:underline"
           >KPCB</a>. 
           A <a 
             href="https://www.producthunt.com/products/tribe-2" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#98FCE6', textDecoration: 'none' }}
             className="hover:underline"
           >messaging app</a>, a <a 
             href="https://techcrunch.com/2017/01/10/tribe-voice/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#98FCE6', textDecoration: 'none' }}
             className="hover:underline"
           >calling app</a> and a <a 
             href="https://www.producthunt.com/products/tribe-3" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#98FCE6', textDecoration: 'none' }}
             className="hover:underline"
           >gaming app</a>.
         </p>
@@ -137,27 +137,27 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             href="https://www.instagram.com/balencyoga/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#9F98FC', textDecoration: 'none' }}
             className="hover:underline"
           >Balenciaga</a>, 
           the missing "Explore" section of <a 
             href="https://techcrunch.com/2014/10/10/snapcat/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#9F98FC', textDecoration: 'none' }}
             className="hover:underline"
           >Snapchat</a>, or Collectible Cards on the <a 
             href="https://nytimes.com/2014/02/23/business/a-venture-fund-with-plenty-of-virtual-capital-but-no-capitalist.html" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#9F98FC', textDecoration: 'none' }}
             className="hover:underline"
           >Ethereum network</a>. 
           The one that blew up the most though was a controversial email-based app called <a 
             href="https://www.producthunt.com/products/leak-3" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#9F98FC', textDecoration: 'none' }}
             className="hover:underline"
           >Leak</a>.
         </p>
@@ -173,7 +173,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             href="https://www.tumblr.com" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#FC98C3', textDecoration: 'none' }}
             className="hover:underline"
           >Tumblrs</a> receiving 100,000+ visits, 
           curated a newsletter of torrent links called Le Video Club (RIP), 
@@ -181,13 +181,13 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             href="https://www.leetchi.com" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#FC98C3', textDecoration: 'none' }}
             className="hover:underline"
           >Leetchi</a> - the "Hottest Startup #1 in Paris (<a 
             href="https://www.wired.com" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#FC98C3', textDecoration: 'none' }}
             className="hover:underline"
           >Wired</a>)" 
           and also created my first social app.
