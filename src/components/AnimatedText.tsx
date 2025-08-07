@@ -10,29 +10,105 @@ interface AnimatedTextProps {
 }
 
 export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50, sectionIndex = 0, isActive = false }) => {
-  const [showAnimation, setShowAnimation] = useState(false);
+  const [visibleWords, setVisibleWords] = useState<number>(0);
   const hasAnimatedRef = useRef(false);
+  const [words, setWords] = useState<string[]>([]);
+
+  // Parse children to extract text and links - handle on mount
+  useEffect(() => {
+    const parseContent = (node: React.ReactNode): string[] => {
+      const words: string[] = [];
+      
+      const processNode = (n: React.ReactNode): void => {
+        if (typeof n === 'string') {
+          // Trim and filter out empty strings
+          const nodeWords = n.trim().split(/\s+/).filter(word => word.length > 0);
+          words.push(...nodeWords);
+        } else if (React.isValidElement(n)) {
+          // Process children of React elements recursively
+          React.Children.forEach((n as any).props.children, (child: React.ReactNode) => {
+            processNode(child);
+          });
+        } else if (Array.isArray(n)) {
+          n.forEach(processNode);
+        }
+      };
+      
+      React.Children.forEach(node, processNode);
+      return words;
+    };
+
+    setWords(parseContent(children));
+  }, [children]);
 
   // Trigger animation when isActive becomes true
   useEffect(() => {
-    if (isActive && !hasAnimatedRef.current) {
+    if (isActive && !hasAnimatedRef.current && words.length > 0) {
       hasAnimatedRef.current = true;
+      
       // Small delay to ensure visibility
       setTimeout(() => {
-        setShowAnimation(true);
-      }, 500);
+        words.forEach((_, index) => {
+          setTimeout(() => {
+            setVisibleWords(prev => index + 1);
+          }, delay * index);
+        });
+      }, 300);
     }
-  }, [isActive]);
+  }, [isActive, words, delay]);
 
-  // Simple opacity animation for the whole block
-  return (
-    <div 
-      style={{
-        opacity: showAnimation ? 1 : 0.3,
-        transition: `opacity ${delay * 20}ms ease-in-out`,
-      }}
-    >
-      {children}
-    </div>
-  );
+  // Rebuild the content with animated words
+  const renderAnimatedContent = () => {
+    let wordIndex = 0;
+    
+    const processNode = (node: React.ReactNode): React.ReactNode => {
+      if (typeof node === 'string') {
+        const trimmed = node.trim();
+        if (!trimmed) return node;
+        
+        const leadingSpace = node.match(/^\s+/)?.[0] || '';
+        const trailingSpace = node.match(/\s+$/)?.[0] || '';
+        const nodeWords = trimmed.split(/\s+/);
+        
+        return (
+          <>
+            {leadingSpace}
+            {nodeWords.map((word, i) => {
+              const currentIndex = wordIndex++;
+              const isVisible = currentIndex < visibleWords;
+              return (
+                <React.Fragment key={`${sectionIndex}-${currentIndex}`}>
+                  <span
+                    style={{
+                      opacity: isVisible ? 1 : 0.3,
+                      transition: 'opacity 0.3s ease-in-out',
+                    }}
+                  >
+                    {word}
+                  </span>
+                  {i < nodeWords.length - 1 && ' '}
+                </React.Fragment>
+              );
+            })}
+            {trailingSpace}
+          </>
+        );
+      } else if (React.isValidElement(node)) {
+        // Clone element and process its children
+        const element = node as React.ReactElement<any>;
+        const newProps = { ...element.props };
+        
+        if (element.props.children) {
+          newProps.children = React.Children.map(element.props.children, processNode);
+        }
+        
+        return React.cloneElement(element, newProps);
+      }
+      return node;
+    };
+
+    return React.Children.map(children, processNode);
+  };
+
+  return <div>{renderAnimatedContent()}</div>;
 };
