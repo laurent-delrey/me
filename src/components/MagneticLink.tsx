@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Magnetic } from '@/components/motion-primitives/magnetic';
+import { Magnetic } from '../../components/motion-primitives/magnetic';
 
 interface MagneticLinkProps {
   href: string;
