@@ -293,18 +293,20 @@ export default function Home() {
             
             {/* Progressive blur on left edge */}
             <ProgressiveBlur 
-              direction="right"
-              className="absolute left-0 top-0 bottom-0 w-20 pointer-events-none"
-              blurLayers={6}
-              blurIntensity={0.5}
+              direction="left"
+              className="absolute left-0 top-0 bottom-0 pointer-events-none"
+              style={{ width: '100px' }}
+              blurLayers={8}
+              blurIntensity={1}
             />
             
             {/* Progressive blur on right edge */}
             <ProgressiveBlur 
-              direction="left"
-              className="absolute right-0 top-0 bottom-0 w-20 pointer-events-none"
-              blurLayers={6}
-              blurIntensity={0.5}
+              direction="right"
+              className="absolute right-0 top-0 bottom-0 pointer-events-none"
+              style={{ width: '100px' }}
+              blurLayers={8}
+              blurIntensity={1}
             />
           </div>
         </div>
