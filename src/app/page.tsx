@@ -132,8 +132,24 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={8} isActive={activeSection === 8}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
-          DMs are opened on Twitter and Telegram. 
-          I can do email too. 
+          DMs are opened on <a 
+            href="https://twitter.com/laurentdelrey" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >Twitter</a> and <a 
+            href="https://t.me/laurentdelrey" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >Telegram</a>. 
+          I can do <a 
+            href="mailto:laurent.desserrey@gmail.com?subject=Hi%20there" 
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >email</a> too. 
           Love.
         </p>
       </AnimatedText>
