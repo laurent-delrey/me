@@ -6,7 +6,7 @@ import { RefObject } from 'react';
 export type VerticalScrollProgressProps = {
   className?: string;
   springOptions?: SpringOptions;
-  containerRef?: RefObject<HTMLDivElement>;
+  containerRef?: RefObject<HTMLDivElement | null>;
 };
 
 const DEFAULT_SPRING_OPTIONS: SpringOptions = {
@@ -22,7 +22,6 @@ export function VerticalScrollProgress({
 }: VerticalScrollProgressProps) {
   const { scrollYProgress } = useScroll({
     container: containerRef,
-    layoutEffect: Boolean(containerRef?.current),
   });
 
   const scaleY = useSpring(scrollYProgress, {
