@@ -198,21 +198,12 @@ export default function Home() {
                 scrollSnapAlign: 'center'
               }}
             >
-              <div style={{ 
-                maxWidth: '480px', 
-                width: '100%',
-                // Add subtle dark backdrop for readability
-                background: 'rgba(0, 0, 0, 0.3)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                borderRadius: '12px',
-                padding: '30px 0'
-              }}>
+              <div style={{ maxWidth: '480px', width: '100%' }}>
                 {/* Section Title */}
                 <div 
                   className="mb-4"
                   style={{ 
-                    padding: '0 30px'
+                    padding: '0 20px'
                   }}
                 >
                   <h2 className="text-white lowercase" style={{ 
@@ -228,8 +219,7 @@ export default function Home() {
                 {/* Content with padding */}
                 <div style={{ 
                   paddingTop: '15px', 
-                  paddingBottom: '15px',
-                  padding: '15px 30px'
+                  paddingBottom: '15px'
                 }}>
                   {getContent(activeSection)[section.id]}
                 </div>
@@ -237,7 +227,7 @@ export default function Home() {
                 {/* Location indicator */}
                 {section.city && (
                   <div style={{ 
-                    padding: '0 30px', 
+                    padding: '0 20px', 
                     marginTop: '10px'
                   }}>
                     <p className="text-white lowercase" style={{ 
