@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
 import { AnimatedText } from "@/components/AnimatedText";
+import { ProgressiveBlur } from "@/components/motion-primitives/progressive-blur";
 
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
@@ -258,7 +259,7 @@ export default function Home() {
         >
           <div style={{ position: 'relative', width: '100%', height: '100%' }}>
             {/* Timeline items container */}
-            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
               <div 
                 className="flex items-center"
               style={{ 
@@ -290,6 +291,21 @@ export default function Home() {
               </div>
             </div>
             
+            {/* Progressive blur on left edge */}
+            <ProgressiveBlur 
+              direction="right"
+              className="absolute left-0 top-0 bottom-0 w-20 pointer-events-none"
+              blurLayers={6}
+              blurIntensity={0.5}
+            />
+            
+            {/* Progressive blur on right edge */}
+            <ProgressiveBlur 
+              direction="left"
+              className="absolute right-0 top-0 bottom-0 w-20 pointer-events-none"
+              blurLayers={6}
+              blurIntensity={0.5}
+            />
           </div>
         </div>
       </main>
