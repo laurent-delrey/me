@@ -157,8 +157,6 @@ export default function Home() {
     const container = scrollContainerRef.current;
     if (container) {
       container.addEventListener('scroll', handleScroll, { passive: true });
-      // Call it once to set initial state
-      handleScroll();
       return () => container.removeEventListener('scroll', handleScroll);
     }
   }, [activeSection]);
