@@ -9,6 +9,7 @@ import { IPadCursor } from "@/components/IPadCursor";
 
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
+const ParallaxLayer = dynamic(() => import("@/components/ParallaxLayer"), { ssr: false });
 
 const sections = [
   { id: "tldr", label: "TL;DR", years: "", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5, city: "topanga, ca" }, // Topanga
@@ -61,20 +62,25 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     </div>
   ),
   free: (
-    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={2} isActive={activeSection === 2}>
-        <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
-          i started sharing free ideas organically on <a 
-            href="https://twitter.com/laurentdelrey" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
-            className="hover:underline"
-          >x</a>, 
-          on apr <span style={{ fontWeight: 600 }}>1</span> <span style={{ fontWeight: 600 }}>2021</span>. the first idea was an april fool and i kept going from there. 
-          i use interface elements and internet brands to express my emotions and ideas.
-        </p>
-      </AnimatedText>
+    <div style={{ maxWidth: '720px', padding: '0 20px' }}>
+      <div style={{ position: 'relative' }}>
+        <AnimatedText delay={100} sectionIndex={2} isActive={activeSection === 2}>
+          <p style={{ fontSize: '1.125rem', lineHeight: '1.75', position: 'relative', zIndex: 1 }} className="text-white lowercase text-left text-shadow">
+            i started sharing free ideas organically on <a 
+              href="https://twitter.com/laurentdelrey" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ color: '#FFC5A9', textDecoration: 'none' }}
+              className="hover:underline"
+            >x</a>, 
+            on apr <span style={{ fontWeight: 600 }}>1</span> <span style={{ fontWeight: 600 }}>2021</span>. the first idea was an april fool and i kept going from there. 
+            i use interface elements and internet brands to express my emotions and ideas.
+          </p>
+        </AnimatedText>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+          <ParallaxLayer />
+        </div>
+      </div>
     </div>
   ),
   snap: (
