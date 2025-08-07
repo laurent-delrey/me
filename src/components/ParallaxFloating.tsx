@@ -15,6 +15,8 @@ export type ParallaxAsset = {
   strength: number;
   /** optional rotation in degrees */
   rotate?: number;
+  /** depth 0..1: affects scale, blur, z-index */
+  depth?: number;
 };
 
 function useMouseParallax() {
@@ -54,10 +56,15 @@ export default function ParallaxFloating({ assets }: { assets: ParallaxAsset[] }
       role="presentation"
     >
       {items.map((asset, idx) => {
-        const translateX = useTransform(x, (nx) => nx * asset.strength * 100);
-        const translateY = useTransform(y, (ny) => ny * asset.strength * 100);
+        const d = typeof asset.depth === "number" ? Math.max(0, Math.min(1, asset.depth)) : 0.5;
+        const parallaxScale = 0.6 + d * 0.8; // deeper = stronger parallax
+        const translateX = useTransform(x, (nx) => nx * asset.strength * 100 * parallaxScale);
+        const translateY = useTransform(y, (ny) => ny * asset.strength * 100 * parallaxScale);
         const baseLeft = `calc(50% + ${asset.xPct}%)`;
         const baseTop = `calc(50% + ${asset.yPct}%)`;
+        const scale = 0.95 + d * 0.2;
+        const blurPx = Math.round((1 - d) * 2); // nearer = less blur
+        const zIndex = 1 + Math.round(d * 8);
 
         return (
           <motion.div
@@ -71,7 +78,9 @@ export default function ParallaxFloating({ assets }: { assets: ParallaxAsset[] }
               translateX,
               translateY,
               rotate: asset.rotate ?? 0,
-              filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.35))",
+              scale,
+              zIndex,
+              filter: `blur(${blurPx}px) drop-shadow(0 8px 24px rgba(0,0,0,0.35))`,
             }}
           >
             {/* Try to load as video; if it fails, the element will just not render visually */}
