@@ -36,8 +36,8 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={1} isActive={activeSection === 1} textColor="#98E6FC">
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
-          i joined the meta super intelligence lab in january and have been focusing on prototyping ios experiences.
-          using frontier models at the intersection of social and ai.
+          i joined the meta super intelligence lab in january and have been playing with frontier models to invent ios experiences 
+          at the intersection of social and ai. learning a ton!
         </p>
       </AnimatedText>
     </div>
@@ -55,7 +55,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   snap: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={3} isActive={activeSection === 3} textColor="#FFEE00">
+      <AnimatedText delay={100} sectionIndex={3} isActive={activeSection === 3} textColor="#F5FC98">
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
           I've been a member of the core product design team at snapchat. 
           A small pioneer group of inventors who disrupted the space. 
