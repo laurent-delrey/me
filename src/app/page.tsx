@@ -467,7 +467,7 @@ export default function Home() {
             >
               {/* Parallax media layer for Free Ideas section, covers full viewport of the section */}
               {section.id === 'free' && (
-                <div className="absolute inset-0 pointer-events-none" aria-hidden>
+                <div className="absolute left-0 right-0 bottom-0 pointer-events-none" style={{ height: '46vh' }} aria-hidden>
                   <ParallaxLayer />
                 </div>
               )}
