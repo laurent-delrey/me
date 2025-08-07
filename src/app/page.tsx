@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { AnimatedText } from "@/components/AnimatedText";
 import { VerticalScrollProgress } from "@/components/VerticalScrollProgress";
 import { IPadCursor } from "@/components/IPadCursor";
+import { MagneticLink } from "@/components/MagneticLink";
 
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
@@ -28,16 +29,26 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
       <AnimatedText delay={100} sectionIndex={0} isActive={activeSection === 0}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
           i'm a designer currently living in nyc. i've been designing different type of things for the internet,
-          from tiny controversial experiments to larger-scale consumer products through conceptual art images and prototypes i share online.
+          from tiny controversial experiments to larger-scale consumer products through conceptual art images and prototypes i share on{' '}
+          <MagneticLink href="https://x.com/laurentdelrey" color="#ffffff">
+            twitter
+          </MagneticLink>.
         </p>
       </AnimatedText>
     </div>
   ),
   meta: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={1} isActive={activeSection === 1} textColor="#98E6FC">
+      <AnimatedText delay={100} sectionIndex={1} isActive={activeSection === 1}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
-          i joined the meta super intelligence lab in january. since then, i've been playing with frontier models to original design ios experiences at the intersection of social and ai. learning a ton!
+          i joined the{' '}
+          <MagneticLink 
+            href="https://www.meta.com/superintelligence/?srsltid=AfmBOopHTK7ev-Yn8V8JQUmsakQSZZPMkmujYBP_nwU114z_P0agW6NN" 
+            color="#98E6FC"
+          >
+            meta
+          </MagneticLink>
+          {' '}super intelligence lab in january. since then, i've been playing with frontier models to original design ios experiences at the intersection of social and ai. learning a ton!
         </p>
       </AnimatedText>
     </div>

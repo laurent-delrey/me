@@ -171,8 +171,10 @@ export function IPadCursor() {
       >
         <motion.div 
           className="w-full h-full bg-white"
+          style={{
+            borderRadius: '999px'
+          }}
           animate={{
-            borderRadius: isPointer ? 12 : 999,
             opacity: isPointer ? 0.8 : 1,
           }}
           transition={{

@@ -8,9 +8,10 @@ interface AnimatedTextProps {
   sectionIndex?: number;
   isActive?: boolean;
   textColor?: string;
+  linkColor?: string;
 }
 
-export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50, sectionIndex = 0, isActive = false, textColor = '#ffffff' }) => {
+export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50, sectionIndex = 0, isActive = false, textColor = '#ffffff', linkColor }) => {
   const [visibleWords, setVisibleWords] = useState<number>(0);
   const [words, setWords] = useState<string[]>([]);
   const hasAnimatedRef = useRef(false);
@@ -92,8 +93,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
                   <span
                     style={{
                       opacity: isVisible ? 1 : 0.3,
-                      color: isVisible ? textColor : 'inherit',
-                      transition: 'opacity 0.3s ease-in-out, color 0.3s ease-in-out',
+                      transition: 'opacity 0.3s ease-in-out',
                     }}
                   >
                     {word}
