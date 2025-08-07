@@ -125,8 +125,6 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
-  const [blendMode, setBlendMode] = useState<string>('normal');
-  const [showVignette, setShowVignette] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const currentSection = sections[activeSection];
@@ -180,48 +178,9 @@ export default function Home() {
         center={currentSection?.location || [-74.006, 40.7128]} 
         zoom={currentSection?.zoom || 11}
         onLoad={() => setMapLoaded(true)}
-        showOverlay={showVignette}
       />
       
-      <main className={`h-screen relative overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`} style={{ isolation: 'isolate' }}>
-        {/* Debug Controls */}
-        <div className="fixed top-4 left-4 z-30 bg-black/50 p-3 rounded space-y-2">
-          <div>
-            <label className="text-white text-xs block mb-1">Blend Mode:</label>
-            <select 
-              value={blendMode}
-              onChange={(e) => setBlendMode(e.target.value)}
-              className="bg-black text-white text-sm p-1 rounded border border-white/30 w-full"
-            >
-              <option value="normal">Normal</option>
-              <option value="multiply">Multiply</option>
-              <option value="screen">Screen</option>
-              <option value="overlay">Overlay</option>
-              <option value="darken">Darken</option>
-              <option value="lighten">Lighten</option>
-              <option value="color-dodge">Color Dodge</option>
-              <option value="color-burn">Color Burn</option>
-              <option value="hard-light">Hard Light</option>
-              <option value="soft-light">Soft Light</option>
-              <option value="difference">Difference</option>
-              <option value="exclusion">Exclusion</option>
-              <option value="hue">Hue</option>
-              <option value="saturation">Saturation</option>
-              <option value="color">Color</option>
-              <option value="luminosity">Luminosity</option>
-            </select>
-          </div>
-          <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              id="vignette"
-              checked={showVignette}
-              onChange={(e) => setShowVignette(e.target.checked)}
-              className="rounded"
-            />
-            <label htmlFor="vignette" className="text-white text-xs">Show Vignette</label>
-          </div>
-        </div>
+      <main className={`h-screen relative z-10 overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`}>
         {/* Scrollable Content */}
         <div 
           ref={scrollContainerRef}
@@ -239,11 +198,7 @@ export default function Home() {
                 scrollSnapAlign: 'center'
               }}
             >
-              <div style={{ 
-                maxWidth: '480px', 
-                width: '100%',
-                mixBlendMode: blendMode as any
-              }}>
+              <div style={{ maxWidth: '480px', width: '100%' }}>
                 {/* Section Title */}
                 <div 
                   className="mb-4"
@@ -280,15 +235,13 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Vignette overlay - conditional based on toggle */}
-        {showVignette && (
-          <div 
-            className="fixed inset-0 pointer-events-none z-10"
-            style={{
-              background: `radial-gradient(ellipse at center, transparent 0%, rgba(191, 191, 191, 0.5) 50%, rgba(191, 191, 191, 1) 90%)`
-            }}
-          />
-        )}
+        {/* Vignette overlay */}
+        <div 
+          className="fixed inset-0 pointer-events-none z-10"
+          style={{
+            background: `radial-gradient(ellipse at center, transparent 0%, rgba(191, 191, 191, 0.5) 50%, rgba(191, 191, 191, 1) 90%)`
+          }}
+        />
 
         {/* Timeline Footer */}
         <div 
