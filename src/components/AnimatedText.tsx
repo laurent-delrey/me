@@ -69,6 +69,18 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
     }
   }, [isActive, words, delay, sectionIndex]);
 
+  // Helper function to extract text from React nodes
+  const extractText = (node: React.ReactNode): string => {
+    if (typeof node === 'string') {
+      return node;
+    } else if (React.isValidElement(node)) {
+      return extractText((node as any).props.children);
+    } else if (Array.isArray(node)) {
+      return node.map(extractText).join(' ');
+    }
+    return '';
+  };
+
   // Rebuild the content with animated words
   const renderAnimatedContent = () => {
     let wordIndex = 0;
@@ -109,6 +121,26 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
         // Clone element and process its children
         const element = node as React.ReactElement<any>;
         const newProps = { ...element.props };
+        
+        // Check if this is a link (anchor tag)
+        if (element.type === 'a' && element.props.style) {
+          // Get the original color from the style
+          const originalColor = element.props.style.color;
+          
+          // Calculate if this link's words are visible
+          const linkText = extractText(element.props.children);
+          const linkWordCount = linkText.trim().split(/\s+/).length;
+          const linkStartIndex = wordIndex;
+          const linkEndIndex = wordIndex + linkWordCount;
+          const isLinkAnimated = linkEndIndex <= visibleWords;
+          
+          // Override the color based on animation state
+          newProps.style = {
+            ...element.props.style,
+            color: isLinkAnimated ? originalColor : '#ffffff',
+            transition: 'color 0.3s ease-in-out'
+          };
+        }
         
         if (element.props.children) {
           newProps.children = React.Children.map(element.props.children, processNode);

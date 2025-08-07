@@ -58,7 +58,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             rel="noopener noreferrer"
             style={{ color: '#ffffff', textDecoration: 'none' }}
             className="hover:underline"
-          >twitter</a>, 
+          >x</a>, 
           on apr <span style={{ fontWeight: 600 }}>1</span> <span style={{ fontWeight: 600 }}>2021</span>. the first idea was an april fool and i kept going from there. 
           i use interface elements and internet brands to express my emotions and ideas.
         </p>
@@ -348,13 +348,14 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             rel="noopener noreferrer"
             style={{ color: '#ffffff', textDecoration: 'none' }}
             className="hover:underline"
-          >Twitter</a> and <a 
+          >X</a> and <a 
             href="https://t.me/laurentdelrey" 
             target="_blank" 
             rel="noopener noreferrer"
             style={{ color: '#ffffff', textDecoration: 'none' }}
             className="hover:underline"
-          >Telegram</a>. 
+          >Telegram</a>.
+          <br />
           I can do <a 
             href="mailto:laurent.desserrey@gmail.com?subject=Hi%20there" 
             style={{ color: '#ffffff', textDecoration: 'none' }}
