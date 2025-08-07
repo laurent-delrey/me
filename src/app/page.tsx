@@ -279,8 +279,9 @@ export default function Home() {
               <div 
                 className="flex items-center"
               style={{ 
-                transform: `translateX(${activeSection * 120 - (sections.length - 1) * 60}px)`,
-                transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+                transform: `translateX(${activeSection * 140 - (sections.length - 1) * 70}px)`,
+                transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                gap: '40px'
               }}
             >
               {sections.slice().reverse().map((section, reverseIndex) => {
@@ -294,9 +295,8 @@ export default function Home() {
                     fontSize: '0.875rem',
                     opacity: activeSection === index ? 1 : 0.4,
                     transform: activeSection === index ? 'scale(1.1)' : 'scale(1)',
-                    minWidth: '120px',
-                    padding: '0 10px',
-                    textAlign: 'center'
+                    padding: '4px 12px',
+                    borderRadius: '6px'
                   }}
                 >
                   <span className="block">
