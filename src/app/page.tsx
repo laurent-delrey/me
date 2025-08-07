@@ -35,9 +35,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={1} isActive={activeSection === 1}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
-          i started sharing free ideas organically on{" "}
-          <a href="https://twitter.com/laurentdelrey" target="_blank" rel="noopener noreferrer" 
-             className="underline hover:no-underline">twitter</a>, 
+          i started sharing free ideas organically on twitter, 
           on apr 1 2021. the first idea was an april fool and i kept going from there. 
           i use interface elements and internet brands to express my emotions and ideas.
         </p>
@@ -48,9 +46,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={2} isActive={activeSection === 2}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
-          I've been a member of the core product design team at{" "}
-          <a href="https://www.snap.com/" target="_blank" rel="noopener noreferrer" 
-             className="underline hover:no-underline">snapchat</a>. 
+          I've been a member of the core product design team at snapchat. 
           A small pioneer group of inventors who disrupted the space. 
           I've been honored to contribute to building for chat, calling, minis and the camera.
         </p>
@@ -107,13 +103,8 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={7} isActive={activeSection === 7}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
-          DMs are opened on{" "}
-          <a href="https://twitter.com/laurentdelrey" target="_blank" rel="noopener noreferrer" 
-             className="underline hover:no-underline">Twitter</a> and{" "}
-          <a href="https://t.me/laurentdelrey" target="_blank" rel="noopener noreferrer" 
-             className="underline hover:no-underline">Telegram</a>. 
-          I can do{" "}
-          <a href="mailto:laurent.desserrey@gmail.com" className="underline hover:no-underline">email</a> too. 
+          DMs are opened on Twitter and Telegram. 
+          I can do email too. 
           Love.
         </p>
       </AnimatedText>
