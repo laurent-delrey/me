@@ -5,21 +5,20 @@ import { useEffect, useMemo } from "react";
 
 export type ParallaxAsset = {
   src: string;
-  /** px size of the media box (width). height auto via video aspect */
-  size: number;
-  /** base position offset from the section center in percent (-50..50). Ignored in grid mode */
-  xPct: number;
-  /** base position offset from the section center in percent (-50..50). Ignored in grid mode */
-  yPct: number;
+  /** Width of the video element in pixels */
+  width: number;
+  /** Height of the video element in pixels */
+  height?: number;
+  /** Position from left in percentage (0-100) */
+  left: number;
+  /** Position from top in percentage (0-100) */
+  top: number;
   /** parallax strength multiplier (0.02..0.5 recommended) */
   strength: number;
   /** optional rotation in degrees */
   rotate?: number;
   /** depth 0..1: affects scale, blur, z-index */
   depth?: number;
-  /** grid spans (optional when using grid layout) */
-  colSpan?: number;
-  rowSpan?: number;
 };
 
 function useMouseParallax() {
@@ -48,80 +47,62 @@ function useMouseParallax() {
 
 type ParallaxFloatingProps = {
   assets: ParallaxAsset[];
-  columns?: number;
-  gap?: number; // px
 };
 
-export default function ParallaxFloating({ assets, columns = 6, gap = 24 }: ParallaxFloatingProps) {
+export default function ParallaxFloating({ assets }: ParallaxFloatingProps) {
   const { x, y } = useMouseParallax();
 
   const items = useMemo(() => assets, [assets]);
 
   return (
     <div
-      className="pointer-events-none absolute inset-0"
+      className="pointer-events-none absolute inset-0 overflow-hidden"
       aria-hidden
-      style={{
-        zIndex: 0,
-        display: "grid",
-        gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
-        gap,
-        alignContent: "center",
-        justifyItems: "stretch",
-      }}
       role="presentation"
     >
       {items.map((asset, idx) => {
         const d = typeof asset.depth === "number" ? Math.max(0, Math.min(1, asset.depth)) : 0.5;
-        // Tight, non-overlapping parallax range (px)
-        const amplitude = 20 + d * 10;
+        // Parallax movement range
+        const amplitude = 50 + d * 30;
         const translateX = useTransform(x, (nx) => nx * asset.strength * amplitude);
         const translateY = useTransform(y, (ny) => ny * asset.strength * amplitude);
-        const colSpan = Math.max(1, Math.min(columns, asset.colSpan ?? 2));
-        const rowSpan = Math.max(1, asset.rowSpan ?? 1);
-        const scale = 1.0; // fixed scale to prevent overlap
-        const blurPx = 0; // remove blur
-        const zIndex = 1 + Math.round(d * 8);
+        const scale = 0.9 + (1 - d) * 0.2; // Depth-based scale
+        const zIndex = Math.round(10 - d * 10);
 
         return (
-          <div
+          <motion.div
             key={idx}
+            className="absolute"
             style={{
-              gridColumn: `span ${colSpan}`,
-              gridRow: `span ${rowSpan}`,
-              width: "100%",
-              aspectRatio: "1 / 1",
-              position: "relative",
-              overflow: "hidden",
+              left: `${asset.left}%`,
+              top: `${asset.top}%`,
+              width: asset.width,
+              height: asset.height || 'auto',
               zIndex,
+              translateX,
+              translateY,
+              rotate: asset.rotate ?? 0,
+              scale,
             }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: idx * 0.1 }}
           >
-            <motion.div
-              style={{
-                position: "absolute",
-                inset: 0,
-                transformOrigin: "center center",
-                translateX,
-                translateY,
-                rotate: asset.rotate ?? 0,
-                scale,
-                filter: blurPx ? `blur(${blurPx}px)` : 'none',
+            <video
+              src={asset.src}
+              muted
+              loop
+              autoPlay
+              playsInline
+              className="w-full h-full object-cover rounded-lg"
+              style={{ 
+                filter: d > 0.7 ? `blur(${(d - 0.7) * 3}px)` : 'none'
               }}
-            >
-              {/* Try to load as video; if it fails, the element will just not render visually */}
-              <video
-                src={asset.src}
-                muted
-                loop
-                autoPlay
-                playsInline
-                style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 0, opacity: 1 }}
-                onError={() => {
-                  /* swallow */
-                }}
-              />
-            </motion.div>
-          </div>
+              onError={() => {
+                /* swallow */
+              }}
+            />
+          </motion.div>
         );
       })}
     </div>
