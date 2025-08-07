@@ -26,7 +26,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   tldr: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={0} isActive={activeSection === 0}>
-        <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
+        <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           i'm a designer currently living in nyc. i've been designing different type of things for the internet,
           from tiny controversial experiments to larger-scale consumer products through conceptual art images and prototypes i share on <a 
             href="https://x.com/laurentdelrey" 
@@ -42,7 +42,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   meta: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={1} isActive={activeSection === 1}>
-        <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
+        <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           i joined the <a 
             href="https://www.meta.com/superintelligence/?srsltid=AfmBOopHTK7ev-Yn8V8JQUmsakQSZZPMkmujYBP_nwU114z_P0agW6NN" 
             target="_blank" 
@@ -57,9 +57,15 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   free: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={2} isActive={activeSection === 2}>
-        <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
-          i started sharing free ideas organically on twitter, 
-          on apr 1 2021. the first idea was an april fool and i kept going from there. 
+        <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
+          i started sharing free ideas organically on <a 
+            href="https://twitter.com/laurentdelrey" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >twitter</a>, 
+          on apr <span style={{ fontWeight: 600 }}>1</span> <span style={{ fontWeight: 600 }}>2021</span>. the first idea was an april fool and i kept going from there. 
           i use interface elements and internet brands to express my emotions and ideas.
         </p>
       </AnimatedText>
@@ -68,7 +74,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   snap: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={3} isActive={activeSection === 3}>
-        <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
+        <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           I've been a member of the core product design team at <a 
             href="https://www.snapchat.com" 
             target="_blank" 
@@ -85,10 +91,40 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   tribe: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={4} isActive={activeSection === 4}>
-        <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
-          2 continents. 3 cities. 4 houses. 15 people. 4 products. 1 family. 
-          Tribe was a series of social experiments backed by Sequoia Capital and KPCB. 
-          A messaging app, a calling app and a gaming app.
+        <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
+          <span style={{ fontWeight: 600 }}>2</span> continents. <span style={{ fontWeight: 600 }}>3</span> cities. <span style={{ fontWeight: 600 }}>4</span> houses. <span style={{ fontWeight: 600 }}>15</span> people. <span style={{ fontWeight: 600 }}>4</span> products. <span style={{ fontWeight: 600 }}>1</span> family. 
+          Tribe was a series of social experiments backed by <a 
+            href="https://www.sequoiacap.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >Sequoia Capital</a> and <a 
+            href="https://www.kleinerperkins.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >KPCB</a>. 
+          A <a 
+            href="https://www.producthunt.com/products/tribe-2" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >messaging app</a>, a <a 
+            href="https://techcrunch.com/2017/01/10/tribe-voice/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >calling app</a> and a <a 
+            href="https://www.producthunt.com/products/tribe-3" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >gaming app</a>.
         </p>
       </AnimatedText>
     </div>
@@ -96,10 +132,34 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   hustle: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={5} isActive={activeSection === 5}>
-        <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
-          I've released a bunch of side projects. From an ironic fan brand inspired by Balenciaga, 
-          the missing "Explore" section of Snapchat, or Collectible Cards on the Ethereum network. 
-          The one that blew up the most though was a controversial email-based app called Leak.
+        <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
+          I've released a bunch of side projects. From an ironic fan brand inspired by <a 
+            href="https://www.instagram.com/balencyoga/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >Balenciaga</a>, 
+          the missing "Explore" section of <a 
+            href="https://techcrunch.com/2014/10/10/snapcat/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >Snapchat</a>, or Collectible Cards on the <a 
+            href="https://nytimes.com/2014/02/23/business/a-venture-fund-with-plenty-of-virtual-capital-but-no-capitalist.html" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >Ethereum network</a>. 
+          The one that blew up the most though was a controversial email-based app called <a 
+            href="https://www.producthunt.com/products/leak-3" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >Leak</a>.
         </p>
       </AnimatedText>
     </div>
@@ -107,11 +167,29 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   lost: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={6} isActive={activeSection === 6}>
-        <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
+        <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           I have a Master Degree in Finance. I've never studied Design at school. 
-          During my College years, I created a bunch of Tumblrs receiving 100,000+ visits, 
+          During my College years, I created a bunch of <a 
+            href="https://www.tumblr.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >Tumblrs</a> receiving 100,000+ visits, 
           curated a newsletter of torrent links called Le Video Club (RIP), 
-          made merch for several French Colleges, interned at Leetchi - the "Hottest Startup #1 in Paris (Wired)" 
+          made merch for several French Colleges, interned at <a 
+            href="https://www.leetchi.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >Leetchi</a> - the "Hottest Startup #1 in Paris (<a 
+            href="https://www.wired.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >Wired</a>)" 
           and also created my first social app.
         </p>
       </AnimatedText>
@@ -120,10 +198,34 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   kid: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={7} isActive={activeSection === 7}>
-        <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
+        <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           Born and raised in Paris, France. I started designing at 16 on a cracked version of Photoshop CS2. 
-          My first gigs were terrible logos & websites for my Counter Strike friends. 
-          AIM, MSN or mIRC. The early days of remote work.
+          My first gigs were terrible logos & websites for my <a 
+            href="https://en.wikipedia.org/wiki/Counter-Strike" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >Counter Strike</a> friends. 
+          <a 
+            href="https://en.wikipedia.org/wiki/AIM_(software)" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >AIM</a>, <a 
+            href="https://en.wikipedia.org/wiki/MSN_Messenger" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >MSN</a> or <a 
+            href="https://en.wikipedia.org/wiki/MIRC" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#ffffff', textDecoration: 'none' }}
+            className="hover:underline"
+          >mIRC</a>. The early days of remote work.
         </p>
       </AnimatedText>
     </div>
@@ -131,7 +233,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   social: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={8} isActive={activeSection === 8}>
-        <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left text-shadow">
+        <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           DMs are opened on <a 
             href="https://twitter.com/laurentdelrey" 
             target="_blank" 

@@ -106,7 +106,7 @@ export function IPadCursor() {
 
   return (
     <motion.div
-      className="pointer-events-none fixed z-[9999] mix-blend-difference"
+      className="pointer-events-none fixed z-[9999]"
       style={{
         left: 0,
         top: 0,
@@ -130,11 +130,11 @@ export function IPadCursor() {
         className="w-full h-full"
         style={{
           borderRadius: '999px',
-          border: '1px solid white',
+          border: '1px solid rgba(255, 255, 255, 0.8)',
           backgroundColor: 'transparent'
         }}
         animate={{
-          opacity: isPointer ? 0.8 : 1,
+          opacity: isPointer ? 0.6 : 1,
         }}
         transition={{
           type: 'spring',
