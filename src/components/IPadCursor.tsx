@@ -11,7 +11,7 @@ export function IPadCursor() {
   const [isPointer, setIsPointer] = useState(false);
 
   // Spring config for smooth animations
-  const springConfig = { stiffness: 500, damping: 28 };
+  const springConfig = { stiffness: 300, damping: 30 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
@@ -58,11 +58,22 @@ export function IPadCursor() {
       const target = e.target as HTMLElement;
       const relatedTarget = e.relatedTarget as HTMLElement;
       
-      // Check if we're leaving a clickable element
-      if (!relatedTarget?.closest('button') && !relatedTarget?.closest('a')) {
-        setHoveredElement(null);
-        setElementBounds(null);
-        setIsPointer(false);
+      // Check if we're moving to another clickable element
+      const isMovingToClickable = 
+        relatedTarget?.tagName === 'BUTTON' ||
+        relatedTarget?.tagName === 'A' ||
+        relatedTarget?.closest('button') ||
+        relatedTarget?.closest('a');
+      
+      // Only reset if not moving to another clickable element
+      if (!isMovingToClickable) {
+        // Small delay to prevent flicker between adjacent elements
+        setTimeout(() => {
+          if (!hoveredElement) return;
+          setHoveredElement(null);
+          setElementBounds(null);
+          setIsPointer(false);
+        }, 50);
       }
     };
 
@@ -111,18 +122,20 @@ export function IPadCursor() {
       animate={{
         width: cursorSize.width,
         height: cursorSize.height,
-        borderRadius: isPointer ? '8px' : '50%',
+        borderRadius: isPointer ? '12px' : '999px',
       }}
       transition={{
         type: 'spring',
-        stiffness: 500,
-        damping: 28,
+        stiffness: 250,
+        damping: 25,
+        mass: 0.5,
       }}
     >
       <div 
-        className="w-full h-full bg-white"
+        className="w-full h-full bg-white rounded-full"
         style={{
           opacity: isPointer ? 0.8 : 1,
+          borderRadius: 'inherit',
         }}
       />
     </motion.div>
