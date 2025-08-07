@@ -52,7 +52,7 @@ export default function ParallaxFloating({ assets }: { assets: ParallaxAsset[] }
     <div
       className="pointer-events-none absolute inset-0"
       aria-hidden
-      style={{ zIndex: 0 }}
+      style={{ zIndex: 0, display: "grid", gridTemplateColumns: "repeat(12, 1fr)", alignItems: "center" }}
       role="presentation"
     >
       {items.map((asset, idx) => {
@@ -60,8 +60,9 @@ export default function ParallaxFloating({ assets }: { assets: ParallaxAsset[] }
         const parallaxScale = 0.7 + d * 0.9; // slightly stronger movement
         const translateX = useTransform(x, (nx) => nx * asset.strength * 100 * parallaxScale);
         const translateY = useTransform(y, (ny) => ny * asset.strength * 100 * parallaxScale);
-        const baseLeft = `calc(50% + ${asset.xPct}%)`;
-        const baseTop = `calc(50% + ${asset.yPct}%)`;
+        // Convert percentage offsets to grid area positioning
+        const colStart = Math.max(1, Math.min(12, Math.round(((asset.xPct + 50) / 100) * 12)));
+        const rowStart = 1; // single row band; items spread horizontally
         const scale = 1.0 + d * 0.25; // make elements a bit larger overall
         const blurPx = 0; // remove blur
         const zIndex = 1 + Math.round(d * 8);
@@ -70,9 +71,8 @@ export default function ParallaxFloating({ assets }: { assets: ParallaxAsset[] }
           <motion.div
             key={idx}
             style={{
-              position: "absolute",
-              left: baseLeft,
-              top: baseTop,
+              gridColumn: `${colStart} / span 2`,
+              gridRow: `${rowStart} / span 1`,
               width: asset.size,
               transformOrigin: "center center",
               translateX,

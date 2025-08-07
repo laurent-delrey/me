@@ -397,6 +397,25 @@ export default function Home() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const currentSection = sections[activeSection];
+  // Map actual sections to legacy indices used by AnimatedText internals
+  const legacyIndexById: Record<string, number> = {
+    tldr: 0,
+    meta: 1,
+    free: 2,
+    free_media: 2,
+    snap: 3,
+    tribe: 4,
+    hustle: 5,
+    lost: 6,
+    kid: 7,
+    social: 8,
+  };
+  const legacyActiveSection = legacyIndexById[currentSection?.id || 'tldr'] ?? 0;
+
+  // Timeline should ignore helper sections (like free_media)
+  const timelineSections = sections.filter((s: any) => s.inTimeline !== false);
+  const timelineDisplayId = currentSection?.id === 'free_media' ? 'free' : currentSection?.id;
+  const timelineActiveIndex = Math.max(0, timelineSections.findIndex((s) => s.id === timelineDisplayId));
 
   useEffect(() => {
     setMounted(true);
@@ -464,7 +483,7 @@ export default function Home() {
             scrollSnapType: 'y mandatory'
           }}
         >
-          {sections.map((section, index) => (
+           {sections.map((section, index) => (
             <div 
               key={section.id}
               ref={el => { sectionRefs.current[index] = el; }}
@@ -530,7 +549,7 @@ export default function Home() {
         />
 
         {/* Timeline Footer */}
-        <div 
+         <div 
           className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
           style={{ 
             height: '120px',
@@ -547,25 +566,29 @@ export default function Home() {
               maskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
               WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)'
             }}>
-              <div 
+               <div 
                 className="flex items-center"
               style={{ 
-                transform: `translateX(${activeSection * 140 - (sections.length - 1) * 70}px)`,
+                transform: `translateX(${timelineActiveIndex * 140 - (timelineSections.length - 1) * 70}px)`,
                 transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                 gap: '40px'
               }}
             >
-              {sections.slice().reverse().map((section, reverseIndex) => {
-                const index = sections.length - 1 - reverseIndex;
+              {timelineSections.slice().reverse().map((section, reverseIndex) => {
+                const index = timelineSections.length - 1 - reverseIndex;
                 return (
                 <button
                   key={section.id}
-                  onClick={() => scrollToSection(index)}
+                  onClick={() => {
+                    // Map timeline index back to full sections index
+                    const realIndex = sections.findIndex((s) => s.id === section.id);
+                    scrollToSection(realIndex);
+                  }}
                   className={`text-white lowercase whitespace-nowrap transition-all duration-300 text-shadow`}
                   style={{ 
                     fontSize: '0.875rem',
-                    opacity: activeSection === index ? 1 : 0.4,
-                    transform: activeSection === index ? 'scale(1.1)' : 'scale(1)',
+                    opacity: timelineActiveIndex === index ? 1 : 0.4,
+                    transform: timelineActiveIndex === index ? 'scale(1.1)' : 'scale(1)',
                     padding: '4px 12px',
                     borderRadius: '6px'
                   }}
