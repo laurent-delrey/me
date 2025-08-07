@@ -46,16 +46,18 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
     if (isActive && !hasAnimatedRef.current && words.length > 0) {
       hasAnimatedRef.current = true;
       
-      // Small delay to ensure visibility
+      // Longer delay for first section to ensure page is loaded
+      const initialDelay = sectionIndex === 0 ? 2000 : 300;
+      
       setTimeout(() => {
         words.forEach((_, index) => {
           setTimeout(() => {
             setVisibleWords(prev => index + 1);
           }, delay * index);
         });
-      }, 300);
+      }, initialDelay);
     }
-  }, [isActive, words, delay]);
+  }, [isActive, words, delay, sectionIndex]);
 
   // Rebuild the content with animated words
   const renderAnimatedContent = () => {
