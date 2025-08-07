@@ -6,12 +6,11 @@ interface AnimatedTextProps {
   children: React.ReactNode;
   delay?: number;
   sectionIndex?: number;
+  isActive?: boolean;
 }
 
-export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50, sectionIndex = 0 }) => {
+export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50, sectionIndex = 0, isActive = false }) => {
   const [visibleWords, setVisibleWords] = useState<number>(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
   const hasAnimatedRef = useRef(false);
 
   // Parse children to extract text and links
@@ -36,76 +35,21 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
 
   const words = parseContent(children);
 
+  // Trigger animation when isActive becomes true
   useEffect(() => {
-    if (hasAnimatedRef.current) return;
-
-    const startAnimation = () => {
-      if (hasAnimatedRef.current) return;
+    if (isActive && !hasAnimatedRef.current) {
       hasAnimatedRef.current = true;
       
-      // Reset to 0 first to ensure animation is visible
-      setVisibleWords(0);
-      
-      // Small delay then animate words one by one
+      // Small delay to ensure visibility
       setTimeout(() => {
         words.forEach((_, index) => {
           setTimeout(() => {
-            setVisibleWords(prev => index + 1);
+            setVisibleWords(index + 1);
           }, delay * index);
         });
-      }, 100);
-    };
-
-    // Create observer
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimatedRef.current) {
-            // Add a small delay to ensure the section is properly in view
-            setTimeout(() => {
-              startAnimation();
-            }, 200);
-          }
-        });
-      },
-      { 
-        threshold: 0.3,  // Increased threshold - more of element must be visible
-        rootMargin: '-100px 0px -100px 0px'  // Shrink the root bounds to trigger later
-      }
-    );
-
-    // Check if already in view when component mounts
-    const checkInitialVisibility = () => {
-      if (!containerRef.current || hasAnimatedRef.current) return;
-      
-      const rect = containerRef.current.getBoundingClientRect();
-      const isInView = rect.top < window.innerHeight && rect.bottom > 0;
-      
-      if (isInView) {
-        // If first section, add delay for page load
-        if (sectionIndex === 0) {
-          setTimeout(startAnimation, 1500);
-        } else {
-          startAnimation();
-        }
-      } else {
-        // Not in view, start observing
-        if (containerRef.current && observerRef.current) {
-          observerRef.current.observe(containerRef.current);
-        }
-      }
-    };
-
-    // Wait for next tick to ensure DOM is ready
-    const timer = setTimeout(checkInitialVisibility, 100);
-
-    return () => {
-      clearTimeout(timer);
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, []); // Empty deps - only run once on mount
+      }, 300);
+    }
+  }, [isActive, words.length, delay]);
 
   // Rebuild the content with animated words
   const renderAnimatedContent = () => {
@@ -158,5 +102,5 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
     return processNode(children);
   };
 
-  return <div ref={containerRef}>{renderAnimatedContent()}</div>;
+  return <div>{renderAnimatedContent()}</div>;
 };

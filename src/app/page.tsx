@@ -19,107 +19,107 @@ const sections = [
   { id: "social", label: "@ Me", years: "anytime", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5, city: "" }, // Topanga
 ];
 
-const content: Record<string, React.ReactElement> = {
+const getContent = (activeSection: number): Record<string, React.ReactElement> => ({
   tldr: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={40} sectionIndex={0}>
+      <AnimatedText delay={40} sectionIndex={0} isActive={activeSection === 0}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
-        i'm a designer currently living in nyc. i've been designing different type of things for the internet,
-        from tiny controversial experiments to larger-scale consumer products through conceptual art images
-        i share on twitter.
+          i'm a designer currently living in nyc. i've been designing different type of things for the internet,
+          from tiny controversial experiments to larger-scale consumer products through conceptual art images
+          i share on twitter.
         </p>
       </AnimatedText>
     </div>
   ),
   free: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={40} sectionIndex={1}>
+      <AnimatedText delay={40} sectionIndex={1} isActive={activeSection === 1}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
-        i started sharing free ideas organically on{" "}
-        <a href="https://twitter.com/laurentdelrey" target="_blank" rel="noopener noreferrer" 
-           className="underline hover:no-underline">twitter</a>, 
-        on apr 1 2021. the first idea was an april fool and i kept going from there. 
-        i use interface elements and internet brands to express my emotions and ideas.
+          i started sharing free ideas organically on{" "}
+          <a href="https://twitter.com/laurentdelrey" target="_blank" rel="noopener noreferrer" 
+             className="underline hover:no-underline">twitter</a>, 
+          on apr 1 2021. the first idea was an april fool and i kept going from there. 
+          i use interface elements and internet brands to express my emotions and ideas.
         </p>
       </AnimatedText>
     </div>
   ),
   snap: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={40} sectionIndex={2}>
+      <AnimatedText delay={40} sectionIndex={2} isActive={activeSection === 2}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
-        I've been a member of the core product design team at{" "}
-        <a href="https://www.snap.com/" target="_blank" rel="noopener noreferrer" 
-           className="underline hover:no-underline">snapchat</a>. 
-        A small pioneer group of inventors who disrupted the space. 
-        I've been honored to contribute to building for chat, calling, minis and the camera.
+          I've been a member of the core product design team at{" "}
+          <a href="https://www.snap.com/" target="_blank" rel="noopener noreferrer" 
+             className="underline hover:no-underline">snapchat</a>. 
+          A small pioneer group of inventors who disrupted the space. 
+          I've been honored to contribute to building for chat, calling, minis and the camera.
         </p>
       </AnimatedText>
     </div>
   ),
   tribe: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={40} sectionIndex={3}>
+      <AnimatedText delay={40} sectionIndex={3} isActive={activeSection === 3}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
-        2 continents. 3 cities. 4 houses. 15 people. 4 products. 1 family. 
-        Tribe was a series of social experiments backed by Sequoia Capital and KPCB. 
-        A messaging app, a calling app and a gaming app.
+          2 continents. 3 cities. 4 houses. 15 people. 4 products. 1 family. 
+          Tribe was a series of social experiments backed by Sequoia Capital and KPCB. 
+          A messaging app, a calling app and a gaming app.
         </p>
       </AnimatedText>
     </div>
   ),
   hustle: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={40} sectionIndex={4}>
+      <AnimatedText delay={40} sectionIndex={4} isActive={activeSection === 4}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
-        I've released a bunch of side projects. From an ironic fan brand inspired by Balenciaga, 
-        the missing "Explore" section of Snapchat, or Collectible Cards on the Ethereum network. 
-        The one that blew up the most though was a controversial email-based app called Leak.
+          I've released a bunch of side projects. From an ironic fan brand inspired by Balenciaga, 
+          the missing "Explore" section of Snapchat, or Collectible Cards on the Ethereum network. 
+          The one that blew up the most though was a controversial email-based app called Leak.
         </p>
       </AnimatedText>
     </div>
   ),
   lost: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={40} sectionIndex={5}>
+      <AnimatedText delay={40} sectionIndex={5} isActive={activeSection === 5}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
-        I have a Master Degree in Finance. I've never studied Design at school. 
-        During my College years, I created a bunch of Tumblrs receiving 100,000+ visits, 
-        curated a newsletter of torrent links called Le Video Club (RIP), 
-        made merch for several French Colleges, interned at Leetchi - the "Hottest Startup #1 in Paris (Wired)" 
-        and also created my first social app.
+          I have a Master Degree in Finance. I've never studied Design at school. 
+          During my College years, I created a bunch of Tumblrs receiving 100,000+ visits, 
+          curated a newsletter of torrent links called Le Video Club (RIP), 
+          made merch for several French Colleges, interned at Leetchi - the "Hottest Startup #1 in Paris (Wired)" 
+          and also created my first social app.
         </p>
       </AnimatedText>
     </div>
   ),
   kid: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={40} sectionIndex={6}>
+      <AnimatedText delay={40} sectionIndex={6} isActive={activeSection === 6}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
-        Born and raised in Paris, France. I started designing at 16 on a cracked version of Photoshop CS2. 
-        My first gigs were terrible logos & websites for my Counter Strike friends. 
-        AIM, MSN or mIRC. The early days of remote work.
+          Born and raised in Paris, France. I started designing at 16 on a cracked version of Photoshop CS2. 
+          My first gigs were terrible logos & websites for my Counter Strike friends. 
+          AIM, MSN or mIRC. The early days of remote work.
         </p>
       </AnimatedText>
     </div>
   ),
   social: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={40} sectionIndex={7}>
+      <AnimatedText delay={40} sectionIndex={7} isActive={activeSection === 7}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.6' }} className="text-white lowercase text-left">
-        DMs are opened on{" "}
-        <a href="https://twitter.com/laurentdelrey" target="_blank" rel="noopener noreferrer" 
-           className="underline hover:no-underline">Twitter</a> and{" "}
-        <a href="https://t.me/laurentdelrey" target="_blank" rel="noopener noreferrer" 
-           className="underline hover:no-underline">Telegram</a>. 
-        I can do{" "}
-        <a href="mailto:laurent.desserrey@gmail.com" className="underline hover:no-underline">email</a> too. 
-        Love.
+          DMs are opened on{" "}
+          <a href="https://twitter.com/laurentdelrey" target="_blank" rel="noopener noreferrer" 
+             className="underline hover:no-underline">Twitter</a> and{" "}
+          <a href="https://t.me/laurentdelrey" target="_blank" rel="noopener noreferrer" 
+             className="underline hover:no-underline">Telegram</a>. 
+          I can do{" "}
+          <a href="mailto:laurent.desserrey@gmail.com" className="underline hover:no-underline">email</a> too. 
+          Love.
         </p>
       </AnimatedText>
     </div>
   ),
-};
+});
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState(0);
@@ -211,7 +211,7 @@ export default function Home() {
                 
                 {/* Content with padding */}
                 <div style={{ paddingTop: '15px', paddingBottom: '15px' }}>
-                  {content[section.id]}
+                  {getContent(activeSection)[section.id]}
                 </div>
                 
                 {/* Location indicator */}
