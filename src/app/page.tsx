@@ -183,7 +183,7 @@ export default function Home() {
         showOverlay={showVignette}
       />
       
-      <main className={`h-screen relative z-10 overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`}>
+      <main className={`h-screen relative overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`} style={{ isolation: 'isolate' }}>
         {/* Debug Controls */}
         <div className="fixed top-4 left-4 z-30 bg-black/50 p-3 rounded space-y-2">
           <div>
@@ -236,12 +236,14 @@ export default function Home() {
               ref={el => { sectionRefs.current[index] = el; }}
               className="min-h-screen flex flex-col items-center justify-center relative"
               style={{ 
-                scrollSnapAlign: 'center',
-                mixBlendMode: blendMode as any,
-                isolation: 'auto'
+                scrollSnapAlign: 'center'
               }}
             >
-              <div style={{ maxWidth: '480px', width: '100%' }}>
+              <div style={{ 
+                maxWidth: '480px', 
+                width: '100%',
+                mixBlendMode: blendMode as any
+              }}>
                 {/* Section Title */}
                 <div 
                   className="mb-4"
