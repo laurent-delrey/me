@@ -106,8 +106,8 @@ export function IPadCursor() {
     width: elementBounds.width + 16,
     height: elementBounds.height + 8,
   } : {
-    width: 20,
-    height: 20,
+    width: 16,
+    height: 16,
   };
 
   const cursorPosition = isPointer && elementBounds ? {
