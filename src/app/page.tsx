@@ -81,10 +81,10 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     </div>
   ),
   free_media: (
-    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+    <>
       {/* Full-bleed parallax gallery; map stays at Santa Monica */}
       <ParallaxLayer />
-    </div>
+    </>
   ),
   snap: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
@@ -398,19 +398,20 @@ export default function Home() {
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const currentSection = sections[activeSection];
   // Map actual sections to legacy indices used by AnimatedText internals
-  const legacyIndexById: Record<string, number> = {
-    tldr: 0,
-    meta: 1,
-    free: 2,
-    free_media: 2,
-    snap: 3,
-    tribe: 4,
-    hustle: 5,
-    lost: 6,
-    kid: 7,
-    social: 8,
-  };
-  const legacyActiveSection = legacyIndexById[currentSection?.id || 'tldr'] ?? 0;
+  // Currently unused but kept for future use
+  // const legacyIndexById: Record<string, number> = {
+  //   tldr: 0,
+  //   meta: 1,
+  //   free: 2,
+  //   free_media: 2,
+  //   snap: 3,
+  //   tribe: 4,
+  //   hustle: 5,
+  //   lost: 6,
+  //   kid: 7,
+  //   social: 8,
+  // };
+  // const legacyActiveSection = legacyIndexById[currentSection?.id || 'tldr'] ?? 0;
 
   // Timeline should ignore helper sections (like free_media)
   const timelineSections = sections.filter((s: any) => s.inTimeline !== false);
@@ -492,50 +493,63 @@ export default function Home() {
                 scrollSnapAlign: 'center'
               }}
             >
-              {/* Parallax media layer for Free Ideas section, covers full viewport of the section */}
-              {/* Only overlay the parallax within the Free section if desired; the next section is dedicated full-bleed media */}
-              <div style={{ maxWidth: '480px', width: '100%', position: 'relative', zIndex: 1 }}>
-                {/* Section Title */}
-                {section.label && (
-                  <div 
-                    className="mb-4"
-                    style={{ 
-                      padding: '0 20px'
-                    }}
-                  >
-                    <h2 className="text-white lowercase text-shadow" style={{ 
-                      fontSize: '1.125rem', 
-                      lineHeight: '1.5', 
-                      fontWeight: 500
-                    }}>
-                      {section.label}
-                    </h2>
-                  </div>
-                )}
-                
-                {/* Content with padding */}
+              {/* Full-bleed media section gets special treatment */}
+              {section.id === 'free_media' ? (
                 <div style={{ 
-                  paddingTop: '15px', 
-                  paddingBottom: '15px'
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  width: '100%',
+                  height: '100%'
                 }}>
                   {getContent(activeSection)[section.id]}
                 </div>
-                
-                {/* Location indicator */}
-                {section.city && (
+              ) : (
+                <div style={{ maxWidth: '480px', width: '100%', position: 'relative', zIndex: 1 }}>
+                  {/* Section Title */}
+                  {section.label && (
+                    <div 
+                      className="mb-4"
+                      style={{ 
+                        padding: '0 20px'
+                      }}
+                    >
+                      <h2 className="text-white lowercase text-shadow" style={{ 
+                        fontSize: '1.125rem', 
+                        lineHeight: '1.5', 
+                        fontWeight: 500
+                      }}>
+                        {section.label}
+                      </h2>
+                    </div>
+                  )}
+                  
+                  {/* Content with padding */}
                   <div style={{ 
-                    padding: '0 20px', 
-                    marginTop: '10px'
+                    paddingTop: '15px', 
+                    paddingBottom: '15px'
                   }}>
-                    <p className="text-white lowercase text-shadow" style={{ 
-                      fontSize: '0.875rem', 
-                      opacity: 0.7
-                    }}>
-                      {section.city}
-                    </p>
+                    {getContent(activeSection)[section.id]}
                   </div>
-                )}
-              </div>
+                  
+                  {/* Location indicator */}
+                  {section.city && (
+                    <div style={{ 
+                      padding: '0 20px', 
+                      marginTop: '10px'
+                    }}>
+                      <p className="text-white lowercase text-shadow" style={{ 
+                        fontSize: '0.875rem', 
+                        opacity: 0.7
+                      }}>
+                        {section.city}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           ))}
         </div>
