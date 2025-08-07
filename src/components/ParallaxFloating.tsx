@@ -7,9 +7,9 @@ export type ParallaxAsset = {
   src: string;
   /** px size of the media box (width). height auto via video aspect */
   size: number;
-  /** base position offset from the section center in percent (-50..50) */
+  /** base position offset from the section center in percent (-50..50). Ignored in grid mode */
   xPct: number;
-  /** base position offset from the section center in percent (-50..50) */
+  /** base position offset from the section center in percent (-50..50). Ignored in grid mode */
   yPct: number;
   /** parallax strength multiplier (0.02..0.5 recommended) */
   strength: number;
@@ -17,6 +17,9 @@ export type ParallaxAsset = {
   rotate?: number;
   /** depth 0..1: affects scale, blur, z-index */
   depth?: number;
+  /** grid spans (optional when using grid layout) */
+  colSpan?: number;
+  rowSpan?: number;
 };
 
 function useMouseParallax() {
@@ -43,7 +46,14 @@ function useMouseParallax() {
   return { x: springX, y: springY };
 }
 
-export default function ParallaxFloating({ assets }: { assets: ParallaxAsset[] }) {
+type ParallaxFloatingProps = {
+  assets: ParallaxAsset[];
+  columns?: number;
+  rowHeight?: number; // px
+  gap?: number; // px
+};
+
+export default function ParallaxFloating({ assets, columns = 6, rowHeight = 180, gap = 24 }: ParallaxFloatingProps) {
   const { x, y } = useMouseParallax();
 
   const items = useMemo(() => assets, [assets]);
@@ -52,7 +62,15 @@ export default function ParallaxFloating({ assets }: { assets: ParallaxAsset[] }
     <div
       className="pointer-events-none absolute inset-0"
       aria-hidden
-      style={{ zIndex: 0, display: "grid", gridTemplateColumns: "repeat(12, 1fr)", alignItems: "center" }}
+      style={{
+        zIndex: 0,
+        display: "grid",
+        gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+        gridAutoRows: `${rowHeight}px`,
+        gap,
+        alignContent: "center",
+        justifyItems: "center",
+      }}
       role="presentation"
     >
       {items.map((asset, idx) => {
@@ -60,9 +78,8 @@ export default function ParallaxFloating({ assets }: { assets: ParallaxAsset[] }
         const parallaxScale = 0.7 + d * 0.9; // slightly stronger movement
         const translateX = useTransform(x, (nx) => nx * asset.strength * 100 * parallaxScale);
         const translateY = useTransform(y, (ny) => ny * asset.strength * 100 * parallaxScale);
-        // Convert percentage offsets to grid area positioning
-        const colStart = Math.max(1, Math.min(12, Math.round(((asset.xPct + 50) / 100) * 12)));
-        const rowStart = 1; // single row band; items spread horizontally
+        const colSpan = Math.max(1, Math.min(columns, asset.colSpan ?? 2));
+        const rowSpan = Math.max(1, asset.rowSpan ?? 1);
         const scale = 1.0 + d * 0.25; // make elements a bit larger overall
         const blurPx = 0; // remove blur
         const zIndex = 1 + Math.round(d * 8);
@@ -71,9 +88,10 @@ export default function ParallaxFloating({ assets }: { assets: ParallaxAsset[] }
           <motion.div
             key={idx}
             style={{
-              gridColumn: `${colStart} / span 2`,
-              gridRow: `${rowStart} / span 1`,
-              width: asset.size,
+              gridColumn: `span ${colSpan}`,
+              gridRow: `span ${rowSpan}`,
+              width: "100%",
+              height: "100%",
               transformOrigin: "center center",
               translateX,
               translateY,
@@ -90,7 +108,7 @@ export default function ParallaxFloating({ assets }: { assets: ParallaxAsset[] }
               loop
               autoPlay
               playsInline
-              style={{ width: "100%", height: "auto", borderRadius: 0, opacity: 1 }}
+              style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 0, opacity: 1 }}
               onError={() => {
                 /* swallow */
               }}
