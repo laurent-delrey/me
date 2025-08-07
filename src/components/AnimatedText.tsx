@@ -91,7 +91,8 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
                   <span
                     style={{
                       opacity: isVisible ? 1 : 0.3,
-                      transition: 'opacity 0.3s ease-in-out',
+                      color: isVisible ? '#f4f676' : 'inherit',
+                      transition: 'opacity 0.3s ease-in-out, color 0.3s ease-in-out',
                     }}
                   >
                     {word}
