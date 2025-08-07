@@ -38,7 +38,7 @@ export function VerticalScrollProgress({
         top: 0,
         width: '2px',
         height: '100vh',
-        backgroundColor: 'rgba(255, 255, 255, 0.3)',
+        backgroundColor: '#ffffff',
         transformOrigin: 'top',
         scaleY,
         zIndex: 50,
