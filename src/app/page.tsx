@@ -26,21 +26,23 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   tldr: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={0} isActive={activeSection === 0}>
-        <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
-          i'm a designer currently living in nyc. i've been designing different type of things for the internet,
-          from tiny controversial experiments to larger-scale consumer products through conceptual art images and prototypes i share on <a 
+        <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="lowercase text-left text-shadow">
+          <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>i'm a designer currently living in nyc.</span>
+          <br />
+          <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>i've been designing different type of things for the internet,
+          from tiny controversial experiments to larger-scale consumer products through conceptual art images and prototypes i share on</span> <a 
             href="https://x.com/laurentdelrey" 
             target="_blank" 
             rel="noopener noreferrer"
             style={{ color: '#ffffff', textDecoration: 'none' }}
             className="hover:underline"
-          >x</a> and <a 
+          >x</a> <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>and</span> <a 
             href="https://www.threads.net/@laurentdelrey" 
             target="_blank" 
             rel="noopener noreferrer"
             style={{ color: '#ffffff', textDecoration: 'none' }}
             className="hover:underline"
-          >threads</a>.
+          >threads</a><span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>.</span>
         </p>
       </AnimatedText>
     </div>
