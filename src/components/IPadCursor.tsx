@@ -128,7 +128,7 @@ export function IPadCursor() {
       }}
     >
       <div 
-        className="w-full h-full bg-white rounded-full"
+        className="w-full h-full bg-white"
         style={{
           opacity: isPointer ? 0.8 : 1,
           borderRadius: 'inherit',
