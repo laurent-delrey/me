@@ -103,8 +103,11 @@ export default function Map({ center, zoom, onLoad }: MapProps) {
             });
             console.log('Preloading complete, returning to initial position');
             setTimeout(() => {
+            // Fade-in after brief frame to avoid flash
+            requestAnimationFrame(() => {
               setPreloading(false);
               if (onLoad) onLoad();
+            });
             }, 200);
           }
         };
@@ -253,20 +256,10 @@ export default function Map({ center, zoom, onLoad }: MapProps) {
           height: '100vh',
           zIndex: 0,
           opacity: preloading ? 0 : 1,
-          transition: preloading ? 'none' : 'opacity 1s ease-in-out'
+          background: '#3f2d2c', // ensure no white between map style and fade-in
+          transition: preloading ? 'none' : 'opacity 800ms ease-out'
         }}
       />
-      {preloading && (
-        <div style={{ 
-          position: 'fixed', 
-          top: 0, 
-          left: 0, 
-          right: 0, 
-          bottom: 0, 
-          background: '#3f2d2c',
-          zIndex: 0 
-        }} />
-      )}
       {mapError && (
         <div style={{ position: 'fixed', top: 10, right: 10, background: 'red', color: 'white', padding: 10, zIndex: 1000 }}>
           Map Error: {mapError}

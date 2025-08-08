@@ -20,7 +20,7 @@ html {
 }
 
 body {
-  background: transparent;
+  background: #3f2d2c; /* fallback to avoid white flash before map draws */
   color: #ffffff;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 400;

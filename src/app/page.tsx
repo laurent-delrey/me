@@ -537,7 +537,7 @@ export default function Home() {
         <IPadCursor />
       )}
       
-      {/* Map Background */}
+      {/* Map Background with brown backdrop to avoid flash */}
       <Map 
         center={currentSection?.location || [-74.006, 40.7128]} 
         zoom={currentSection?.zoom || 11}
