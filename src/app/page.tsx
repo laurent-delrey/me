@@ -602,7 +602,7 @@ export default function Home() {
           }}
         />
 
-        {/* Timeline Footer - Animated with wider layout */}
+        {/* Timeline Footer - All items visible with auto-scroll */}
          <div 
           className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
           style={{ 
@@ -610,49 +610,50 @@ export default function Home() {
           }}
         >
           <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            gap: '80px',
-            width: '100%',
-            maxWidth: '800px',
-            overflow: 'hidden',
             position: 'relative',
+            width: '100%',
+            maxWidth: '1200px',
+            overflow: 'hidden',
           }}>
-            {/* All timeline items with animated opacity/position */}
-            {timelineSections.map((section, index) => {
-              const reversedIndex = timelineSections.length - 1 - index;
-              const distance = Math.abs(timelineActiveIndex - reversedIndex);
-              const isVisible = distance <= 1;
-              const isCurrent = distance === 0;
-              
-              return (
-                <button
-                  key={section.id}
-                  onClick={() => {
-                    const realIndex = sections.findIndex((s) => s.id === section.id);
-                    scrollToSection(realIndex);
-                  }}
-                  className="text-white lowercase whitespace-nowrap text-shadow"
-                  style={{ 
-                    fontSize: isCurrent ? '1rem' : '0.75rem',
-                    opacity: isVisible ? (isCurrent ? 1 : 0.3) : 0,
-                    padding: '4px 20px',
-                    fontWeight: isCurrent ? 500 : 400,
-                    cursor: isCurrent ? 'default' : 'pointer',
-                    position: isVisible ? 'relative' : 'absolute',
-                    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                    pointerEvents: isVisible ? 'auto' : 'none',
-                    minWidth: '150px',
-                    textAlign: 'center',
-                  }}
-                >
-                  <span className="block">
-                    {reversedIndex === 0 ? 'scroll to start ↓' : (section.years || '')}
-                  </span>
-                </button>
+            {/* Scrollable container */}
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '20px',
+              transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+              transform: `translateX(calc(50% - ${(timelineSections.length - 1 - timelineActiveIndex) * 120 + 60}px))`,
+            }}>
+              {/* All timeline items */}
+              {timelineSections.slice().reverse().map((section, reverseIndex) => {
+                const index = timelineSections.length - 1 - reverseIndex;
+                const isCurrent = timelineActiveIndex === index;
+                
+                return (
+                  <button
+                    key={section.id}
+                    onClick={() => {
+                      const realIndex = sections.findIndex((s) => s.id === section.id);
+                      scrollToSection(realIndex);
+                    }}
+                    className="text-white lowercase whitespace-nowrap text-shadow transition-all duration-500"
+                    style={{ 
+                      fontSize: isCurrent ? '1rem' : '0.75rem',
+                      opacity: isCurrent ? 1 : 0.4,
+                      padding: '4px 12px',
+                      fontWeight: isCurrent ? 500 : 400,
+                      cursor: 'pointer',
+                      width: '120px',
+                      flexShrink: 0,
+                      textAlign: 'center',
+                    }}
+                  >
+                    <span className="block">
+                      {index === 0 ? 'scroll to start ↓' : (section.years || '')}
+                    </span>
+                  </button>
+                )}
               )}
-            )}
+            </div>
           </div>
         </div>
       </main>
