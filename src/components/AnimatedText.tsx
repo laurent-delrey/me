@@ -16,6 +16,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
   const [words, setWords] = useState<string[]>([]);
   const hasAnimatedRef = useRef(false);
   const timersRef = useRef<{ main?: NodeJS.Timeout; words: NodeJS.Timeout[] }>({ words: [] });
+  const isMountedRef = useRef(false);
 
   // Parse children to extract text and links - handle on mount
   useEffect(() => {
@@ -42,12 +43,15 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
     };
 
     setWords(parseContent(children));
+    
+    // Mark as mounted after a brief delay
+    setTimeout(() => {
+      isMountedRef.current = true;
+    }, 100);
   }, [children]);
 
   // Trigger animation when isActive changes - simplified approach
   useEffect(() => {
-    console.log('AnimatedText effect - section:', sectionIndex, 'isActive:', isActive, 'words:', words.length, 'hasAnimated:', hasAnimatedRef.current);
-    
     // Clear any existing timers
     if (timersRef.current.main) {
       clearTimeout(timersRef.current.main);
@@ -56,17 +60,16 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
     timersRef.current.words = [];
     
     if (isActive && words.length > 0 && !hasAnimatedRef.current) {
-      console.log('Starting animation for section', sectionIndex);
       hasAnimatedRef.current = true;
       
       // Reset animation
       setVisibleWords(0);
       
       // Simple delay based on section
-      const initialDelay = sectionIndex === 0 ? 1500 : 300;
+      // For section 0, wait longer if not mounted yet
+      const initialDelay = sectionIndex === 0 ? (isMountedRef.current ? 300 : 2000) : 300;
       
       timersRef.current.main = setTimeout(() => {
-        console.log('Animation timer triggered for section', sectionIndex);
         words.forEach((_, index) => {
           const wordTimer = setTimeout(() => {
             setVisibleWords(index + 1);
