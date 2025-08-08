@@ -597,7 +597,7 @@ export default function Home() {
         <div 
           className="fixed inset-0 pointer-events-none z-10 transition-opacity duration-700"
           style={{
-            background: `radial-gradient(ellipse at center, transparent 0%, rgba(150, 150, 150, 0.5) 50%, rgba(150, 150, 150, 1) 90%)`,
+            background: `radial-gradient(ellipse at center, transparent 0%, rgba(63, 45, 44, 0.5) 50%, rgba(63, 45, 44, 1) 90%)`,
             opacity: currentSection.id === 'free_media' ? 0 : 1
           }}
         />
