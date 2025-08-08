@@ -11,21 +11,30 @@ const videos = [
 
 export default function VideoStack() {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full flex flex-col">
       {videos.map((src, index) => (
         <div
           key={index}
-          className="w-full h-screen flex items-center justify-center"
+          className="w-full flex items-center justify-center"
+          style={{ 
+            minHeight: '100vh',
+            padding: '80px 0'
+          }}
         >
-          <video
-            src={src}
-            muted
-            loop
-            autoPlay
-            playsInline
-            className="w-full h-full object-cover"
-            style={{ borderRadius: 0 }}
-          />
+          <div style={{ 
+            width: '60vw',
+            maxWidth: '800px'
+          }}>
+            <video
+              src={src}
+              muted
+              loop
+              autoPlay
+              playsInline
+              className="w-full h-auto object-cover"
+              style={{ borderRadius: 0 }}
+            />
+          </div>
         </div>
       ))}
     </div>

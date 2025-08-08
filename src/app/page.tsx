@@ -436,10 +436,21 @@ export default function Home() {
       
       for (let i = 0; i < sections.length; i++) {
         const sectionHeight = sections[i].id === 'free_media' ? containerHeight * 6 : containerHeight;
-        if (scrollTop < accumulatedHeight + sectionHeight / 2) {
-          currentSectionIndex = i;
-          break;
+        
+        // For free_media, only switch after we've scrolled past most of it
+        if (sections[i].id === 'free_media') {
+          if (scrollTop < accumulatedHeight + sectionHeight - containerHeight / 2) {
+            currentSectionIndex = i;
+            break;
+          }
+        } else {
+          // For regular sections, switch at the midpoint
+          if (scrollTop < accumulatedHeight + sectionHeight / 2) {
+            currentSectionIndex = i;
+            break;
+          }
         }
+        
         accumulatedHeight += sectionHeight;
         currentSectionIndex = i;
       }
