@@ -9,14 +9,7 @@ export const metadata: Metadata = {
     title: "laurent del rey - internet designer",
     description: "this is my journey",
     type: "website",
-    images: [
-      {
-        url: "/images/awards/metadata.png",
-        width: 1200,
-        height: 630,
-        alt: "laurent del rey - internet designer",
-      },
-    ],
+    images: "/images/awards/metadata.png",
   },
   twitter: {
     card: "summary_large_image",
