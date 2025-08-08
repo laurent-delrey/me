@@ -655,9 +655,9 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Vignette overlay - fade out for free_media */}
+        {/* Vignette overlay - placed behind text for readability */}
         <div 
-          className="fixed inset-0 pointer-events-none z-10 transition-opacity duration-700"
+          className="fixed inset-0 pointer-events-none z-0 transition-opacity duration-700"
           style={{
             background: `radial-gradient(ellipse at center, transparent 0%, rgba(63, 45, 44, 0.3) 35%, rgba(63, 45, 44, 0.7) 60%, rgba(63, 45, 44, 1) 80%)`,
             opacity: currentSection.id === 'free_media' ? 0 : 1
