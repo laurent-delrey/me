@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+
 const videos = [
   "/videos/parallax/my-movie-12_R7gXgUyJ.mp4",
   "/videos/parallax/laurentdelrey-1559957584550907905-20220817-133725-img1_DjgiwS3m.mp4",
@@ -10,20 +12,47 @@ const videos = [
 ];
 
 export default function VideoStack() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      
+      // Get the container's position relative to viewport
+      const rect = containerRef.current.getBoundingClientRect();
+      const containerHeight = containerRef.current.scrollHeight;
+      const viewportHeight = window.innerHeight;
+      
+      // Calculate how much of the container has been scrolled through
+      const scrolled = -rect.top;
+      const totalScrollable = containerHeight - viewportHeight;
+      
+      // Calculate progress (0 to 1)
+      const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial calculation
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="w-full h-full flex flex-col">
+    <div ref={containerRef} className="w-full h-full flex flex-col relative">
       {videos.map((src, index) => (
         <div
           key={index}
           className="w-full flex items-center justify-center"
           style={{ 
             minHeight: '100vh',
-            padding: '80px 0'
+            padding: '40px 0'
           }}
         >
           <div style={{ 
-            width: '60vw',
-            maxWidth: '800px'
+            width: '50vw',
+            maxWidth: '700px'
           }}>
             <video
               src={src}
@@ -37,6 +66,21 @@ export default function VideoStack() {
           </div>
         </div>
       ))}
+      
+      {/* Progress bar at bottom */}
+      <div 
+        className="fixed bottom-0 left-0 right-0 h-1 bg-gray-800/30 z-30"
+        style={{ 
+          pointerEvents: 'none'
+        }}
+      >
+        <div 
+          className="h-full bg-white transition-transform duration-150 ease-out"
+          style={{ 
+            width: `${scrollProgress * 100}%`
+          }}
+        />
+      </div>
     </div>
   );
 }

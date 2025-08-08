@@ -10,6 +10,7 @@ import { IPadCursor } from "@/components/IPadCursor";
 // Dynamic import to avoid SSR issues with Mapbox
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 const VideoStack = dynamic(() => import("@/components/VideoStack"), { ssr: false });
+const AwardGrid = dynamic(() => import("@/components/AwardGrid"), { ssr: false });
 
 const sections = [
   { id: "tldr", label: "TL;DR", years: "", location: [-118.5976, 34.0378] as [number, number], zoom: 12.5, city: "topanga, ca" }, // Topanga
@@ -519,48 +520,55 @@ export default function Home() {
                   {getContent(activeSection)[section.id]}
                 </div>
               ) : (
-                <div style={{ maxWidth: '480px', width: '100%', position: 'relative', zIndex: 1 }}>
-                  {/* Section Title */}
-                  {section.label && (
-                    <div 
-                      className="mb-4"
-                      style={{ 
-                        padding: '0 20px'
-                      }}
-                    >
-                      <h2 className="text-white lowercase text-shadow" style={{ 
-                        fontSize: '1.125rem', 
-                        lineHeight: '1.5', 
-                        fontWeight: 500
-                      }}>
-                        {section.label}
-                      </h2>
-                    </div>
+                <>
+                  {/* Award Grid for Tribe and Hustle sections */}
+                  {(section.id === 'tribe' || section.id === 'hustle') && (
+                    <AwardGrid section={section.id} />
                   )}
                   
-                  {/* Content with padding */}
-                  <div style={{ 
-                    paddingTop: '15px', 
-                    paddingBottom: '15px'
-                  }}>
-                    {getContent(activeSection)[section.id]}
-                  </div>
-                  
-                  {/* Location indicator */}
-                  {section.city && (
+                  <div style={{ maxWidth: '480px', width: '100%', position: 'relative', zIndex: 10 }}>
+                    {/* Section Title */}
+                    {section.label && (
+                      <div 
+                        className="mb-4"
+                        style={{ 
+                          padding: '0 20px'
+                        }}
+                      >
+                        <h2 className="text-white lowercase text-shadow" style={{ 
+                          fontSize: '1.125rem', 
+                          lineHeight: '1.5', 
+                          fontWeight: 500
+                        }}>
+                          {section.label}
+                        </h2>
+                      </div>
+                    )}
+                    
+                    {/* Content with padding */}
                     <div style={{ 
-                      padding: '0 20px', 
-                      marginTop: '10px'
+                      paddingTop: '15px', 
+                      paddingBottom: '15px'
                     }}>
-                      <p className="text-white lowercase text-shadow" style={{ 
-                        fontSize: '0.875rem', 
-                        opacity: 0.7
-                      }}>
-                        {section.city}
-                      </p>
+                      {getContent(activeSection)[section.id]}
                     </div>
-                  )}
-                </div>
+                    
+                    {/* Location indicator */}
+                    {section.city && (
+                      <div style={{ 
+                        padding: '0 20px', 
+                        marginTop: '10px'
+                      }}>
+                        <p className="text-white lowercase text-shadow" style={{ 
+                          fontSize: '0.875rem', 
+                          opacity: 0.7
+                        }}>
+                          {section.city}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </>
               )}
             </div>
           ))}
