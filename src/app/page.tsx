@@ -505,7 +505,8 @@ export default function Home() {
             fontSize: '1.125rem', 
             lineHeight: '1.5', 
             fontWeight: 500,
-            opacity: 0.8
+            opacity: 0.5,
+            mixBlendMode: 'overlay' as any
           }}>
             laurent del rey
           </h1>
@@ -622,7 +623,7 @@ export default function Home() {
                <div 
                 className="flex items-center"
               style={{ 
-                transform: `translateX(${timelineActiveIndex * 140 - (timelineSections.length - 1) * 70}px)`,
+                transform: `translateX(${-(timelineSections.length - 1 - timelineActiveIndex) * 180}px)`,
                 transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                 gap: '40px'
               }}
