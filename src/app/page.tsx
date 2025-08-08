@@ -561,7 +561,7 @@ export default function Home() {
       {/* Morphing header label: soft-damped spring from center to top */}
       <motion.div
         className="fixed left-0 right-0 z-20 flex items-center justify-center header-bar"
-        style={{ top: 0, pointerEvents: 'none' }}
+        style={{ top: '20px', pointerEvents: 'none' }}
         initial={{ y: headerStartY, opacity: 0 }}
         animate={{ y: mapLoaded ? 0 : headerStartY, opacity: headerVisible ? 1 : 0 }}
         transition={{ type: 'spring', stiffness: 140, damping: 32, mass: 1 }}
@@ -704,7 +704,7 @@ export default function Home() {
                     const realIndex = sections.findIndex((s) => s.id === section.id);
                     scrollToSection(realIndex);
                   }}
-                  className="lowercase whitespace-nowrap transition-all duration-500 timeline-text"
+                  className="lowercase whitespace-nowrap timeline-text"
                   style={{
                     fontSize: isCurrent ? '1.125rem' : '0.9rem',
                     color: isCurrent ? '#ffffff' : '#6B5654',

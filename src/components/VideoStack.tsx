@@ -42,7 +42,7 @@ export default function VideoStack() {
   return (
     <div ref={containerRef} className="w-full h-full relative">
       <div 
-        className="grid grid-cols-1 gap-8 w-full"
+        className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full"
         style={{ 
           padding: '80px 12%',
           minHeight: '100vh',
