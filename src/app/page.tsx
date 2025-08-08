@@ -493,23 +493,26 @@ export default function Home() {
         onLoad={() => setMapLoaded(true)}
       />
       
+      {/* Header - always visible, animated from center to top */}
+      <div 
+        className="fixed left-0 right-0 z-20 flex items-center justify-center transition-all duration-1000 ease-out"
+        style={{ 
+          height: '120px',
+          top: mapLoaded ? '0' : '50%',
+          transform: mapLoaded ? 'translateY(0)' : 'translateY(-50%)',
+        }}
+      >
+        <h1 className="lowercase transition-all duration-1000" style={{ 
+          fontSize: mapLoaded ? '1.125rem' : '1.5rem', 
+          lineHeight: '1.5', 
+          fontWeight: 400,
+          color: '#6B5654'
+        }}>
+          laurent del rey
+        </h1>
+      </div>
+      
       <main className={`h-screen relative z-10 overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`}>
-        {/* Header */}
-        <div 
-          className="fixed top-0 left-0 right-0 z-20 flex items-center justify-center"
-          style={{ 
-            height: '120px',
-          }}
-        >
-          <h1 className="lowercase" style={{ 
-            fontSize: '1.125rem', 
-            lineHeight: '1.5', 
-            fontWeight: 400,
-            color: '#6B5654'
-          }}>
-            laurent del rey
-          </h1>
-        </div>
         
         {/* Vertical Scroll Progress */}
         <VerticalScrollProgress containerRef={scrollContainerRef} />
