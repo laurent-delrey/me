@@ -98,8 +98,8 @@ body {
   transform: translateY(calc((var(--header-h) - var(--footer-h)) / -2));
 }
 
-.section-title { font-size: 1.25rem; line-height: 1.5; font-weight: 500; }
-.section-location { font-size: 1rem !important; }
+.section-title { font-size: 1.4rem; line-height: 1.5; font-weight: 500; }
+.section-location { font-size: 1.05rem !important; }
 
 /* Responsive font sizes */
 @media (max-width: 768px) {
@@ -138,6 +138,6 @@ body {
     font-size: 22px !important;
     line-height: 40px !important;
   }
-  .section-title { font-size: 1.35rem; }
-  .section-location { font-size: 1.05rem !important; }
+  .section-title { font-size: 1.5rem; }
+  .section-location { font-size: 1.15rem !important; }
 }

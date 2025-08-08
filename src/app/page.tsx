@@ -593,10 +593,10 @@ export default function Home() {
               <div 
                 key={section.id}
                 ref={el => { sectionRefs.current[index] = el; }}
-                className={section.id === 'free_media' ? '' : 'min-h-screen flex flex-col items-center justify-center relative center-offset'}
+                className={section.id === 'free_media' ? '' : 'flex flex-col items-center justify-center relative'}
                 style={{ 
                   scrollSnapAlign: section.id === 'free_media' ? 'start' : 'center',
-                  minHeight: section.id === 'free_media' ? '200vh' : undefined
+                  minHeight: section.id === 'free_media' ? '200vh' : 'calc(100vh - var(--header-h) - var(--footer-h))'
                 }}
               >
               {/* Special treatment for free_media section */}
@@ -618,7 +618,7 @@ export default function Home() {
                     className="mb-4 section-xpad"
                   >
                     <h2 className="text-white lowercase text-shadow section-title" style={{ 
-                      fontSize: '1.25rem', 
+                      fontSize: '1.4rem', 
                       lineHeight: '1.5', 
                       fontWeight: 500
                     }}>
@@ -641,7 +641,7 @@ export default function Home() {
                 marginTop: '10px'
               }}>
                 <p className="lowercase section-location" style={{ 
-                  fontSize: '0.95rem', 
+                  fontSize: '1.05rem', 
                           color: '#6B5654'
                         }}>
                           {section.city}
