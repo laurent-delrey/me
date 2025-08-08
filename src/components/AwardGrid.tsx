@@ -177,7 +177,7 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
           gridTemplateRows: section === 'tribe' ? 'auto auto auto' : 'repeat(3, 1fr)',
           gridColumnGap: '16px',
           gridRowGap: '16px',
-          padding: section === 'tribe' ? '10% 15%' : '10% 15%',
+          padding: section === 'tribe' ? '10% 10%' : '10% 10%',
           height: '100vh',
           alignItems: 'center',
           justifyContent: 'stretch',

@@ -602,7 +602,7 @@ export default function Home() {
           }}
         />
 
-        {/* Timeline Footer - Paged Scroll View */}
+        {/* Timeline Footer - Simple Centered */}
          <div 
           className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
           style={{ 
@@ -610,52 +610,72 @@ export default function Home() {
           }}
         >
           <div style={{ 
-            position: 'relative', 
-            width: '100%', 
-            height: '100%', 
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'center',
+            gap: '40px',
+            width: '100%',
             overflow: 'hidden',
           }}>
-            {/* Container for all timeline items with transform */}
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '80px',
-              position: 'absolute',
-              transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-              transform: `translateX(${timelineActiveIndex * 80}px)`,
-            }}>
-              {timelineSections.slice().reverse().map((section, reverseIndex) => {
-                const index = timelineSections.length - 1 - reverseIndex;
-                const distance = Math.abs(timelineActiveIndex - index);
-                const isCurrent = distance === 0;
-                
-                return (
-                <button
-                  key={section.id}
-                  onClick={() => {
-                    // Map timeline index back to full sections index
-                    const realIndex = sections.findIndex((s) => s.id === section.id);
-                    scrollToSection(realIndex);
-                  }}
-                  className={`text-white lowercase whitespace-nowrap transition-all duration-500 text-shadow`}
-                  style={{ 
-                    fontSize: isCurrent ? '1rem' : '0.75rem',
-                    opacity: isCurrent ? 1 : 0.3,
-                    padding: '4px 12px',
-                    fontWeight: isCurrent ? 500 : 400,
-                    minWidth: '80px',
-                    textAlign: 'center',
-                  }}
-                >
-                  <span className="block">
-                    {index === 0 ? 'scroll to start ↓' : (section.years || '')}
-                  </span>
-                </button>
-              )})}
-            </div>
+            {/* Previous item */}
+            {timelineActiveIndex > 0 && (
+              <button
+                onClick={() => {
+                  const prevSection = timelineSections[timelineActiveIndex - 1];
+                  const realIndex = sections.findIndex((s) => s.id === prevSection.id);
+                  scrollToSection(realIndex);
+                }}
+                className="text-white lowercase whitespace-nowrap transition-all duration-500 text-shadow"
+                style={{ 
+                  fontSize: '0.75rem',
+                  opacity: 0.3,
+                  padding: '4px 12px',
+                  fontWeight: 400,
+                }}
+              >
+                <span className="block">
+                  {timelineActiveIndex === 1 ? 'scroll to start ↓' : (timelineSections[timelineActiveIndex - 1].years || '')}
+                </span>
+              </button>
+            )}
+            
+            {/* Current item - always centered */}
+            <button
+              className="text-white lowercase whitespace-nowrap transition-all duration-500 text-shadow"
+              style={{ 
+                fontSize: '1rem',
+                opacity: 1,
+                padding: '4px 12px',
+                fontWeight: 500,
+                cursor: 'default',
+              }}
+            >
+              <span className="block">
+                {timelineActiveIndex === 0 ? 'scroll to start ↓' : (timelineSections[timelineActiveIndex].years || '')}
+              </span>
+            </button>
+            
+            {/* Next item */}
+            {timelineActiveIndex < timelineSections.length - 1 && (
+              <button
+                onClick={() => {
+                  const nextSection = timelineSections[timelineActiveIndex + 1];
+                  const realIndex = sections.findIndex((s) => s.id === nextSection.id);
+                  scrollToSection(realIndex);
+                }}
+                className="text-white lowercase whitespace-nowrap transition-all duration-500 text-shadow"
+                style={{ 
+                  fontSize: '0.75rem',
+                  opacity: 0.3,
+                  padding: '4px 12px',
+                  fontWeight: 400,
+                }}
+              >
+                <span className="block">
+                  {timelineSections[timelineActiveIndex + 1].years || ''}
+                </span>
+              </button>
+            )}
           </div>
         </div>
       </main>
