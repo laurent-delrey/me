@@ -436,7 +436,7 @@ export default function Home() {
       let accumulatedHeight = 0;
       
       for (let i = 0; i < sections.length; i++) {
-        const sectionHeight = sections[i].id === 'free_media' ? containerHeight * 6 : containerHeight;
+        const sectionHeight = sections[i].id === 'free_media' ? containerHeight * 2 : containerHeight;
         
         // For free_media, only switch after we've scrolled past most of it
         if (sections[i].id === 'free_media') {
@@ -512,7 +512,7 @@ export default function Home() {
               className={section.id === 'free_media' ? '' : 'min-h-screen flex flex-col items-center justify-center relative'}
               style={{ 
                 scrollSnapAlign: section.id === 'free_media' ? 'start' : 'center',
-                minHeight: section.id === 'free_media' ? '600vh' : undefined
+                minHeight: section.id === 'free_media' ? '200vh' : undefined
               }}
             >
               {/* Special treatment for free_media section */}

@@ -40,20 +40,19 @@ export default function VideoStack() {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-full flex flex-col relative">
-      {videos.map((src, index) => (
-        <div
-          key={index}
-          className="w-full flex items-center justify-center"
-          style={{ 
-            minHeight: '100vh',
-            padding: '40px 0'
-          }}
-        >
-          <div style={{ 
-            width: '50vw',
-            maxWidth: '700px'
-          }}>
+    <div ref={containerRef} className="w-full h-full relative">
+      <div 
+        className="grid grid-cols-2 gap-4 w-full"
+        style={{ 
+          padding: '60px 40px',
+          minHeight: '100vh',
+        }}
+      >
+        {videos.map((src, index) => (
+          <div
+            key={index}
+            className="flex items-center justify-center"
+          >
             <video
               src={src}
               muted
@@ -61,11 +60,14 @@ export default function VideoStack() {
               autoPlay
               playsInline
               className="w-full h-auto object-cover"
-              style={{ borderRadius: 0 }}
+              style={{ 
+                borderRadius: '8px',
+                maxWidth: '100%'
+              }}
             />
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
       
       {/* Progress bar at bottom */}
       <div 
