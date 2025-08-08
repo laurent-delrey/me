@@ -424,6 +424,7 @@ export default function Home() {
   const timelineSections = sections.filter((s: any) => s.inTimeline !== false);
   const timelineDisplayId = currentSection?.id === 'free_media' ? 'free' : currentSection?.id;
   const timelineActiveIndex = Math.max(0, timelineSections.findIndex((s) => s.id === timelineDisplayId));
+  const timelineReversed = true; // show timeframes to the left of "scroll to start"
 
   // Center the active timeline item in the footer carousel
   useEffect(() => {
@@ -452,7 +453,10 @@ export default function Home() {
 
     // Center relative to the whole viewport (footer spans full width)
     const containerCenter = (window.innerWidth || container.clientWidth) / 2;
-    const targetCenter = centers[timelineActiveIndex] ?? 0;
+    const activeDomIndex = timelineReversed
+      ? Math.max(0, timelineSections.length - 1 - timelineActiveIndex)
+      : timelineActiveIndex;
+    const targetCenter = centers[activeDomIndex] ?? 0;
     const offset = targetCenter - containerCenter;
     setTimelineTranslateX(-offset);
   }, [timelineActiveIndex, mounted, mapLoaded]);
@@ -682,7 +686,8 @@ export default function Home() {
               willChange: 'transform',
             }}
           >
-            {timelineSections.map((section, index) => {
+            {(timelineReversed ? [...timelineSections].reverse() : timelineSections).map((section, idx) => {
+              const index = timelineReversed ? timelineSections.length - 1 - idx : idx;
               const isCurrent = timelineActiveIndex === index;
               return (
                 <button
