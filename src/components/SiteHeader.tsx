@@ -26,8 +26,14 @@ export default function SiteHeader({
       {...(animated
         ? {
             initial: { y: startY, opacity: 0 },
-            animate: { y: toTop ? 0 : startY, opacity: visible ? 1 : 0 },
-            transition: { type: "spring", stiffness: 140, damping: 32, mass: 1 },
+            animate: { 
+              y: toTop ? 0 : startY, 
+              opacity: visible ? 1 : 0 
+            },
+            transition: {
+              y: toTop ? { type: "spring", stiffness: 140, damping: 32, mass: 1 } : { duration: 0 },
+              opacity: { duration: 0.5, ease: "easeOut" }
+            },
           }
         : {})}
     >

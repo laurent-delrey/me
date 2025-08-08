@@ -560,7 +560,7 @@ export default function Home() {
       />
       
       {/* Morphing header label: shared component */}
-      <SiteHeader animated toTop={mapLoaded} visible={headerVisible} startY={headerStartY} topPaddingPx={28} />
+      <SiteHeader animated toTop={mapLoaded} visible={headerVisible && mounted} startY={headerStartY} topPaddingPx={28} />
       
       <main className={`h-screen relative z-10 overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`}>
         
