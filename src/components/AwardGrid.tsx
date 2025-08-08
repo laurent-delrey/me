@@ -229,7 +229,7 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
               style={positionStyle}
               onMouseEnter={(e) => {
                 if (hasLink) {
-                  (e.currentTarget as HTMLElement).style.filter = 'brightness(0.4) contrast(1.4) saturate(0.8)';
+                  (e.currentTarget as HTMLElement).style.filter = 'brightness(1) contrast(1) saturate(1)';
                 }
               }}
               onMouseLeave={(e) => {
