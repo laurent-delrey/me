@@ -397,7 +397,6 @@ export default function Home() {
   const [mapLoaded, setMapLoaded] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const lastSectionChangeRef = useRef<number>(0);
   const currentSection = sections[activeSection];
   // Map actual sections to legacy indices used by AnimatedText internals
   // Currently unused but kept for future use
@@ -460,11 +459,9 @@ export default function Home() {
       // Clamp to valid range
       const newActiveSection = Math.max(0, Math.min(sections.length - 1, currentSectionIndex));
       
-      // Add a small debounce to prevent rapid section changes
-      const now = Date.now();
-      if (newActiveSection !== activeSection && now - lastSectionChangeRef.current > 100) {
+      // Simple direct update
+      if (newActiveSection !== activeSection) {
         setActiveSection(newActiveSection);
-        lastSectionChangeRef.current = now;
       }
     };
 

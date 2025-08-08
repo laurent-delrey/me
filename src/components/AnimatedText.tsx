@@ -43,30 +43,26 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
     setWords(parseContent(children));
   }, [children]);
 
-  // Trigger animation when isActive changes
+  // Trigger animation when isActive changes - simplified approach
   useEffect(() => {
-    if (isActive && words.length > 0) {
-      // Only animate if not already animated for this activation
-      if (!hasAnimatedRef.current) {
-        hasAnimatedRef.current = true;
-        
-        // Reset animation
-        setVisibleWords(0);
-        
-        // Longer delay for first section to ensure page is loaded
-        // Increased delays to account for heavier visuals
-        const initialDelay = sectionIndex === 0 ? 2500 : 500;
-        
-        const animationTimer = setTimeout(() => {
-          words.forEach((_, index) => {
-            setTimeout(() => {
-              setVisibleWords(prev => index + 1);
-            }, delay * index);
-          });
-        }, initialDelay);
-        
-        return () => clearTimeout(animationTimer);
-      }
+    if (isActive && words.length > 0 && !hasAnimatedRef.current) {
+      hasAnimatedRef.current = true;
+      
+      // Reset animation
+      setVisibleWords(0);
+      
+      // Simple delay based on section
+      const initialDelay = sectionIndex === 0 ? 1500 : 300;
+      
+      const animationTimer = setTimeout(() => {
+        words.forEach((_, index) => {
+          setTimeout(() => {
+            setVisibleWords(prev => index + 1);
+          }, delay * index);
+        });
+      }, initialDelay);
+      
+      return () => clearTimeout(animationTimer);
     } else if (!isActive) {
       // Reset when leaving section
       setVisibleWords(0);

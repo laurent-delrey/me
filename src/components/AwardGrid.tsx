@@ -205,7 +205,7 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
             alignItems: 'center',
             justifyContent: 'center',
             pointerEvents: hasLink ? 'auto' : 'none',
-            padding: '20px', // Add padding for better hover area
+            padding: '10px', // Add padding for better hover area
           };
           
           // Apply specific positioning
