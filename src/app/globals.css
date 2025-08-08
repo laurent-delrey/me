@@ -95,12 +95,12 @@ body {
   }
   
   body {
-    font-size: 1rem; /* 16px */
+    font-size: 1.125rem; /* 18px, match legacy mobile scale */
     line-height: 1.7;
   }
 
   .header-bar { height: 84px; }
-  .section-xpad { padding: 0 16px; }
+  .section-xpad { padding: 0 24px; }
   .section-content { padding-top: 10px !important; padding-bottom: 10px !important; }
 }
 
@@ -110,11 +110,11 @@ body {
   }
   
   body {
-    font-size: 0.95rem; /* ~15px */
-    line-height: 1.55;
+    font-size: 1.05rem; /* ~17px */
+    line-height: 1.6;
   }
 
   .header-bar { height: 72px; }
-  .section-xpad { padding: 0 14px; }
+  .section-xpad { padding: 0 20px; }
   .section-content { padding-top: 8px !important; padding-bottom: 8px !important; }
 }

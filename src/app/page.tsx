@@ -29,7 +29,7 @@ const sections = [
 
 const getContent = (activeSection: number): Record<string, React.ReactElement> => ({
   tldr: (
-    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px' }} className="section-xpad">
       <AnimatedText delay={100} sectionIndex={0} isActive={activeSection === 0}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           i'm a designer currently living in nyc. i've been designing different type of things for the internet,
@@ -51,7 +51,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     </div>
   ),
   meta: (
-    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px' }} className="section-xpad">
       <AnimatedText delay={100} sectionIndex={1} isActive={activeSection === 1}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           i joined the <a 
@@ -66,7 +66,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     </div>
   ),
   free: (
-    <div style={{ maxWidth: '720px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '720px' }} className="section-xpad">
       <AnimatedText delay={100} sectionIndex={2} isActive={activeSection === 2}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           i started sharing free ideas organically on <a 
@@ -89,7 +89,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     </>
   ),
   snap: (
-    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px' }} className="section-xpad">
       <AnimatedText delay={100} sectionIndex={3} isActive={activeSection === 4}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           I've been a member of the core product design team at <a 
@@ -106,7 +106,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     </div>
   ),
   tribe: (
-    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px' }} className="section-xpad">
       <AnimatedText delay={100} sectionIndex={4} isActive={activeSection === 5}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           2 continents. 3 cities. 4 houses. 15 people. 4 products. 1 family. 
@@ -147,7 +147,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     </div>
   ),
   hustle: (
-    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px' }} className="section-xpad">
       <AnimatedText delay={100} sectionIndex={5} isActive={activeSection === 6}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           I've released a bunch of side projects. From an <a 
@@ -290,7 +290,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     </div>
   ),
   lost: (
-    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px' }} className="section-xpad">
       <AnimatedText delay={100} sectionIndex={6} isActive={activeSection === 7}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           I have a Master Degree in Finance. I've never studied Design at school. 
@@ -351,7 +351,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     </div>
   ),
   kid: (
-    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px' }} className="section-xpad">
       <AnimatedText delay={100} sectionIndex={7} isActive={activeSection === 8}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           Born and raised in Paris, France. I started designing at 16 on a cracked version of Photoshop CS2. 
@@ -362,7 +362,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     </div>
   ),
   social: (
-    <div style={{ maxWidth: '480px', padding: '0 20px' }}>
+    <div style={{ maxWidth: '480px' }} className="section-xpad">
       <AnimatedText delay={100} sectionIndex={8} isActive={activeSection === 9}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="lowercase text-left text-shadow">
           <span style={{ color: '#6B5654' }}>DMs are opened on</span> <a 
