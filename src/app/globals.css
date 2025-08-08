@@ -110,11 +110,17 @@ body {
   }
   
   body {
-    font-size: 1.05rem; /* ~17px */
+    font-size: 1.05rem; /* base, body paragraphs overridden below */
     line-height: 1.6;
   }
 
   .header-bar { height: 72px; }
   .section-xpad { padding: 0 20px; }
   .section-content { padding-top: 8px !important; padding-bottom: 8px !important; }
+
+  /* Match Webflow mobile description: 22px/40px and ~80% width */
+  .section-content p {
+    font-size: 22px !important;
+    line-height: 40px !important;
+  }
 }
