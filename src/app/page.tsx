@@ -397,6 +397,9 @@ export default function Home() {
   const [mapLoaded, setMapLoaded] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const timelineContainerRef = useRef<HTMLDivElement>(null);
+  const timelineTrackRef = useRef<HTMLDivElement>(null);
+  const [timelineTranslateX, setTimelineTranslateX] = useState(0);
   const currentSection = sections[activeSection];
   // Map actual sections to legacy indices used by AnimatedText internals
   // Currently unused but kept for future use
@@ -418,6 +421,48 @@ export default function Home() {
   const timelineSections = sections.filter((s: any) => s.inTimeline !== false);
   const timelineDisplayId = currentSection?.id === 'free_media' ? 'free' : currentSection?.id;
   const timelineActiveIndex = Math.max(0, timelineSections.findIndex((s) => s.id === timelineDisplayId));
+
+  // Center the active timeline item in the footer carousel
+  useEffect(() => {
+    const container = timelineContainerRef.current;
+    const track = timelineTrackRef.current;
+    if (!container || !track) return;
+
+    const children = Array.from(track.children) as HTMLElement[];
+    if (children.length === 0 || timelineActiveIndex < 0) return;
+
+    // Read the horizontal gap from computed styles
+    const styles = window.getComputedStyle(track);
+    const gapStr = styles.columnGap || styles.gap || '40px';
+    const gap = parseFloat(gapStr) || 40;
+
+    // Compute centers for each item based on widths and gap
+    let runningX = 0;
+    const centers: number[] = [];
+    children.forEach((el, idx) => {
+      const rect = el.getBoundingClientRect();
+      const width = rect.width;
+      const center = runningX + width / 2;
+      centers.push(center);
+      runningX += width + gap;
+    });
+
+    const containerCenter = container.clientWidth / 2;
+    const targetCenter = centers[timelineActiveIndex] ?? 0;
+    const offset = targetCenter - containerCenter;
+    setTimelineTranslateX(-offset);
+  }, [timelineActiveIndex, mounted, mapLoaded]);
+
+  useEffect(() => {
+    const onResize = () => {
+      // Recompute on resize to keep centered
+      const container = timelineContainerRef.current;
+      if (!container) return;
+      setTimelineTranslateX((prev) => prev + 0); // trigger effect above by changing dependency (handled by timelineActiveIndex)
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -604,26 +649,26 @@ export default function Home() {
           }}
         />
 
-        {/* Timeline Footer - Fixed carousel */}
-         <div 
+        {/* Timeline Footer - Center active item in a scrollable track */}
+        <div 
           className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
-          style={{ 
-            height: '120px',
-          }}
+          style={{ height: '120px' }}
+          ref={timelineContainerRef}
         >
-          <div style={{ 
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '20px',
-            width: '100%',
-            maxWidth: '1200px',
-          }}>
-            {/* All timeline items in fixed positions */}
-            {timelineSections.slice().reverse().map((section, reverseIndex) => {
-              const index = timelineSections.length - 1 - reverseIndex;
+          <div
+            ref={timelineTrackRef}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              gap: '40px',
+              transform: `translateX(${timelineTranslateX}px)`,
+              transition: 'transform 500ms cubic-bezier(0.4, 0, 0.2, 1)',
+              willChange: 'transform',
+            }}
+          >
+            {timelineSections.map((section, index) => {
               const isCurrent = timelineActiveIndex === index;
-              
               return (
                 <button
                   key={section.id}
@@ -632,7 +677,7 @@ export default function Home() {
                     scrollToSection(realIndex);
                   }}
                   className="lowercase whitespace-nowrap transition-all duration-500"
-                  style={{ 
+                  style={{
                     fontSize: isCurrent ? '1rem' : '0.75rem',
                     color: isCurrent ? '#ffffff' : '#6B5654',
                     padding: '4px 12px',
@@ -645,8 +690,8 @@ export default function Home() {
                     {index === 0 ? 'scroll to start ↓' : (section.years || '')}
                   </span>
                 </button>
-              )}
-            )}
+              );
+            })}
           </div>
         </div>
       </main>
