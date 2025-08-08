@@ -45,7 +45,10 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
 
   // Trigger animation when isActive changes - simplified approach
   useEffect(() => {
+    console.log('AnimatedText effect - section:', sectionIndex, 'isActive:', isActive, 'words:', words.length, 'hasAnimated:', hasAnimatedRef.current);
+    
     if (isActive && words.length > 0 && !hasAnimatedRef.current) {
+      console.log('Starting animation for section', sectionIndex);
       hasAnimatedRef.current = true;
       
       // Reset animation
@@ -55,6 +58,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
       const initialDelay = sectionIndex === 0 ? 1500 : 300;
       
       const animationTimer = setTimeout(() => {
+        console.log('Animation timer triggered for section', sectionIndex);
         words.forEach((_, index) => {
           setTimeout(() => {
             setVisibleWords(prev => index + 1);

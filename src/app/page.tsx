@@ -461,6 +461,7 @@ export default function Home() {
       
       // Simple direct update
       if (newActiveSection !== activeSection) {
+        console.log('Section changed from', activeSection, 'to', newActiveSection, 'section:', sections[newActiveSection].id);
         setActiveSection(newActiveSection);
       }
     };
