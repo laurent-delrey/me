@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
 import { AnimatedText } from "@/components/AnimatedText";

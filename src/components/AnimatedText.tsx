@@ -15,6 +15,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
   const [visibleWords, setVisibleWords] = useState<number>(0);
   const [words, setWords] = useState<string[]>([]);
   const hasAnimatedRef = useRef(false);
+  const timersRef = useRef<{ main?: NodeJS.Timeout; words: NodeJS.Timeout[] }>({ words: [] });
 
   // Parse children to extract text and links - handle on mount
   useEffect(() => {
@@ -47,6 +48,13 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
   useEffect(() => {
     console.log('AnimatedText effect - section:', sectionIndex, 'isActive:', isActive, 'words:', words.length, 'hasAnimated:', hasAnimatedRef.current);
     
+    // Clear any existing timers
+    if (timersRef.current.main) {
+      clearTimeout(timersRef.current.main);
+    }
+    timersRef.current.words.forEach(timer => clearTimeout(timer));
+    timersRef.current.words = [];
+    
     if (isActive && words.length > 0 && !hasAnimatedRef.current) {
       console.log('Starting animation for section', sectionIndex);
       hasAnimatedRef.current = true;
@@ -57,22 +65,23 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
       // Simple delay based on section
       const initialDelay = sectionIndex === 0 ? 1500 : 300;
       
-      const animationTimer = setTimeout(() => {
+      timersRef.current.main = setTimeout(() => {
         console.log('Animation timer triggered for section', sectionIndex);
         words.forEach((_, index) => {
-          setTimeout(() => {
-            setVisibleWords(prev => index + 1);
+          const wordTimer = setTimeout(() => {
+            setVisibleWords(index + 1);
           }, delay * index);
+          timersRef.current.words.push(wordTimer);
         });
       }, initialDelay);
-      
-      return () => clearTimeout(animationTimer);
     } else if (!isActive) {
       // Reset when leaving section
       setVisibleWords(0);
       hasAnimatedRef.current = false;
     }
-  }, [isActive, words, delay, sectionIndex]);
+    
+    // Don't clear timers in cleanup, they're managed above
+  }, [isActive]); // Minimal dependencies
 
   // Helper function to extract text from React nodes
   const extractText = (node: React.ReactNode): string => {
