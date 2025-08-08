@@ -38,7 +38,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             rel="noopener noreferrer"
             style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
-          >x</a> and <a 
+          >twitter/x</a> and <a 
             href="https://www.threads.net/@laurentdelrey" 
             target="_blank" 
             rel="noopener noreferrer"
@@ -57,7 +57,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             href="https://www.meta.com/superintelligence/?srsltid=AfmBOopHTK7ev-Yn8V8JQUmsakQSZZPMkmujYBP_nwU114z_P0agW6NN" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#00D0FF', textDecoration: 'none' }}
+            style={{ color: '#60C4FF', textDecoration: 'none' }}
             className="hover:underline"
           >meta</a> super intelligence lab in january. since then, i've been playing with frontier models to original design ios experiences at the intersection of social and ai. learning a ton!
         </p>
@@ -74,7 +74,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             rel="noopener noreferrer"
             style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
-          >x</a>, 
+          >twitter/x</a>, 
           on apr 1 2021. the first idea was an april fool and i kept going from there. 
           i use interface elements and internet brands to express my emotions and ideas.
         </p>
@@ -305,7 +305,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             rel="noopener noreferrer"
             style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
-          >2</a>) <span style={{ opacity: 0.7 }}>receiving 100,000+ visits</span>, 
+          >2</a>) <span style={{ color: '#8B7877' }}>receiving 100,000+ visits</span>, 
           curated a newsletter of torrent links called Le Video Club (<a 
             href="https://medium.com/le-futur-de-la-distribution-de-films-en-france/vie-et-mort-dun-service-illegal-de-vod-117ac172308c" 
             target="_blank" 
@@ -370,7 +370,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             rel="noopener noreferrer"
             style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
-          >X</a> <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>and</span> <a 
+          >twitter/x</a> <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>and</span> <a 
             href="https://t.me/laurentdelrey" 
             target="_blank" 
             rel="noopener noreferrer"

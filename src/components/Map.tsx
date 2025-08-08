@@ -263,7 +263,7 @@ export default function Map({ center, zoom, onLoad }: MapProps) {
           left: 0, 
           right: 0, 
           bottom: 0, 
-          background: '#969696',
+          background: '#3f2d2c',
           zIndex: 0 
         }} />
       )}
