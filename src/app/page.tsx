@@ -613,7 +613,7 @@ export default function Home() {
                     {/* Section Title */}
                     {section.label && (
                   <div 
-                    className="mb-4 section-xpad"
+                    className="section-xpad"
                   >
                     <h2 className="text-white lowercase text-shadow section-title" style={{ 
                       fontSize: '1rem', 
@@ -627,8 +627,8 @@ export default function Home() {
                     
                     {/* Content with padding */}
             <div className="section-content" style={{ 
-              paddingTop: '15px', 
-              paddingBottom: '15px'
+              paddingTop: '10px', 
+              paddingBottom: '10px'
             }}>
                       {getContent(activeSection)[section.id]}
                     </div>

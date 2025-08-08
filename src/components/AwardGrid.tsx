@@ -238,7 +238,7 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
               onMouseLeave={(e) => {
                 const img = (e.currentTarget as HTMLElement).querySelector('img');
                 if (img) {
-                  img.style.opacity = '0.5';
+                  img.style.opacity = '0.3';
                   img.style.filter = 'brightness(0.2) contrast(1.4) saturate(0.8)';
                 }
               }}
@@ -250,7 +250,7 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
                   width: `${award.width}px`,
                   height: 'auto',
                   maxWidth: '100%',
-                  opacity: 0.5,
+                  opacity: 0.3,
                   filter: 'brightness(0.2) contrast(1.4) saturate(0.8)',
                 }}
               />
