@@ -494,6 +494,23 @@ export default function Home() {
       />
       
       <main className={`h-screen relative z-10 overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`}>
+        {/* Header */}
+        <div 
+          className="fixed top-0 left-0 right-0 z-20 flex items-center justify-center"
+          style={{ 
+            height: '120px',
+          }}
+        >
+          <h1 className="text-white lowercase text-shadow" style={{ 
+            fontSize: '1.125rem', 
+            lineHeight: '1.5', 
+            fontWeight: 500,
+            opacity: 0.8
+          }}>
+            laurent del rey
+          </h1>
+        </div>
+        
         {/* Vertical Scroll Progress */}
         <VerticalScrollProgress containerRef={scrollContainerRef} />
         

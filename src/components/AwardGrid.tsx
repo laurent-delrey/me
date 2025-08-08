@@ -139,8 +139,8 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
       const sectionProgress = 1 - ((rect.top + rect.height) / (windowHeight + rect.height));
       
       // Apply parallax effect - background moves slower than foreground
-      // Use a smaller multiplier for subtle effect
-      const parallaxOffset = sectionProgress * 80; // Adjust for parallax intensity
+      // Increased multiplier for more visible effect
+      const parallaxOffset = sectionProgress * 150; // Increased for more visible parallax
       
       setTransform(`translateY(${parallaxOffset}px)`);
     };
@@ -177,7 +177,7 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
           gridTemplateRows: section === 'tribe' ? 'auto auto auto' : 'repeat(3, 1fr)',
           gridColumnGap: '16px',
           gridRowGap: '16px',
-          padding: section === 'tribe' ? '0 5%' : '5%',
+          padding: section === 'tribe' ? '10% 15%' : '10% 15%',
           height: '100vh',
           alignItems: 'center',
           justifyContent: 'stretch',
