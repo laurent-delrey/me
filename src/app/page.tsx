@@ -602,34 +602,36 @@ export default function Home() {
           }}
         />
 
-        {/* Timeline Footer */}
+        {/* Timeline Footer - Paged Scroll View */}
          <div 
           className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
           style={{ 
             height: '120px',
           }}
         >
-          <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-            {/* Timeline items container with transparent fade */}
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            overflow: 'hidden',
+          }}>
+            {/* Container for all timeline items with transform */}
             <div style={{ 
-              width: '100%', 
-              height: '100%', 
               display: 'flex', 
               alignItems: 'center', 
-              justifyContent: 'center',
-              maskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)'
+              gap: '140px',
+              position: 'absolute',
+              transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+              transform: `translateX(${-(timelineSections.length - 1 - timelineActiveIndex) * 140}px)`,
             }}>
-               <div 
-                className="flex items-center"
-              style={{ 
-                transform: `translateX(${(timelineActiveIndex - (timelineSections.length - 1) / 2) * -140}px)`,
-                transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                gap: '40px'
-              }}
-            >
               {timelineSections.slice().reverse().map((section, reverseIndex) => {
                 const index = timelineSections.length - 1 - reverseIndex;
+                const distance = Math.abs(timelineActiveIndex - index);
+                const isCurrent = distance === 0;
+                
                 return (
                 <button
                   key={section.id}
@@ -638,13 +640,15 @@ export default function Home() {
                     const realIndex = sections.findIndex((s) => s.id === section.id);
                     scrollToSection(realIndex);
                   }}
-                  className={`text-white lowercase whitespace-nowrap transition-all duration-300 text-shadow`}
+                  className={`text-white lowercase whitespace-nowrap transition-all duration-500 text-shadow`}
                   style={{ 
-                    fontSize: '0.875rem',
-                    opacity: timelineActiveIndex === index ? 1 : 0.4,
-                    transform: timelineActiveIndex === index ? 'scale(1.1)' : 'scale(1)',
+                    fontSize: isCurrent ? '1rem' : '0.75rem',
+                    opacity: isCurrent ? 1 : 0.3,
+                    transform: isCurrent ? 'scale(1.1)' : 'scale(1)',
                     padding: '4px 12px',
-                    borderRadius: '6px'
+                    fontWeight: isCurrent ? 500 : 400,
+                    minWidth: '140px',
+                    textAlign: 'center',
                   }}
                 >
                   <span className="block">
@@ -652,7 +656,6 @@ export default function Home() {
                   </span>
                 </button>
               )})}
-              </div>
             </div>
           </div>
         </div>
