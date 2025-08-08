@@ -544,26 +544,47 @@ export default function Home() {
         onLoad={() => setMapLoaded(true)}
       />
       
-      {/* Header - animated from center to top with spring */}
-      <div 
-        className="fixed left-0 right-0 z-20 flex items-center justify-center"
-        style={{ 
-          height: '120px',
-          top: mapLoaded ? '0' : '50%',
-          transform: mapLoaded ? 'translateY(0)' : 'translateY(-50%)',
-          transition: mapLoaded ? 'all 1.2s cubic-bezier(0.34, 1.4, 0.64, 1)' : 'opacity 0.6s ease-out',
-          opacity: headerVisible ? 1 : 0,
-        }}
-      >
-        <h1 className="lowercase" style={{ 
-          fontSize: '1.125rem', 
-          lineHeight: '1.5', 
-          fontWeight: 400,
-          color: '#6B5654'
-        }}>
-          laurent del rey
-        </h1>
-      </div>
+      {/* Loading Name - centered, fades out when loaded */}
+      {!mapLoaded && (
+        <div 
+          className="fixed inset-0 z-30 flex items-center justify-center pointer-events-none"
+          style={{ 
+            transition: 'opacity 0.6s ease-out',
+            opacity: headerVisible && !mapLoaded ? 1 : 0,
+          }}
+        >
+          <h1 className="lowercase" style={{ 
+            fontSize: '1.125rem', 
+            lineHeight: '1.5', 
+            fontWeight: 400,
+            color: '#6B5654'
+          }}>
+            laurent del rey
+          </h1>
+        </div>
+      )}
+      
+      {/* Header - fades in at top when loaded */}
+      {mapLoaded && (
+        <div 
+          className="fixed left-0 right-0 z-20 flex items-center justify-center"
+          style={{ 
+            height: '120px',
+            top: 0,
+            transition: 'opacity 0.8s ease-out',
+            opacity: mapLoaded ? 1 : 0,
+          }}
+        >
+          <h1 className="lowercase" style={{ 
+            fontSize: '1.125rem', 
+            lineHeight: '1.5', 
+            fontWeight: 400,
+            color: '#6B5654'
+          }}>
+            laurent del rey
+          </h1>
+        </div>
+      )}
       
       <main className={`h-screen relative z-10 overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`}>
         
