@@ -104,7 +104,7 @@ const hustleAwards = [
     link: "https://www.washingtonpost.com/news/the-intersect/wp/2014/07/29/a-new-app-will-let-you-send-anonymous-e-mail-to-anyone-which-sounds-like-a-disaster-waiting-to-happen/",
     gridArea: "3 / 2 / 4 / 3",
     placeSelf: "center center", // Changed to center for better positioning
-    customOffset: -20 // Move it up closer to content
+    customOffset: 10 // Move it down a bit
   },
   { 
     src: "/images/awards/Mashable.svg", 
@@ -205,6 +205,7 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
             alignItems: 'center',
             justifyContent: 'center',
             pointerEvents: hasLink ? 'auto' : 'none',
+            padding: '20px', // Add padding for better hover area
           };
           
           // Apply specific positioning
