@@ -364,27 +364,27 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={8} isActive={activeSection === 9}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="lowercase text-left text-shadow">
-          <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>DMs are opened on</span> <a 
+          <span style={{ color: '#6B5654' }}>DMs are opened on</span> <a 
             href="https://twitter.com/laurentdelrey" 
             target="_blank" 
             rel="noopener noreferrer"
             style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
-          >twitter/x</a> <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>and</span> <a 
+          >twitter/x</a> <span style={{ color: '#6B5654' }}>and</span> <a 
             href="https://t.me/laurentdelrey" 
             target="_blank" 
             rel="noopener noreferrer"
             style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
-          >Telegram</a><span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>.</span>
+          >Telegram</a><span style={{ color: '#6B5654' }}>.</span>
           <br />
-          <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>I can do</span> <a 
+          <span style={{ color: '#6B5654' }}>I can do</span> <a 
             href="mailto:laurent.desserrey@gmail.com?subject=Hi%20there" 
             style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
-          >email</a> <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>too.</span>
+          >email</a> <span style={{ color: '#6B5654' }}>too.</span>
           <br />
-          <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>Love.</span>
+          <span style={{ color: '#6B5654' }}>Love.</span>
         </p>
       </AnimatedText>
     </div>
@@ -395,6 +395,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [headerVisible, setHeaderVisible] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const timelineContainerRef = useRef<HTMLDivElement>(null);
@@ -466,6 +467,10 @@ export default function Home() {
 
   useEffect(() => {
     setMounted(true);
+    // Fade in header after a short delay
+    setTimeout(() => {
+      setHeaderVisible(true);
+    }, 500);
   }, []);
 
   useEffect(() => {
@@ -538,17 +543,19 @@ export default function Home() {
         onLoad={() => setMapLoaded(true)}
       />
       
-      {/* Header - always visible, animated from center to top */}
+      {/* Header - animated from center to top with spring */}
       <div 
-        className="fixed left-0 right-0 z-20 flex items-center justify-center transition-all duration-1000 ease-out"
+        className="fixed left-0 right-0 z-20 flex items-center justify-center"
         style={{ 
           height: '120px',
           top: mapLoaded ? '0' : '50%',
           transform: mapLoaded ? 'translateY(0)' : 'translateY(-50%)',
+          transition: mapLoaded ? 'all 1.2s cubic-bezier(0.34, 1.4, 0.64, 1)' : 'opacity 0.6s ease-out',
+          opacity: headerVisible ? 1 : 0,
         }}
       >
-        <h1 className="lowercase transition-all duration-1000" style={{ 
-          fontSize: mapLoaded ? '1.125rem' : '1.5rem', 
+        <h1 className="lowercase" style={{ 
+          fontSize: '1.125rem', 
           lineHeight: '1.5', 
           fontWeight: 400,
           color: '#6B5654'
