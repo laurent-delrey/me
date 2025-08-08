@@ -253,7 +253,7 @@ export default function Map({ center, zoom, onLoad }: MapProps) {
           height: '100vh',
           zIndex: 0,
           opacity: preloading ? 0 : 1,
-          transition: 'opacity 0.5s ease-in-out'
+          transition: preloading ? 'none' : 'opacity 1s ease-in-out'
         }}
       />
       {preloading && (
@@ -272,19 +272,6 @@ export default function Map({ center, zoom, onLoad }: MapProps) {
           Map Error: {mapError}
         </div>
       )}
-      {/* Gradient overlay */}
-      <div 
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'linear-gradient(to top, rgba(63, 45, 44, 1) 0%, rgba(63, 45, 44, 0.7) 20%, rgba(63, 45, 44, 0.3) 40%, rgba(63, 45, 44, 0) 60%)',
-          pointerEvents: 'none',
-          zIndex: 5
-        }}
-      />
     </>
   );
 }
