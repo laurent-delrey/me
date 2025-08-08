@@ -153,135 +153,135 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             href="https://www.instagram.com/balencyoga/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >ironic fan brand</a> inspired by Balenciaga (<a 
             href="https://www.elle.vn/tin-thoi-trang/balencyoga-tan-binh-cua-con-sot-trao-phung-trong-thoi-trang?fbclid=IwAR1Y7FE8jI8WY9SrK3vR7T0K8JQMcV_zleFzdo0TaXJU1FWLvnHrEBwXlPk" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >1</a>,<a 
             href="https://hypebeast.kr/2017/7/balencyoga-balenciaga-parody-collection?utm_source=facebook&utm_medium=social&utm_campaign=share+buttons&fbclid=IwAR2ltqy29D_KfBiDdQFM55yZTvTKOIQfSfqFsQWNKlnnjgbS-sPWcOCz2JY" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >2</a>,<a 
             href="https://www.vogue.ru/fashion/news/balencyoga_gibkiy_otvet_balenciaga/?fbclid=IwAR2A0AdYsxkEiNzvpsrtW8RtNt4aQQx0e47LgdjjqloAnl6t5nweGDPmcYE" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >3</a>), 
           the missing <a 
             href="https://www.producthunt.com/posts/snapchatters" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >"Explore" section</a> of Snapchat, or <a 
             href="https://twitter.com/laurentdelrey/status/1009135685960232961" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >Collectible Cards</a> on the Ethereum network. 
           The one that blew up the most though was a controversial email-based app called <a 
             href="https://twitter.com/justleakit" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >Leak</a> (<a 
             href="https://twitter.com/MarxMedia/status/497380416501084160" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >1</a>,<a 
             href="https://twitter.com/justleakit/status/496255472820039680" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >2</a>,<a 
             href="https://www.washingtonpost.com/news/the-intersect/wp/2014/07/29/a-new-app-will-let-you-send-anonymous-e-mail-to-anyone-which-sounds-like-a-disaster-waiting-to-happen/?Post%20generic=%3Ftid%3Dsm_twitter_washingtonpost&noredirect=on&utm_term=.3b2ec28fb9a8" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >3</a>,<a 
             href="https://www.chicagotribune.com/business/careers/ct-biz-0825-work-advice-huppke-20140825-column.html" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >4</a>,<a 
             href="https://www.dailydot.com/debug/leak-anonymous-email/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >5</a>,<a 
             href="https://www.businessinsider.com/send-anonymous-emails-with-leak-website-2014-7" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >6</a>,<a 
             href="https://www.fastcompany.com/3033705/i-lied-to-you-a-few-days-ago-the-leak-app-and-anonymous-honesty" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >7</a>,<a 
             href="https://thenextweb.com/socialmedia/2014/07/28/leak-lets-send-nearly-anonymous-emails-friends-family-enemies/?utm_source=t.co&utm_medium=referral&utm_content=Leak+lets+you+send+nearly+anonymous+emails+to+friends%2C+family+and+enemies&utm_campaign=Twitter+Publisher#.tnw_yD56EVxS" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >8</a>,<a 
             href="https://mashable.com/2014/08/04/leak-anonymous-email/#gMOq6WVLfaqM" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >9</a>,<a 
             href="https://www.engadget.com/2014/08/04/leak-anonymous-email/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >10</a>,<a 
             href="https://www.cosmopolitan.com/lifestyle/news/a29522/leak-website-anonymous-email/?src=spr_TWITTER&spr_id=1440_76579580" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >11</a>,<a 
             href="https://motherboard.vice.com/en_us/article/qkvjjq/why-anonymous-messaging-services-are-full-of-bitching-and-flirting" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >12</a>,<a 
             href="https://pando.com/2014/08/04/anonymity-app-pulls-off-one-of-the-worst-tech-pr-stunts-ever-attempted/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >13</a>,<a 
             href="https://www.konbini.com/fr/tendances-2/leak-messagerie-anonyme-flirter/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >14</a>,<a 
             href="https://www.lesinrocks.com/2014/08/11/actualite/leak-lapplication-surfe-retour-lanonymat-11518963/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FB6037', textDecoration: 'none' }}
+            style={{ color: '#F68364', textDecoration: 'none' }}
             className="hover:underline"
           >15</a>).
         </p>
@@ -305,7 +305,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             rel="noopener noreferrer"
             style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
-          >2</a>) <span style={{ color: '#8B7877' }}>receiving 100,000+ visits</span>, 
+          >2</a>) <span style={{ color: '#6B5654' }}>receiving 100,000+ visits</span>, 
           curated a newsletter of torrent links called Le Video Club (<a 
             href="https://medium.com/le-futur-de-la-distribution-de-films-en-france/vie-et-mort-dun-service-illegal-de-vod-117ac172308c" 
             target="_blank" 
@@ -501,12 +501,11 @@ export default function Home() {
             height: '120px',
           }}
         >
-          <h1 className="text-white lowercase text-shadow" style={{ 
+          <h1 className="lowercase" style={{ 
             fontSize: '1.125rem', 
             lineHeight: '1.5', 
             fontWeight: 400,
-            opacity: 0.3,
-            mixBlendMode: 'difference' as any
+            color: '#6B5654'
           }}>
             laurent del rey
           </h1>
@@ -578,9 +577,9 @@ export default function Home() {
                         padding: '0 20px', 
                         marginTop: '10px'
                       }}>
-                        <p className="text-white lowercase text-shadow" style={{ 
+                        <p className="lowercase" style={{ 
                           fontSize: '0.875rem', 
-                          opacity: 0.7
+                          color: '#6B5654'
                         }}>
                           {section.city}
                         </p>
@@ -629,10 +628,10 @@ export default function Home() {
                     const realIndex = sections.findIndex((s) => s.id === section.id);
                     scrollToSection(realIndex);
                   }}
-                  className="text-white lowercase whitespace-nowrap text-shadow transition-all duration-500"
+                  className="lowercase whitespace-nowrap transition-all duration-500"
                   style={{ 
                     fontSize: isCurrent ? '1rem' : '0.75rem',
-                    opacity: isCurrent ? 1 : 0.4,
+                    color: isCurrent ? '#ffffff' : '#6B5654',
                     padding: '4px 12px',
                     fontWeight: isCurrent ? 500 : 400,
                     cursor: 'pointer',
