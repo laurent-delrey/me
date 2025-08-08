@@ -596,7 +596,11 @@ export default function Home() {
                 className={section.id === 'free_media' ? '' : 'flex flex-col items-center justify-center relative'}
                 style={{ 
                   scrollSnapAlign: section.id === 'free_media' ? 'start' : 'center',
-                  minHeight: section.id === 'free_media' ? '200vh' : 'calc(100vh - var(--header-h) - var(--footer-h))'
+                  minHeight: section.id === 'free_media' ? '200vh' : '100vh',
+                  height: section.id === 'free_media' ? 'auto' : '100vh',
+                  paddingTop: section.id === 'free_media' ? 0 : 'var(--header-h)',
+                  paddingBottom: section.id === 'free_media' ? 0 : 'var(--footer-h)',
+                  boxSizing: 'border-box'
                 }}
               >
               {/* Special treatment for free_media section */}
