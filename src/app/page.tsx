@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import React from "react";
+import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { AnimatedText } from "@/components/AnimatedText";
 import { VerticalScrollProgress } from "@/components/VerticalScrollProgress";
@@ -396,6 +397,7 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(false);
+  const [headerStartY, setHeaderStartY] = useState(240);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const timelineContainerRef = useRef<HTMLDivElement>(null);
@@ -472,6 +474,14 @@ export default function Home() {
     setTimeout(() => {
       setHeaderVisible(true);
     }, 500);
+    // Compute starting Y for the morphing header (center vertically minus half header height)
+    const computeStartY = () => {
+      const vh = typeof window !== 'undefined' ? window.innerHeight : 800;
+      setHeaderStartY(Math.max(0, Math.round(vh / 2 - 60)));
+    };
+    computeStartY();
+    window.addEventListener('resize', computeStartY);
+    return () => window.removeEventListener('resize', computeStartY);
   }, []);
 
   useEffect(() => {
@@ -544,17 +554,13 @@ export default function Home() {
         onLoad={() => setMapLoaded(true)}
       />
       
-      {/* Morphing header label: centered while loading, slides to top when map is ready */}
-      <div 
+      {/* Morphing header label: soft-damped spring from center to top */}
+      <motion.div
         className="fixed left-0 right-0 z-20 flex items-center justify-center"
-        style={{ 
-          height: '120px',
-          top: mapLoaded ? 0 : '50%',
-          transform: mapLoaded ? 'translateY(0)' : 'translateY(-50%)',
-          transition: 'top 800ms cubic-bezier(0.34, 1.4, 0.64, 1), transform 800ms cubic-bezier(0.34, 1.4, 0.64, 1), opacity 400ms ease-out',
-          opacity: headerVisible ? 1 : 0,
-          pointerEvents: 'none',
-        }}
+        style={{ height: '120px', top: 0, pointerEvents: 'none' }}
+        initial={{ y: headerStartY, opacity: 0 }}
+        animate={{ y: mapLoaded ? 0 : headerStartY, opacity: headerVisible ? 1 : 0 }}
+        transition={{ type: 'spring', stiffness: 140, damping: 32, mass: 1 }}
       >
         <h1 className="lowercase" style={{ 
           fontSize: '1.125rem', 
@@ -564,7 +570,7 @@ export default function Home() {
         }}>
           laurent del rey
         </h1>
-      </div>
+      </motion.div>
       
       <main className={`h-screen relative z-10 overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`}>
         
