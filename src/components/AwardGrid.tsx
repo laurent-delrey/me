@@ -230,8 +230,8 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
                 if (hasLink) {
                   const img = (e.currentTarget as HTMLElement).querySelector('img');
                   if (img) {
-                    img.style.opacity = '0.7';
-                    img.style.filter = 'brightness(0.4) contrast(1.4) saturate(0.8)';
+                    img.style.opacity = '1';
+                    img.style.filter = 'brightness(1) contrast(1) saturate(0) invert(1)';
                   }
                 }
               }}
