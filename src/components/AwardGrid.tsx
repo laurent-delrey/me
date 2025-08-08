@@ -230,16 +230,16 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
                 if (hasLink) {
                   const img = (e.currentTarget as HTMLElement).querySelector('img');
                   if (img) {
-                    img.style.opacity = '0.85';
-                    img.style.filter = 'brightness(0.35) contrast(1.2) saturate(0.5) sepia(0.3) hue-rotate(-15deg)';
+                    img.style.opacity = '0.7';
+                    img.style.filter = 'brightness(0.4) contrast(1.4) saturate(0.8)';
                   }
                 }
               }}
               onMouseLeave={(e) => {
                 const img = (e.currentTarget as HTMLElement).querySelector('img');
                 if (img) {
-                  img.style.opacity = '0.7';
-                  img.style.filter = 'brightness(0.25) contrast(1.2) saturate(0.5) sepia(0.4) hue-rotate(-15deg)';
+                  img.style.opacity = '0.5';
+                  img.style.filter = 'brightness(0.2) contrast(1.4) saturate(0.8)';
                 }
               }}
             >
@@ -250,8 +250,8 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
                   width: `${award.width}px`,
                   height: 'auto',
                   maxWidth: '100%',
-                  opacity: 0.7,
-                  filter: 'brightness(0.25) contrast(1.2) saturate(0.5) sepia(0.4) hue-rotate(-15deg)',
+                  opacity: 0.5,
+                  filter: 'brightness(0.2) contrast(1.4) saturate(0.8)',
                 }}
               />
             </AwardElement>

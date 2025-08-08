@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import React from "react";
 import { motion } from "framer-motion";
+import SiteHeader from "@/components/SiteHeader";
 import dynamic from "next/dynamic";
 import { AnimatedText } from "@/components/AnimatedText";
 import { VerticalScrollProgress } from "@/components/VerticalScrollProgress";
@@ -558,23 +559,8 @@ export default function Home() {
         onLoad={() => setMapLoaded(true)}
       />
       
-      {/* Morphing header label: soft-damped spring from center to top */}
-      <motion.div
-        className="fixed left-0 right-0 z-20 flex items-center justify-center header-bar"
-        style={{ top: '20px', pointerEvents: 'none' }}
-        initial={{ y: headerStartY, opacity: 0 }}
-        animate={{ y: mapLoaded ? 0 : headerStartY, opacity: headerVisible ? 1 : 0 }}
-        transition={{ type: 'spring', stiffness: 140, damping: 32, mass: 1 }}
-      >
-        <h1 className="lowercase section-title" style={{ 
-          fontSize: '1rem', 
-          lineHeight: '1.5', 
-          fontWeight: 400,
-          color: '#6B5654'
-        }}>
-          laurent del rey
-        </h1>
-      </motion.div>
+      {/* Morphing header label: shared component */}
+      <SiteHeader animated toTop={mapLoaded} visible={headerVisible} startY={headerStartY} topPaddingPx={28} />
       
       <main className={`h-screen relative z-10 overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`}>
         
