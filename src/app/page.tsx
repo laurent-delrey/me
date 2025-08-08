@@ -523,7 +523,7 @@ export default function Home() {
                 <>
                   {/* Award Grid for Tribe and Hustle sections */}
                   {(section.id === 'tribe' || section.id === 'hustle') && (
-                    <AwardGrid section={section.id} />
+                    <AwardGrid section={section.id} containerRef={scrollContainerRef} />
                   )}
                   
                   <div style={{ maxWidth: '480px', width: '100%', position: 'relative', zIndex: 10 }}>

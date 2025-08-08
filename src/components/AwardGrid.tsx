@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface AwardGridProps {
   section: "tribe" | "hustle";
+  containerRef?: React.RefObject<HTMLDivElement | null>;
 }
 
 const tribeAwards = [
@@ -26,87 +27,119 @@ const hustleAwards = [
   { src: "/images/awards/BBC.svg", width: 80, link: "https://twitter.com/MarxMedia/status/497380416501084160" },
 ];
 
-export default function AwardGrid({ section }: AwardGridProps) {
+export default function AwardGrid({ section, containerRef }: AwardGridProps) {
   const gridRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [transform, setTransform] = useState('translateY(0px)');
   const awards = section === "tribe" ? tribeAwards : hustleAwards;
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!gridRef.current) return;
+      if (!sectionRef.current) return;
       
-      // Get the grid's position relative to viewport
-      const rect = gridRef.current.getBoundingClientRect();
-      const scrollProgress = -rect.top / window.innerHeight;
+      const container = containerRef?.current || document.querySelector('.overflow-y-auto');
+      if (!container) return;
       
-      // Apply parallax effect to the grid
-      const translateY = scrollProgress * 50; // Adjust multiplier for parallax intensity
-      gridRef.current.style.transform = `translateY(${translateY}px)`;
+      // Get section's position relative to viewport
+      const rect = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Calculate how much the section is in view (-1 to 1)
+      // -1 = section is below viewport, 0 = section is centered, 1 = section is above viewport
+      const viewProgress = -rect.top / windowHeight;
+      
+      // Apply parallax effect - slower movement for background elements
+      // Multiply by a smaller factor for subtle parallax
+      const parallaxOffset = viewProgress * 100; // Adjust this value to control parallax intensity
+      
+      setTransform(`translateY(${parallaxOffset}px)`);
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial position
+    // Listen to both window scroll and container scroll
+    const container = containerRef?.current || document.querySelector('.overflow-y-auto');
     
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    if (container) {
+      container.addEventListener('scroll', handleScroll, { passive: true });
+    }
+    
+    handleScroll(); // Initial calculation
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (container) {
+        container.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [containerRef]);
 
   return (
-    <div 
-      ref={gridRef}
-      className="award-grid"
-      style={{
-        position: 'absolute',
-        inset: 0,
-        zIndex: 3,
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gridTemplateRows: 'repeat(3, auto)',
-        gap: '16px',
-        padding: '0 5%',
-        height: '100vh',
-        alignItems: 'center',
-        justifyItems: 'center',
-        pointerEvents: 'none',
-        willChange: 'transform',
-      }}
-    >
-      {awards.map((award, index) => {
-        const AwardElement = award.link ? 'a' : 'div';
-        const props = award.link ? { 
-          href: award.link, 
-          target: "_blank", 
-          rel: "noopener noreferrer",
-          style: { pointerEvents: 'auto' as const }
-        } : {};
-        
-        return (
-          <AwardElement 
-            key={index} 
-            {...props}
-            className="award-item"
-            style={{
-              opacity: 0.5,
-              transition: 'opacity 0.2s',
-              cursor: award.link ? 'pointer' : 'default',
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.opacity = '1';
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.opacity = '0.5';
-            }}
-          >
-            <img 
-              src={award.src} 
-              alt=""
-              style={{ 
-                width: `${award.width}px`,
-                height: 'auto',
-                maxWidth: '100%',
+    <div ref={sectionRef} style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
+      <div 
+        ref={gridRef}
+        className="award-grid"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 3,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateRows: 'repeat(3, auto)',
+          gap: '32px',
+          padding: '10% 5%',
+          height: '100vh',
+          alignItems: 'center',
+          justifyItems: 'center',
+          willChange: 'transform',
+          transform,
+          transition: 'transform 0.1s linear',
+        }}
+      >
+        {awards.map((award, index) => {
+          const AwardElement = award.link ? 'a' : 'div';
+          const props = award.link ? { 
+            href: award.link, 
+            target: "_blank", 
+            rel: "noopener noreferrer",
+            style: { pointerEvents: 'auto' as const }
+          } : {};
+          
+          return (
+            <AwardElement 
+              key={index} 
+              {...props}
+              className="award-item"
+              style={{
+                opacity: 0.3,
+                transition: 'opacity 0.2s',
+                cursor: award.link ? 'pointer' : 'default',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
-            />
-          </AwardElement>
-        );
-      })}
+              onMouseEnter={(e) => {
+                if (award.link) {
+                  (e.currentTarget as HTMLElement).style.opacity = '0.8';
+                }
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.opacity = '0.3';
+              }}
+            >
+              <img 
+                src={award.src} 
+                alt=""
+                style={{ 
+                  width: `${award.width}px`,
+                  height: 'auto',
+                  maxWidth: '100%',
+                  filter: 'brightness(0.9)',
+                }}
+              />
+            </AwardElement>
+          );
+        })}
+      </div>
     </div>
   );
 }
