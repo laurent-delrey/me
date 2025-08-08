@@ -560,8 +560,8 @@ export default function Home() {
       
       {/* Morphing header label: soft-damped spring from center to top */}
       <motion.div
-        className="fixed left-0 right-0 z-20 flex items-center justify-center"
-        style={{ height: '120px', top: 0, pointerEvents: 'none' }}
+        className="fixed left-0 right-0 z-20 flex items-center justify-center header-bar"
+        style={{ top: 0, pointerEvents: 'none' }}
         initial={{ y: headerStartY, opacity: 0 }}
         animate={{ y: mapLoaded ? 0 : headerStartY, opacity: headerVisible ? 1 : 0 }}
         transition={{ type: 'spring', stiffness: 140, damping: 32, mass: 1 }}
@@ -614,12 +614,9 @@ export default function Home() {
                   <div style={{ maxWidth: '480px', width: '100%', position: 'relative', zIndex: 10 }}>
                     {/* Section Title */}
                     {section.label && (
-                      <div 
-                        className="mb-4"
-                        style={{ 
-                          padding: '0 20px'
-                        }}
-                      >
+            <div 
+              className="mb-4 section-xpad"
+            >
                         <h2 className="text-white lowercase text-shadow" style={{ 
                           fontSize: '1.125rem', 
                           lineHeight: '1.5', 
@@ -631,19 +628,18 @@ export default function Home() {
                     )}
                     
                     {/* Content with padding */}
-                    <div style={{ 
-                      paddingTop: '15px', 
-                      paddingBottom: '15px'
-                    }}>
+            <div className="section-content" style={{ 
+              paddingTop: '15px', 
+              paddingBottom: '15px'
+            }}>
                       {getContent(activeSection)[section.id]}
                     </div>
                     
                     {/* Location indicator */}
-                    {section.city && (
-                      <div style={{ 
-                        padding: '0 20px', 
-                        marginTop: '10px'
-                      }}>
+            {section.city && (
+              <div className="section-xpad" style={{ 
+                marginTop: '10px'
+              }}>
                         <p className="lowercase" style={{ 
                           fontSize: '0.875rem', 
                           color: '#6B5654'
@@ -671,7 +667,7 @@ export default function Home() {
         {/* Timeline Footer - Center active item in a scrollable track */}
         <div 
           className="fixed bottom-0 left-0 right-0 z-20 flex items-center"
-          style={{ height: '120px', overflow: 'hidden' }}
+          style={{ height: '100px', overflow: 'hidden' }}
           ref={timelineContainerRef}
         >
           <div
