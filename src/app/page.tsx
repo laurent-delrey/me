@@ -33,7 +33,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     <div style={{ maxWidth: '480px' }} className="section-xpad">
       <AnimatedText delay={100} sectionIndex={0} isActive={activeSection === 0}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
-          i'm a designer currently living in nyc. i've been designing different type of things for the internet,
+          i'm a designer currently living in los angeles, ca. i've been designing different type of things for the internet,
           from tiny controversial experiments to larger-scale consumer products through conceptual art images and prototypes i share on <a 
             href="https://x.com/laurentdelrey" 
             target="_blank" 
