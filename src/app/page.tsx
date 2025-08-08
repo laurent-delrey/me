@@ -566,8 +566,8 @@ export default function Home() {
         animate={{ y: mapLoaded ? 0 : headerStartY, opacity: headerVisible ? 1 : 0 }}
         transition={{ type: 'spring', stiffness: 140, damping: 32, mass: 1 }}
       >
-        <h1 className="lowercase" style={{ 
-          fontSize: '1.125rem', 
+        <h1 className="lowercase section-title" style={{ 
+          fontSize: '1.2rem', 
           lineHeight: '1.5', 
           fontWeight: 400,
           color: '#6B5654'
@@ -590,15 +590,15 @@ export default function Home() {
           }}
         >
           {sections.map((section, index) => (
-            <div 
-              key={section.id}
-              ref={el => { sectionRefs.current[index] = el; }}
-              className={section.id === 'free_media' ? '' : 'min-h-screen flex flex-col items-center justify-center relative'}
-              style={{ 
-                scrollSnapAlign: section.id === 'free_media' ? 'start' : 'center',
-                minHeight: section.id === 'free_media' ? '200vh' : undefined
-              }}
-            >
+              <div 
+                key={section.id}
+                ref={el => { sectionRefs.current[index] = el; }}
+                className={section.id === 'free_media' ? '' : 'min-h-screen flex flex-col items-center justify-center relative center-offset'}
+                style={{ 
+                  scrollSnapAlign: section.id === 'free_media' ? 'start' : 'center',
+                  minHeight: section.id === 'free_media' ? '200vh' : undefined
+                }}
+              >
               {/* Special treatment for free_media section */}
               {section.id === 'free_media' ? (
                 <div className="w-full h-full">
@@ -614,14 +614,14 @@ export default function Home() {
                   <div style={{ maxWidth: '480px', width: '100%', position: 'relative', zIndex: 10 }}>
                     {/* Section Title */}
                     {section.label && (
-            <div 
-              className="mb-4 section-xpad"
-            >
-                        <h2 className="text-white lowercase text-shadow" style={{ 
-                          fontSize: '1.125rem', 
-                          lineHeight: '1.5', 
-                          fontWeight: 500
-                        }}>
+                  <div 
+                    className="mb-4 section-xpad"
+                  >
+                    <h2 className="text-white lowercase text-shadow section-title" style={{ 
+                      fontSize: '1.25rem', 
+                      lineHeight: '1.5', 
+                      fontWeight: 500
+                    }}>
                           {section.label}
                         </h2>
                       </div>
@@ -640,8 +640,8 @@ export default function Home() {
               <div className="section-xpad" style={{ 
                 marginTop: '10px'
               }}>
-                        <p className="lowercase" style={{ 
-                          fontSize: '0.875rem', 
+                <p className="lowercase section-location" style={{ 
+                  fontSize: '0.95rem', 
                           color: '#6B5654'
                         }}>
                           {section.city}
@@ -692,9 +692,9 @@ export default function Home() {
                     const realIndex = sections.findIndex((s) => s.id === section.id);
                     scrollToSection(realIndex);
                   }}
-                  className="lowercase whitespace-nowrap transition-all duration-500"
+                  className="lowercase whitespace-nowrap transition-all duration-500 section-title"
                   style={{
-                    fontSize: isCurrent ? '1rem' : '0.75rem',
+                    fontSize: isCurrent ? '1.15rem' : '0.9rem',
                     color: isCurrent ? '#ffffff' : '#6B5654',
                     padding: '4px 12px',
                     fontWeight: isCurrent ? 500 : 400,

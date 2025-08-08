@@ -19,6 +19,11 @@ html {
   font-size: 16px;
 }
 
+:root {
+  --header-h: 120px;
+  --footer-h: 100px;
+}
+
 body {
   background: #3f2d2c; /* fallback to avoid white flash before map draws */
   color: #ffffff;
@@ -88,6 +93,14 @@ body {
   text-shadow: 0 2px 40px rgba(0, 0, 0, 0.4);
 }
 
+/* Visually center content between fixed header and footer */
+.center-offset {
+  transform: translateY(calc((var(--header-h) - var(--footer-h)) / -2));
+}
+
+.section-title { font-size: 1.25rem; line-height: 1.5; font-weight: 500; }
+.section-location { font-size: 1rem !important; }
+
 /* Responsive font sizes */
 @media (max-width: 768px) {
   html {
@@ -100,6 +113,7 @@ body {
   }
 
   .header-bar { height: 84px; }
+  :root { --header-h: 84px; --footer-h: 100px; }
   .section-xpad { padding: 0 24px; }
   .section-content { padding-top: 10px !important; padding-bottom: 10px !important; }
 }
@@ -115,6 +129,7 @@ body {
   }
 
   .header-bar { height: 72px; }
+  :root { --header-h: 72px; --footer-h: 100px; }
   .section-xpad { padding: 0 20px; }
   .section-content { padding-top: 8px !important; padding-bottom: 8px !important; }
 
@@ -123,4 +138,6 @@ body {
     font-size: 22px !important;
     line-height: 40px !important;
   }
+  .section-title { font-size: 1.35rem; }
+  .section-location { font-size: 1.05rem !important; }
 }
