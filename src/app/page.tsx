@@ -627,7 +627,7 @@ export default function Home() {
                     )}
                     
                     {/* Content with padding */}
-            <div className="section-xpad" style={{ 
+            <div className="section-content section-xpad" style={{ 
               marginBottom: '10px'
             }}>
                       {getContent(activeSection)[section.id]}
