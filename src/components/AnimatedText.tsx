@@ -44,10 +44,10 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
 
     setWords(parseContent(children));
     
-    // Mark as mounted after a brief delay
+    // Mark as mounted after a longer delay to ensure everything is ready
     setTimeout(() => {
       isMountedRef.current = true;
-    }, 100);
+    }, 500);
   }, [children]);
 
   // Trigger animation when isActive changes - simplified approach
@@ -59,24 +59,31 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
     timersRef.current.words.forEach(timer => clearTimeout(timer));
     timersRef.current.words = [];
     
-    if (isActive && words.length > 0 && !hasAnimatedRef.current) {
-      hasAnimatedRef.current = true;
+    if (isActive && words.length > 0) {
+      // For initial mount of section 0, always reset hasAnimatedRef
+      if (sectionIndex === 0 && !isMountedRef.current) {
+        hasAnimatedRef.current = false;
+      }
       
-      // Reset animation
-      setVisibleWords(0);
-      
-      // Simple delay based on section
-      // For section 0, wait longer if not mounted yet
-      const initialDelay = sectionIndex === 0 ? (isMountedRef.current ? 300 : 2000) : 300;
-      
-      timersRef.current.main = setTimeout(() => {
-        words.forEach((_, index) => {
-          const wordTimer = setTimeout(() => {
-            setVisibleWords(index + 1);
-          }, delay * index);
-          timersRef.current.words.push(wordTimer);
-        });
-      }, initialDelay);
+      if (!hasAnimatedRef.current) {
+        hasAnimatedRef.current = true;
+        
+        // Reset animation
+        setVisibleWords(0);
+        
+        // Simple delay based on section
+        // For section 0 on initial load, wait for mount
+        const initialDelay = (sectionIndex === 0 && !isMountedRef.current) ? 2500 : 300;
+        
+        timersRef.current.main = setTimeout(() => {
+          words.forEach((_, index) => {
+            const wordTimer = setTimeout(() => {
+              setVisibleWords(index + 1);
+            }, delay * index);
+            timersRef.current.words.push(wordTimer);
+          });
+        }, initialDelay);
+      }
     } else if (!isActive) {
       // Reset when leaving section
       setVisibleWords(0);
@@ -84,7 +91,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ children, delay = 50
     }
     
     // Don't clear timers in cleanup, they're managed above
-  }, [isActive]); // Minimal dependencies
+  }, [isActive, words.length]); // Add words.length to trigger when words are ready
 
   // Helper function to extract text from React nodes
   const extractText = (node: React.ReactNode): string => {
