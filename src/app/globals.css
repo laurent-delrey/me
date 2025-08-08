@@ -20,7 +20,7 @@ html {
 }
 
 :root {
-  --header-h: 120px;
+  --header-h: 132px; /* slightly larger top padding */
   --footer-h: 100px;
 }
 
