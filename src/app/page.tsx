@@ -448,7 +448,8 @@ export default function Home() {
       runningX += width + gap;
     });
 
-    const containerCenter = container.clientWidth / 2;
+    // Center relative to the whole viewport (footer spans full width)
+    const containerCenter = (window.innerWidth || container.clientWidth) / 2;
     const targetCenter = centers[timelineActiveIndex] ?? 0;
     const offset = targetCenter - containerCenter;
     setTimelineTranslateX(-offset);
@@ -658,8 +659,8 @@ export default function Home() {
 
         {/* Timeline Footer - Center active item in a scrollable track */}
         <div 
-          className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
-          style={{ height: '120px' }}
+          className="fixed bottom-0 left-0 right-0 z-20 flex items-center"
+          style={{ height: '120px', overflow: 'hidden' }}
           ref={timelineContainerRef}
         >
           <div
