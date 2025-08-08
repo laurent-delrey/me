@@ -198,7 +198,7 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
           // Build positioning style
           const positionStyle: React.CSSProperties = {
             gridArea: award.gridArea,
-            filter: 'brightness(0.55) contrast(1) saturate(0.5)',
+            filter: 'brightness(0.2) contrast(1.4) saturate(0.8)',
             transition: 'all 0.2s',
             cursor: hasLink ? 'pointer' : 'default',
             display: 'flex',
@@ -229,11 +229,11 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
               style={positionStyle}
               onMouseEnter={(e) => {
                 if (hasLink) {
-                  (e.currentTarget as HTMLElement).style.filter = 'brightness(0.9) contrast(1) saturate(0.7)';
+                  (e.currentTarget as HTMLElement).style.filter = 'brightness(0.4) contrast(1.4) saturate(0.8)';
                 }
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.filter = 'brightness(0.55) contrast(1) saturate(0.5)';
+                (e.currentTarget as HTMLElement).style.filter = 'brightness(0.2) contrast(1.4) saturate(0.8)';
               }}
             >
               <img 

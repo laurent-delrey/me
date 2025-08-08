@@ -567,7 +567,7 @@ export default function Home() {
         transition={{ type: 'spring', stiffness: 140, damping: 32, mass: 1 }}
       >
         <h1 className="lowercase section-title" style={{ 
-          fontSize: '1.2rem', 
+          fontSize: '1.125rem', 
           lineHeight: '1.5', 
           fontWeight: 400,
           color: '#6B5654'
@@ -598,8 +598,6 @@ export default function Home() {
                   scrollSnapAlign: section.id === 'free_media' ? 'start' : 'center',
                   minHeight: section.id === 'free_media' ? '200vh' : '100vh',
                   height: section.id === 'free_media' ? 'auto' : '100vh',
-                  paddingTop: section.id === 'free_media' ? 0 : 'var(--header-h)',
-                  paddingBottom: section.id === 'free_media' ? 0 : 'var(--footer-h)',
                   boxSizing: 'border-box'
                 }}
               >
@@ -609,7 +607,17 @@ export default function Home() {
                   {getContent(activeSection)[section.id]}
                 </div>
               ) : (
-                <>
+                <div style={{ 
+                  width: '100%', 
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingTop: 'calc(var(--header-h) - var(--footer-h) / 2)',
+                  paddingBottom: '0',
+                  boxSizing: 'border-box'
+                }}>
                   {/* Award Grid for Tribe and Hustle sections */}
                   {(section.id === 'tribe' || section.id === 'hustle') && (
                     <AwardGrid section={section.id} containerRef={scrollContainerRef} />
@@ -622,7 +630,7 @@ export default function Home() {
                     className="mb-4 section-xpad"
                   >
                     <h2 className="text-white lowercase text-shadow section-title" style={{ 
-                      fontSize: '1.4rem', 
+                      fontSize: '1.125rem', 
                       lineHeight: '1.5', 
                       fontWeight: 500
                     }}>
@@ -653,7 +661,7 @@ export default function Home() {
                       </div>
                     )}
                   </div>
-                </>
+                </div>
               )}
             </div>
           ))}
@@ -696,9 +704,9 @@ export default function Home() {
                     const realIndex = sections.findIndex((s) => s.id === section.id);
                     scrollToSection(realIndex);
                   }}
-                  className="lowercase whitespace-nowrap transition-all duration-500 section-title"
+                  className="lowercase whitespace-nowrap transition-all duration-500 timeline-text"
                   style={{
-                    fontSize: isCurrent ? '1.15rem' : '0.9rem',
+                    fontSize: isCurrent ? '1.125rem' : '0.9rem',
                     color: isCurrent ? '#ffffff' : '#6B5654',
                     padding: '4px 12px',
                     fontWeight: isCurrent ? 500 : 400,
