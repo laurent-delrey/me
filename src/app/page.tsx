@@ -614,6 +614,7 @@ export default function Home() {
                     {section.label && (
                   <div 
                     className="section-xpad"
+                    style={{ marginBottom: '10px' }}
                   >
                     <h2 className="text-white lowercase text-shadow section-title" style={{ 
                       fontSize: '1rem', 
@@ -626,18 +627,15 @@ export default function Home() {
                     )}
                     
                     {/* Content with padding */}
-            <div className="section-content" style={{ 
-              paddingTop: '10px', 
-              paddingBottom: '10px'
+            <div className="section-xpad" style={{ 
+              marginBottom: '10px'
             }}>
                       {getContent(activeSection)[section.id]}
                     </div>
                     
                     {/* Location indicator */}
             {section.city && (
-              <div className="section-xpad" style={{ 
-                marginTop: '10px'
-              }}>
+              <div className="section-xpad">
                 <p className="lowercase section-location" style={{ 
                   fontSize: '1.05rem', 
                           color: '#6B5654'

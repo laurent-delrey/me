@@ -227,12 +227,10 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
               className="award-item"
               style={positionStyle}
               onMouseEnter={(e) => {
-                if (hasLink) {
-                  const img = (e.currentTarget as HTMLElement).querySelector('img');
-                  if (img) {
-                    img.style.opacity = '1';
-                    img.style.filter = 'brightness(1) contrast(1) saturate(0) invert(1)';
-                  }
+                const img = (e.currentTarget as HTMLElement).querySelector('img');
+                if (img) {
+                  img.style.opacity = '0.9';
+                  img.style.filter = 'brightness(10) saturate(0)';
                 }
               }}
               onMouseLeave={(e) => {
