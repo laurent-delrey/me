@@ -140,7 +140,7 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
       
       // Apply parallax effect - background moves slower than foreground
       // Increased multiplier for more visible effect
-      const parallaxOffset = sectionProgress * 150; // Increased for more visible parallax
+      const parallaxOffset = sectionProgress * 150 - 30; // Increased for more visible parallax, shifted up 30px
       
       setTransform(`translateY(${parallaxOffset}px)`);
     };

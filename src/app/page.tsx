@@ -36,13 +36,13 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             href="https://x.com/laurentdelrey" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >x</a> and <a 
             href="https://www.threads.net/@laurentdelrey" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >threads</a>.
         </p>
@@ -57,7 +57,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             href="https://www.meta.com/superintelligence/?srsltid=AfmBOopHTK7ev-Yn8V8JQUmsakQSZZPMkmujYBP_nwU114z_P0agW6NN" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#98E6FC', textDecoration: 'none' }}
+            style={{ color: '#00D0FF', textDecoration: 'none' }}
             className="hover:underline"
           >meta</a> super intelligence lab in january. since then, i've been playing with frontier models to original design ios experiences at the intersection of social and ai. learning a ton!
         </p>
@@ -72,7 +72,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             href="https://twitter.com/laurentdelrey" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >x</a>, 
           on apr <span style={{ fontWeight: 600 }}>1</span> <span style={{ fontWeight: 600 }}>2021</span>. the first idea was an april fool and i kept going from there. 
@@ -95,7 +95,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             href="https://www.snap.com/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#F5FC98', textDecoration: 'none' }}
+            style={{ color: '#FFEE00', textDecoration: 'none' }}
             className="hover:underline"
           >snapchat</a>. 
           A small pioneer group of inventors who disrupted the space. 
@@ -113,32 +113,32 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             href="https://www.sequoiacap.com/#" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#98FCE6', textDecoration: 'none' }}
+            style={{ color: '#B8FFA9', textDecoration: 'none' }}
             className="hover:underline"
           >Sequoia Capital</a> and <a 
             href="https://www.kleinerperkins.com/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#98FCE6', textDecoration: 'none' }}
+            style={{ color: '#B8FFA9', textDecoration: 'none' }}
             className="hover:underline"
           >KPCB</a>. 
           A <a 
             href="https://www.producthunt.com/posts/tribe-2-0" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#98FCE6', textDecoration: 'none' }}
+            style={{ color: '#B8FFA9', textDecoration: 'none' }}
             className="hover:underline"
           >messaging app</a>, a <a 
             href="https://www.producthunt.com/posts/tribe-calls" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#98FCE6', textDecoration: 'none' }}
+            style={{ color: '#B8FFA9', textDecoration: 'none' }}
             className="hover:underline"
           >calling app</a> and a <a 
             href="https://www.producthunt.com/posts/tribe-games" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#98FCE6', textDecoration: 'none' }}
+            style={{ color: '#B8FFA9', textDecoration: 'none' }}
             className="hover:underline"
           >gaming app</a>.
         </p>
@@ -153,135 +153,135 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             href="https://www.instagram.com/balencyoga/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >ironic fan brand</a> inspired by Balenciaga (<a 
             href="https://www.elle.vn/tin-thoi-trang/balencyoga-tan-binh-cua-con-sot-trao-phung-trong-thoi-trang?fbclid=IwAR1Y7FE8jI8WY9SrK3vR7T0K8JQMcV_zleFzdo0TaXJU1FWLvnHrEBwXlPk" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >1</a>,<a 
             href="https://hypebeast.kr/2017/7/balencyoga-balenciaga-parody-collection?utm_source=facebook&utm_medium=social&utm_campaign=share+buttons&fbclid=IwAR2ltqy29D_KfBiDdQFM55yZTvTKOIQfSfqFsQWNKlnnjgbS-sPWcOCz2JY" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >2</a>,<a 
             href="https://www.vogue.ru/fashion/news/balencyoga_gibkiy_otvet_balenciaga/?fbclid=IwAR2A0AdYsxkEiNzvpsrtW8RtNt4aQQx0e47LgdjjqloAnl6t5nweGDPmcYE" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >3</a>), 
           the missing <a 
             href="https://www.producthunt.com/posts/snapchatters" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >"Explore" section</a> of Snapchat, or <a 
             href="https://twitter.com/laurentdelrey/status/1009135685960232961" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >Collectible Cards</a> on the Ethereum network. 
           The one that blew up the most though was a controversial email-based app called <a 
             href="https://twitter.com/justleakit" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >Leak</a> (<a 
             href="https://twitter.com/MarxMedia/status/497380416501084160" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >1</a>,<a 
             href="https://twitter.com/justleakit/status/496255472820039680" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >2</a>,<a 
             href="https://www.washingtonpost.com/news/the-intersect/wp/2014/07/29/a-new-app-will-let-you-send-anonymous-e-mail-to-anyone-which-sounds-like-a-disaster-waiting-to-happen/?Post%20generic=%3Ftid%3Dsm_twitter_washingtonpost&noredirect=on&utm_term=.3b2ec28fb9a8" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >3</a>,<a 
             href="https://www.chicagotribune.com/business/careers/ct-biz-0825-work-advice-huppke-20140825-column.html" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >4</a>,<a 
             href="https://www.dailydot.com/debug/leak-anonymous-email/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >5</a>,<a 
             href="https://www.businessinsider.com/send-anonymous-emails-with-leak-website-2014-7" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >6</a>,<a 
             href="https://www.fastcompany.com/3033705/i-lied-to-you-a-few-days-ago-the-leak-app-and-anonymous-honesty" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >7</a>,<a 
             href="https://thenextweb.com/socialmedia/2014/07/28/leak-lets-send-nearly-anonymous-emails-friends-family-enemies/?utm_source=t.co&utm_medium=referral&utm_content=Leak+lets+you+send+nearly+anonymous+emails+to+friends%2C+family+and+enemies&utm_campaign=Twitter+Publisher#.tnw_yD56EVxS" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >8</a>,<a 
             href="https://mashable.com/2014/08/04/leak-anonymous-email/#gMOq6WVLfaqM" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >9</a>,<a 
             href="https://www.engadget.com/2014/08/04/leak-anonymous-email/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >10</a>,<a 
             href="https://www.cosmopolitan.com/lifestyle/news/a29522/leak-website-anonymous-email/?src=spr_TWITTER&spr_id=1440_76579580" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >11</a>,<a 
             href="https://motherboard.vice.com/en_us/article/qkvjjq/why-anonymous-messaging-services-are-full-of-bitching-and-flirting" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >12</a>,<a 
             href="https://pando.com/2014/08/04/anonymity-app-pulls-off-one-of-the-worst-tech-pr-stunts-ever-attempted/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >13</a>,<a 
             href="https://www.konbini.com/fr/tendances-2/leak-messagerie-anonyme-flirter/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >14</a>,<a 
             href="https://www.lesinrocks.com/2014/08/11/actualite/leak-lapplication-surfe-retour-lanonymat-11518963/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FFC5A9', textDecoration: 'none' }}
+            style={{ color: '#FB6037', textDecoration: 'none' }}
             className="hover:underline"
           >15</a>).
         </p>
@@ -297,52 +297,52 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             href="https://www.konbini.com/fr/3-0/un-tumblr-histoire-internet-picasso-jay-z" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FC98C3', textDecoration: 'none' }}
+            style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >1</a>,<a 
             href="https://twitter.com/search?q=jeprendslemetro.tumblr.com&src=typd" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FC98C3', textDecoration: 'none' }}
+            style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >2</a>) <span style={{ opacity: 0.7 }}>receiving 100,000+ visits</span>, 
           curated a newsletter of torrent links called Le Video Club (<a 
             href="https://medium.com/le-futur-de-la-distribution-de-films-en-france/vie-et-mort-dun-service-illegal-de-vod-117ac172308c" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FC98C3', textDecoration: 'none' }}
+            style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >RIP</a>), 
           made merch for several French Colleges (<a 
             href="https://vimeo.com/26993365?fbclid=IwAR0TudM-UkXbfXh_nPv1hD3yBvxCj9bnuX9vbZjGasusQuT-QgJbUm-oBiE" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FC98C3', textDecoration: 'none' }}
+            style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >1</a>), interned at Leetchi - the "<a 
             href="https://www.wired.co.uk/article/paris-3" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FC98C3', textDecoration: 'none' }}
+            style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >Hottest Startup #1 in Paris (Wired)</a>" 
           and also created my first social app (<a 
             href="https://www.youtube.com/watch?v=bAiHnmfvcmc" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FC98C3', textDecoration: 'none' }}
+            style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >1</a>,<a 
             href="https://www.youtube.com/watch?v=diPZrGIODM0&t=1s" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FC98C3', textDecoration: 'none' }}
+            style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >2</a>,<a 
             href="https://twitter.com/search?q=linkility&src=typd" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#FC98C3', textDecoration: 'none' }}
+            style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >3</a>).
         </p>
@@ -368,19 +368,19 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             href="https://twitter.com/laurentdelrey" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >X</a> <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>and</span> <a 
             href="https://t.me/laurentdelrey" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >Telegram</a><span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>.</span>
           <br />
           <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>I can do</span> <a 
             href="mailto:laurent.desserrey@gmail.com?subject=Hi%20there" 
-            style={{ color: '#ffffff', textDecoration: 'none' }}
+            style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >email</a> <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>too.</span>
           <br />
