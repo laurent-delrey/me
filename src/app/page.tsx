@@ -89,7 +89,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   snap: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={3} isActive={activeSection === 3}>
+      <AnimatedText delay={100} sectionIndex={3} isActive={activeSection === 4}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           I've been a member of the core product design team at <a 
             href="https://www.snap.com/" 
@@ -106,7 +106,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   tribe: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={4} isActive={activeSection === 4}>
+      <AnimatedText delay={100} sectionIndex={4} isActive={activeSection === 5}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           <span style={{ fontWeight: 600 }}>2</span> continents. <span style={{ fontWeight: 600 }}>3</span> cities. <span style={{ fontWeight: 600 }}>4</span> houses. <span style={{ fontWeight: 600 }}>15</span> people. <span style={{ fontWeight: 600 }}>4</span> products. <span style={{ fontWeight: 600 }}>1</span> family. 
           Tribe was a series of social experiments backed by <a 
@@ -147,7 +147,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   hustle: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={5} isActive={activeSection === 5}>
+      <AnimatedText delay={100} sectionIndex={5} isActive={activeSection === 6}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           I've released a bunch of side projects. From an <a 
             href="https://www.instagram.com/balencyoga/" 
@@ -290,7 +290,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   lost: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={6} isActive={activeSection === 6}>
+      <AnimatedText delay={100} sectionIndex={6} isActive={activeSection === 7}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           I have a Master Degree in Finance. I've never studied Design at school. 
           During my College years, I created a bunch of Tumblrs (<a 
@@ -351,7 +351,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   kid: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={7} isActive={activeSection === 7}>
+      <AnimatedText delay={100} sectionIndex={7} isActive={activeSection === 8}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
           Born and raised in Paris, France. I started designing at 16 on a cracked version of Photoshop CS2. 
           My first gigs were terrible logos & websites for my Counter Strike friends. 
@@ -362,7 +362,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
   ),
   social: (
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
-      <AnimatedText delay={100} sectionIndex={8} isActive={activeSection === 8}>
+      <AnimatedText delay={100} sectionIndex={8} isActive={activeSection === 9}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="lowercase text-left text-shadow">
           <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>DMs are opened on</span> <a 
             href="https://twitter.com/laurentdelrey" 
