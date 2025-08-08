@@ -98,7 +98,7 @@ body {
   transform: translateY(calc((var(--header-h) - var(--footer-h)) / -2));
 }
 
-.section-title { font-size: 1.125rem; line-height: 1.75; font-weight: 500; }
+.section-title { font-size: 1rem; line-height: 1.75; font-weight: 500; }
 .section-location { font-size: 1.05rem !important; }
 
 /* Responsive font sizes */
@@ -138,9 +138,10 @@ body {
     font-size: 22px !important;
     line-height: 40px !important;
   }
-  .section-title { font-size: 1.5rem; }
+  .section-title { font-size: 1.5rem !important; }
   .section-location { font-size: 1.15rem !important; }
   
-  /* Make timeline and header match section title size on mobile */
-  .timeline-text { font-size: 1.5rem !important; }
+  /* Make timeline match section title size on mobile */
+  .timeline-text.timeline-active { font-size: 1.5rem !important; }
+  .timeline-text:not(.timeline-active) { font-size: 1.2rem !important; }
 }

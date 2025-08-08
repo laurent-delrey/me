@@ -567,7 +567,7 @@ export default function Home() {
         transition={{ type: 'spring', stiffness: 140, damping: 32, mass: 1 }}
       >
         <h1 className="lowercase section-title" style={{ 
-          fontSize: '1.125rem', 
+          fontSize: '1rem', 
           lineHeight: '1.5', 
           fontWeight: 400,
           color: '#6B5654'
@@ -630,7 +630,7 @@ export default function Home() {
                     className="mb-4 section-xpad"
                   >
                     <h2 className="text-white lowercase text-shadow section-title" style={{ 
-                      fontSize: '1.125rem', 
+                      fontSize: '1rem', 
                       lineHeight: '1.5', 
                       fontWeight: 500
                     }}>
@@ -704,9 +704,9 @@ export default function Home() {
                     const realIndex = sections.findIndex((s) => s.id === section.id);
                     scrollToSection(realIndex);
                   }}
-                  className="lowercase whitespace-nowrap timeline-text"
+                  className={`lowercase whitespace-nowrap timeline-text ${isCurrent ? 'timeline-active' : ''}`}
                   style={{
-                    fontSize: isCurrent ? '1.125rem' : '0.9rem',
+                    fontSize: isCurrent ? '1rem' : '0.9rem',
                     color: isCurrent ? '#ffffff' : '#6B5654',
                     padding: '4px 12px',
                     fontWeight: isCurrent ? 500 : 400,
