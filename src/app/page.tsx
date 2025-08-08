@@ -505,7 +505,7 @@ export default function Home() {
             fontSize: '1.125rem', 
             lineHeight: '1.5', 
             fontWeight: 400,
-            opacity: 0.8,
+            opacity: 0.3,
             mixBlendMode: 'difference' as any
           }}>
             laurent del rey
@@ -602,7 +602,7 @@ export default function Home() {
           }}
         />
 
-        {/* Timeline Footer - Simple Centered */}
+        {/* Timeline Footer - Animated with wider layout */}
          <div 
           className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
           style={{ 
@@ -613,68 +613,45 @@ export default function Home() {
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'center',
-            gap: '40px',
+            gap: '80px',
             width: '100%',
+            maxWidth: '800px',
             overflow: 'hidden',
+            position: 'relative',
           }}>
-            {/* Previous item */}
-            {timelineActiveIndex > 0 && (
-              <button
-                onClick={() => {
-                  const prevSection = timelineSections[timelineActiveIndex - 1];
-                  const realIndex = sections.findIndex((s) => s.id === prevSection.id);
-                  scrollToSection(realIndex);
-                }}
-                className="text-white lowercase whitespace-nowrap transition-all duration-500 text-shadow"
-                style={{ 
-                  fontSize: '0.75rem',
-                  opacity: 0.3,
-                  padding: '4px 12px',
-                  fontWeight: 400,
-                }}
-              >
-                <span className="block">
-                  {timelineActiveIndex === 1 ? 'scroll to start ↓' : (timelineSections[timelineActiveIndex - 1].years || '')}
-                </span>
-              </button>
-            )}
-            
-            {/* Current item - always centered */}
-            <button
-              className="text-white lowercase whitespace-nowrap transition-all duration-500 text-shadow"
-              style={{ 
-                fontSize: '1rem',
-                opacity: 1,
-                padding: '4px 12px',
-                fontWeight: 500,
-                cursor: 'default',
-              }}
-            >
-              <span className="block">
-                {timelineActiveIndex === 0 ? 'scroll to start ↓' : (timelineSections[timelineActiveIndex].years || '')}
-              </span>
-            </button>
-            
-            {/* Next item */}
-            {timelineActiveIndex < timelineSections.length - 1 && (
-              <button
-                onClick={() => {
-                  const nextSection = timelineSections[timelineActiveIndex + 1];
-                  const realIndex = sections.findIndex((s) => s.id === nextSection.id);
-                  scrollToSection(realIndex);
-                }}
-                className="text-white lowercase whitespace-nowrap transition-all duration-500 text-shadow"
-                style={{ 
-                  fontSize: '0.75rem',
-                  opacity: 0.3,
-                  padding: '4px 12px',
-                  fontWeight: 400,
-                }}
-              >
-                <span className="block">
-                  {timelineSections[timelineActiveIndex + 1].years || ''}
-                </span>
-              </button>
+            {/* All timeline items with animated opacity/position */}
+            {timelineSections.map((section, index) => {
+              const reversedIndex = timelineSections.length - 1 - index;
+              const distance = Math.abs(timelineActiveIndex - reversedIndex);
+              const isVisible = distance <= 1;
+              const isCurrent = distance === 0;
+              
+              return (
+                <button
+                  key={section.id}
+                  onClick={() => {
+                    const realIndex = sections.findIndex((s) => s.id === section.id);
+                    scrollToSection(realIndex);
+                  }}
+                  className="text-white lowercase whitespace-nowrap text-shadow"
+                  style={{ 
+                    fontSize: isCurrent ? '1rem' : '0.75rem',
+                    opacity: isVisible ? (isCurrent ? 1 : 0.3) : 0,
+                    padding: '4px 20px',
+                    fontWeight: isCurrent ? 500 : 400,
+                    cursor: isCurrent ? 'default' : 'pointer',
+                    position: isVisible ? 'relative' : 'absolute',
+                    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                    pointerEvents: isVisible ? 'auto' : 'none',
+                    minWidth: '150px',
+                    textAlign: 'center',
+                  }}
+                >
+                  <span className="block">
+                    {reversedIndex === 0 ? 'scroll to start ↓' : (section.years || '')}
+                  </span>
+                </button>
+              )}
             )}
           </div>
         </div>
