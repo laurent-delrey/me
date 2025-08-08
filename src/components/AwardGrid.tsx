@@ -231,7 +231,7 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
                   const img = (e.currentTarget as HTMLElement).querySelector('img');
                   if (img) {
                     img.style.opacity = '0.85';
-                    img.style.filter = 'brightness(0.4) contrast(1.2) saturate(0.6)';
+                    img.style.filter = 'brightness(0.35) contrast(1.2) saturate(0.5) sepia(0.3) hue-rotate(-15deg)';
                   }
                 }
               }}
@@ -239,7 +239,7 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
                 const img = (e.currentTarget as HTMLElement).querySelector('img');
                 if (img) {
                   img.style.opacity = '0.7';
-                  img.style.filter = 'brightness(0.3) contrast(1.2) saturate(0.6)';
+                  img.style.filter = 'brightness(0.25) contrast(1.2) saturate(0.5) sepia(0.4) hue-rotate(-15deg)';
                 }
               }}
             >
@@ -251,7 +251,7 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
                   height: 'auto',
                   maxWidth: '100%',
                   opacity: 0.7,
-                  filter: 'brightness(0.3) contrast(1.2) saturate(0.6)',
+                  filter: 'brightness(0.25) contrast(1.2) saturate(0.5) sepia(0.4) hue-rotate(-15deg)',
                 }}
               />
             </AwardElement>
