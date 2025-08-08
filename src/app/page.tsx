@@ -75,7 +75,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
           >x</a>, 
-          on apr <span style={{ fontWeight: 600 }}>1</span> <span style={{ fontWeight: 600 }}>2021</span>. the first idea was an april fool and i kept going from there. 
+          on apr 1 2021. the first idea was an april fool and i kept going from there. 
           i use interface elements and internet brands to express my emotions and ideas.
         </p>
       </AnimatedText>
@@ -108,7 +108,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
     <div style={{ maxWidth: '480px', padding: '0 20px' }}>
       <AnimatedText delay={100} sectionIndex={4} isActive={activeSection === 5}>
         <p style={{ fontSize: '1.125rem', lineHeight: '1.75' }} className="text-white lowercase text-left text-shadow">
-          <span style={{ fontWeight: 600 }}>2</span> continents. <span style={{ fontWeight: 600 }}>3</span> cities. <span style={{ fontWeight: 600 }}>4</span> houses. <span style={{ fontWeight: 600 }}>15</span> people. <span style={{ fontWeight: 600 }}>4</span> products. <span style={{ fontWeight: 600 }}>1</span> family. 
+          2 continents. 3 cities. 4 houses. 15 people. 4 products. 1 family. 
           Tribe was a series of social experiments backed by <a 
             href="https://www.sequoiacap.com/#" 
             target="_blank" 
@@ -602,7 +602,7 @@ export default function Home() {
           }}
         />
 
-        {/* Timeline Footer - All items visible with auto-scroll */}
+        {/* Timeline Footer - Fixed carousel */}
          <div 
           className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
           style={{ 
@@ -610,50 +610,41 @@ export default function Home() {
           }}
         >
           <div style={{ 
-            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '20px',
             width: '100%',
             maxWidth: '1200px',
-            overflow: 'hidden',
           }}>
-            {/* Scrollable container */}
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '20px',
-              transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-              transform: `translateX(calc(50% - ${(timelineSections.length - 1 - timelineActiveIndex) * 120 + 60}px))`,
-            }}>
-              {/* All timeline items */}
-              {timelineSections.slice().reverse().map((section, reverseIndex) => {
-                const index = timelineSections.length - 1 - reverseIndex;
-                const isCurrent = timelineActiveIndex === index;
-                
-                return (
-                  <button
-                    key={section.id}
-                    onClick={() => {
-                      const realIndex = sections.findIndex((s) => s.id === section.id);
-                      scrollToSection(realIndex);
-                    }}
-                    className="text-white lowercase whitespace-nowrap text-shadow transition-all duration-500"
-                    style={{ 
-                      fontSize: isCurrent ? '1rem' : '0.75rem',
-                      opacity: isCurrent ? 1 : 0.4,
-                      padding: '4px 12px',
-                      fontWeight: isCurrent ? 500 : 400,
-                      cursor: 'pointer',
-                      width: '120px',
-                      flexShrink: 0,
-                      textAlign: 'center',
-                    }}
-                  >
-                    <span className="block">
-                      {index === 0 ? 'scroll to start ↓' : (section.years || '')}
-                    </span>
-                  </button>
-                )}
+            {/* All timeline items in fixed positions */}
+            {timelineSections.slice().reverse().map((section, reverseIndex) => {
+              const index = timelineSections.length - 1 - reverseIndex;
+              const isCurrent = timelineActiveIndex === index;
+              
+              return (
+                <button
+                  key={section.id}
+                  onClick={() => {
+                    const realIndex = sections.findIndex((s) => s.id === section.id);
+                    scrollToSection(realIndex);
+                  }}
+                  className="text-white lowercase whitespace-nowrap text-shadow transition-all duration-500"
+                  style={{ 
+                    fontSize: isCurrent ? '1rem' : '0.75rem',
+                    opacity: isCurrent ? 1 : 0.4,
+                    padding: '4px 12px',
+                    fontWeight: isCurrent ? 500 : 400,
+                    cursor: 'pointer',
+                    textAlign: 'center',
+                  }}
+                >
+                  <span className="block">
+                    {index === 0 ? 'scroll to start ↓' : (section.years || '')}
+                  </span>
+                </button>
               )}
-            </div>
+            )}
           </div>
         </div>
       </main>
