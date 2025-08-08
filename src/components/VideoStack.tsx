@@ -42,10 +42,12 @@ export default function VideoStack() {
   return (
     <div ref={containerRef} className="w-full h-full relative">
       <div 
-        className="grid grid-cols-2 gap-4 w-full"
+        className="grid grid-cols-2 gap-8 w-full"
         style={{ 
-          padding: '60px 40px',
+          padding: '80px 20%',
           minHeight: '100vh',
+          display: 'grid',
+          alignItems: 'center',
         }}
       >
         {videos.map((src, index) => (
@@ -61,7 +63,7 @@ export default function VideoStack() {
               playsInline
               className="w-full h-auto object-cover"
               style={{ 
-                borderRadius: '8px',
+                borderRadius: 0,
                 maxWidth: '100%'
               }}
             />

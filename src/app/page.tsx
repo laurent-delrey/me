@@ -438,9 +438,9 @@ export default function Home() {
       for (let i = 0; i < sections.length; i++) {
         const sectionHeight = sections[i].id === 'free_media' ? containerHeight * 2 : containerHeight;
         
-        // For free_media, only switch after we've scrolled past most of it
+        // For free_media, only switch after we've scrolled past nearly all of it
         if (sections[i].id === 'free_media') {
-          if (scrollTop < accumulatedHeight + sectionHeight - containerHeight / 2) {
+          if (scrollTop < accumulatedHeight + sectionHeight - 50) {
             currentSectionIndex = i;
             break;
           }
@@ -575,11 +575,12 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Vignette overlay */}
+        {/* Vignette overlay - fade out for free_media */}
         <div 
-          className="fixed inset-0 pointer-events-none z-10"
+          className="fixed inset-0 pointer-events-none z-10 transition-opacity duration-700"
           style={{
-            background: `radial-gradient(ellipse at center, transparent 0%, rgba(150, 150, 150, 0.5) 50%, rgba(150, 150, 150, 1) 90%)`
+            background: `radial-gradient(ellipse at center, transparent 0%, rgba(150, 150, 150, 0.5) 50%, rgba(150, 150, 150, 1) 90%)`,
+            opacity: currentSection.id === 'free_media' ? 0 : 1
           }}
         />
 
