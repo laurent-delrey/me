@@ -8,6 +8,7 @@ interface AwardGridProps {
 }
 
 // Tribe awards with specific grid positions
+// Only TC and Complex have links in the original
 const tribeAwards = [
   { 
     src: "/images/awards/Award-logo---FC.png", 
@@ -53,7 +54,7 @@ const tribeAwards = [
   },
 ];
 
-// Hustle awards with specific grid positions
+// Hustle awards - ALL have links in the original
 const hustleAwards = [
   { 
     src: "/images/awards/BBC.svg", 
@@ -99,10 +100,11 @@ const hustleAwards = [
   },
   { 
     src: "/images/awards/Washington-Post.svg", 
-    width: 120, 
+    width: 160, // Made bigger
     link: "https://www.washingtonpost.com/news/the-intersect/wp/2014/07/29/a-new-app-will-let-you-send-anonymous-e-mail-to-anyone-which-sounds-like-a-disaster-waiting-to-happen/",
     gridArea: "3 / 2 / 4 / 3",
-    placeSelf: "end center"
+    placeSelf: "center center", // Changed to center for better positioning
+    customOffset: -20 // Move it up closer to content
   },
   { 
     src: "/images/awards/Mashable.svg", 
@@ -171,33 +173,38 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
           inset: 0,
           zIndex: 3,
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gridTemplateRows: 'repeat(3, 1fr)',
-          padding: '5%',
+          gridTemplateColumns: section === 'tribe' ? '1fr 1fr 1fr' : 'repeat(3, 1fr)',
+          gridTemplateRows: section === 'tribe' ? 'auto auto auto' : 'repeat(3, 1fr)',
+          gridColumnGap: '16px',
+          gridRowGap: '16px',
+          padding: section === 'tribe' ? '0 5%' : '5%',
           height: '100vh',
+          alignItems: 'center',
+          justifyContent: 'stretch',
           willChange: 'transform',
           transform,
           transition: 'transform 0.15s ease-out',
         }}
       >
         {awards.map((award, index) => {
-          const AwardElement = award.link ? 'a' : 'div';
-          const props = award.link ? { 
+          const hasLink = award.link !== null;
+          const AwardElement = hasLink ? 'a' : 'div';
+          const props = hasLink ? { 
             href: award.link, 
             target: "_blank", 
-            rel: "noopener noreferrer",
-            style: { pointerEvents: 'auto' as const }
+            rel: "noopener noreferrer"
           } : {};
           
           // Build positioning style
           const positionStyle: React.CSSProperties = {
             gridArea: award.gridArea,
             opacity: 0.5,
-            transition: 'opacity 0.2s',
-            cursor: award.link ? 'pointer' : 'default',
+            transition: 'all 0.2s',
+            cursor: hasLink ? 'pointer' : 'default',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            pointerEvents: hasLink ? 'auto' : 'none',
           };
           
           // Apply specific positioning
@@ -208,6 +215,11 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
             positionStyle.alignSelf = 'center';
           }
           
+          // Apply custom offset if specified (for Washington Post)
+          if ('customOffset' in award && award.customOffset) {
+            positionStyle.transform = `translateY(${award.customOffset}px)`;
+          }
+          
           return (
             <AwardElement 
               key={index} 
@@ -215,7 +227,9 @@ export default function AwardGrid({ section, containerRef }: AwardGridProps) {
               className="award-item"
               style={positionStyle}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.opacity = '1';
+                if (hasLink) {
+                  (e.currentTarget as HTMLElement).style.opacity = '1';
+                }
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.opacity = '0.5';
