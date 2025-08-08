@@ -280,7 +280,7 @@ export default function Map({ center, zoom, onLoad }: MapProps) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'linear-gradient(to top, rgba(150, 150, 150, 1) 0%, rgba(150, 150, 150, 0.7) 20%, rgba(150, 150, 150, 0.3) 40%, rgba(150, 150, 150, 0) 60%)',
+          background: 'linear-gradient(to top, rgba(63, 45, 44, 1) 0%, rgba(63, 45, 44, 0.7) 20%, rgba(63, 45, 44, 0.3) 40%, rgba(63, 45, 44, 0) 60%)',
           pointerEvents: 'none',
           zIndex: 5
         }}
