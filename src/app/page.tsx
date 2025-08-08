@@ -622,10 +622,10 @@ export default function Home() {
             <div style={{ 
               display: 'flex', 
               alignItems: 'center', 
-              gap: '140px',
+              gap: '80px',
               position: 'absolute',
               transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-              transform: `translateX(${-(timelineSections.length - 1 - timelineActiveIndex) * 140}px)`,
+              transform: `translateX(${timelineActiveIndex * 80}px)`,
             }}>
               {timelineSections.slice().reverse().map((section, reverseIndex) => {
                 const index = timelineSections.length - 1 - reverseIndex;
@@ -644,10 +644,9 @@ export default function Home() {
                   style={{ 
                     fontSize: isCurrent ? '1rem' : '0.75rem',
                     opacity: isCurrent ? 1 : 0.3,
-                    transform: isCurrent ? 'scale(1.1)' : 'scale(1)',
                     padding: '4px 12px',
                     fontWeight: isCurrent ? 500 : 400,
-                    minWidth: '140px',
+                    minWidth: '80px',
                     textAlign: 'center',
                   }}
                 >
