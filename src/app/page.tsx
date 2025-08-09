@@ -61,7 +61,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             rel="noopener noreferrer"
             style={{ color: '#60C4FF', textDecoration: 'none' }}
             className="hover:underline"
-          >meta</a> super intelligence lab in january. since then, i've been playing with frontier models to original design ios experiences at the intersection of social and ai. learning a ton!
+          >meta</a> super intelligence lab in january. since then i've been jamming with frontier models to design original social experiences mostly on ios and web sometimes.
         </p>
       </AnimatedText>
     </div>
@@ -378,8 +378,7 @@ const getContent = (activeSection: number): Record<string, React.ReactElement> =
             rel="noopener noreferrer"
             style={{ color: '#FFB48F', textDecoration: 'none' }}
             className="hover:underline"
-          >Telegram</a><span style={{ color: '#6B5654' }}>.</span>
-          <br />
+          >Telegram</a><span style={{ color: '#6B5654' }}>. </span>
           <span style={{ color: '#6B5654' }}>I can do</span> <a 
             href="mailto:laurent.desserrey@gmail.com?subject=Hi%20there" 
             style={{ color: '#FFB48F', textDecoration: 'none' }}

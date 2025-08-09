@@ -261,7 +261,7 @@ export default function Map({ center, zoom, onLoad }: MapProps) {
         }}
       />
       {mapError && (
-        <div style={{ position: 'fixed', top: 10, right: 10, background: 'red', color: 'white', padding: 10, zIndex: 1000 }}>
+        <div className="hidden md:block" style={{ position: 'fixed', top: 10, right: 10, background: 'red', color: 'white', padding: 10, zIndex: 1000 }}>
           Map Error: {mapError}
         </div>
       )}
