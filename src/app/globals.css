@@ -146,4 +146,9 @@ body {
   /* Make timeline match section title size on mobile */
   .timeline-text.timeline-active { font-size: 1.5rem !important; }
   .timeline-text:not(.timeline-active) { font-size: 1.2rem !important; }
+
+  /* Ensure perfect left/right alignment between title, content and location */
+  .section-title,
+  .section-location,
+  .section-content { padding-left: 20px !important; padding-right: 20px !important; }
 }
