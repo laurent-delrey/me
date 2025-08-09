@@ -23,7 +23,7 @@ export default function SiteHeader({
 
   return (
     <Container
-      className="fixed left-0 right-0 z-20 flex items-center justify-center header-bar"
+      className="fixed left-0 right-0 z-30 flex items-center justify-center header-bar"
       style={{ top: 0, pointerEvents: onClick ? "auto" : "none", paddingTop: topPaddingPx }}
       {...(animated
         ? {
@@ -39,15 +39,32 @@ export default function SiteHeader({
           }
         : {})}
     >
-      <h1
+      <button
         className={`lowercase header-title ${onClick ? "cursor-pointer" : ""}`}
-        style={{ fontSize: "1rem", lineHeight: "1.5", fontWeight: 400, color: "#6B5654", margin: 0 }}
+        style={{
+          fontSize: "1rem",
+          lineHeight: "1.5",
+          fontWeight: 400,
+          color: "#6B5654",
+          margin: 0,
+          background: "transparent",
+          border: "none",
+          padding: 0,
+          pointerEvents: onClick ? "auto" : "none",
+        }}
         onClick={onClick}
-        role={onClick ? "button" : undefined}
         aria-label={onClick ? "Scroll to start" : undefined}
+        tabIndex={onClick ? 0 : -1}
+        onKeyDown={(e) => {
+          if (!onClick) return;
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onClick();
+          }
+        }}
       >
         laurent del rey
-      </h1>
+      </button>
     </Container>
   );
 }
