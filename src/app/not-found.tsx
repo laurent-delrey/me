@@ -9,7 +9,7 @@ export default function NotFound() {
       }}
     >
       {/* Header label at the top */}
-      <SiteHeader animated={false} toTop visible topPaddingPx={28} />
+      <SiteHeader animated={false} toTop visible topPaddingPx={28} onClick={() => { window.location.href = '/'; }} />
 
       {/* Centered 404 message */}
       <div className="flex items-center justify-center" style={{ height: '100%', pointerEvents: 'none' }}>

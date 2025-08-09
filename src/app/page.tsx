@@ -559,7 +559,19 @@ export default function Home() {
       />
       
       {/* Morphing header label: shared component */}
-      <SiteHeader animated toTop={mapLoaded} visible={headerVisible && mounted} startY={headerStartY} topPaddingPx={28} />
+      <SiteHeader
+        animated
+        toTop={mapLoaded}
+        visible={headerVisible && mounted}
+        startY={headerStartY}
+        topPaddingPx={28}
+        onClick={() => {
+          // Scroll the container to the very top
+          if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }}
+      />
       
       <main className={`h-screen relative z-10 overflow-hidden ${mounted && mapLoaded ? 'animate-fadeIn' : 'opacity-0'}`}>
         
