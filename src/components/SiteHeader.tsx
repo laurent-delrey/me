@@ -38,8 +38,8 @@ export default function SiteHeader({
         : {})}
     >
       <h1
-        className="lowercase"
-        style={{ fontSize: "1.125rem", lineHeight: "1.5", fontWeight: 400, color: "#6B5654", margin: 0 }}
+        className="lowercase header-title"
+        style={{ fontSize: "1rem", lineHeight: "1.5", fontWeight: 400, color: "#6B5654", margin: 0 }}
       >
         laurent del rey
       </h1>

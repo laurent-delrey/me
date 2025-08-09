@@ -131,8 +131,7 @@ body {
   .header-bar { height: 72px; }
   :root { --header-h: 72px; --footer-h: 100px; }
   .section-xpad { padding: 0 20px; }
-  .section-content { padding-top: 8px !important; padding-bottom: 8px !important; }
-
+  
   /* Match Webflow mobile description: 22px/40px and ~80% width */
   .section-content p {
     font-size: 22px !important;
@@ -140,6 +139,9 @@ body {
   }
   .section-title { font-size: 1.5rem !important; }
   .section-location { font-size: 1.15rem !important; }
+  
+  /* Make header match section title size on mobile */
+  .header-title { font-size: 1.5rem !important; }
   
   /* Make timeline match section title size on mobile */
   .timeline-text.timeline-active { font-size: 1.5rem !important; }
